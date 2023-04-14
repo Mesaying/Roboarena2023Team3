@@ -13,7 +13,6 @@ class Example(QWidget):
 
         self.initUI()
 
-
     def initUI(self):
         QToolTip.setFont(QFont('SansSerif', 10))
 

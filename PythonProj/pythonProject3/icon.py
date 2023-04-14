@@ -12,7 +12,6 @@ class Example(QWidget):
 
         self.initUI()
 
-
     def initUI(self):
 
         self.setGeometry(300, 300, 300, 220)
@@ -20,7 +19,6 @@ class Example(QWidget):
         self.setWindowIcon(QIcon('web.png'))
 
         self.show()
-
 
 def main():
 

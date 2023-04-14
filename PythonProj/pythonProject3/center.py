@@ -3,8 +3,8 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QDesktopWidget, QApplication
 
-class Example(QWidget):
 
+class Example(QWidget):
 
     def __init__(self):
         super().__init__()
