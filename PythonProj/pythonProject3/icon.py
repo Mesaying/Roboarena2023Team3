@@ -20,6 +20,7 @@ class Example(QWidget):
 
         self.show()
 
+
 def main():
 
     app = QApplication(sys.argv)
@@ -28,3 +29,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
