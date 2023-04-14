@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget, QDesktopWidget, QApplication
 
 class Example(QWidget):
 
+
     def __init__(self):
         super().__init__()
 
@@ -29,7 +30,6 @@ class Example(QWidget):
 def main():
 
     app = QApplication(sys.argv)
-    ex = Example()
     sys.exit(app.exec_())
 
 
