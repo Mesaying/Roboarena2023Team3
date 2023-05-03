@@ -4,6 +4,7 @@ from PyQt5.QtGui import QPainter, QBrush, QPen
 from PyQt5.QtCore import Qt
 import sys
 from BasicRobot import BasicRobot
+from Terrain import *
 import math
 
 class Arena(QMainWindow):     #Erbt von QMainWindow class, allows to use methods like setWindowTitle directly...
@@ -34,13 +35,21 @@ class Arena(QMainWindow):     #Erbt von QMainWindow class, allows to use methods
         self.setGeometry(self.top, self.left, self.width, self.height)
         self.show()
 
-    def paintEvent(self, event):        #Colors the tiles
+    def paintEvent(self, event):                      #Colors the tiles
+        list_with_tiles = []
+        with open('testarena.txt' , 'r') as file:     #Opens the textfile
+            content = file.read()
+        for letter in content:                        #saves every letter in a list
+            list_with_tiles.append(letter)
+
         painter = QPainter(self)
-        for y in range(0,100):          #Iterates through every possible tile
+        for y in range(0,100):                        #Iterates through every possible tile
             for x in range(0,100):
-                if self.tiles[y][x] == "Wall":      #Depending on the type of the tile, different drawings/colors
-                    painter.setPen(QPen(Qt.green, 8, Qt.DashLine))                 #are used
-                    painter.drawRect(x*10, y*10, 10, 10)
+                next_tile = list_with_tiles.pop(0)    #first element is deleted and returned from the list
+                if next_tile == "w":
+                    self.tiles[y][x] = wall()   #The coordinate is marked with the designated terrain_type
+                    painter.setPen(QPen(Qt.green, 8, Qt.DashLine)) #Depending on the type of the tile, different
+                    painter.drawRect(x*10, y*10, 10, 10)           #colors are used
 
         for i in range(len(self.robots)): #draw robots
             pi =  3.14  # calculate pi
@@ -54,9 +63,9 @@ class Arena(QMainWindow):     #Erbt von QMainWindow class, allows to use methods
 
 App = QApplication(sys.argv)
 testarena = Arena()
-testarena.set_tile(50,50, "Wall")
-testarena.set_tile(30,30, "Wall")
-testarena.set_tile(10,10, "Wall")
+testarena.set_tile(2,2, "Wall")
+testarena.set_tile(3,3 ,"Wall")
+testarena.set_tile(2,2 ,"Wall")
 testarena.add_robot(BasicRobot(500, 500, 250, -90))
 testarena.InitWindow()
 sys.exit(App.exec())
