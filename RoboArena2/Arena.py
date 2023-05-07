@@ -83,7 +83,9 @@ class Arena(
         for i in range(len(self.robots)):  # draw robots
             pi = 3.14  # calculate pi
             radians = self.robots[i].alpha / 180.0 * pi  # convert degrees to radians
-            painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine)) #use color of robot
+            painter.setPen(
+                QPen(self.robots[i].color, 8, Qt.DashLine)
+            )  # use color of robot
             endx = int(self.robots[i].x + math.cos(radians) * self.robots[i].radius)
             endy = int(self.robots[i].y + math.sin(radians) * self.robots[i].radius)
             diameter = self.robots[i].radius * 2
