@@ -2,7 +2,7 @@ import math
 import sys
 
 from BasicRobot import BasicRobot
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import *
@@ -20,11 +20,19 @@ class Arena(
         self.title = "RoboArena"
         self.top = 0
         self.left = 0
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_arena)
+        self.timer.start(100)
 
     def get_size(self):  # method to print actual size of the arena
         print(
             f"The arena size is {self.width}x{self.height} pixels and positioned top {self.top}, left {self.left}."
         )
+
+    def update_arena(self):
+        #print("update")
+        self.robots[0].move()
+        self.update()
 
     def set_tile(
         self, x, y, type
@@ -81,11 +89,10 @@ class Arena(
                     self.tiles[y][x] = normal()
 
         for i in range(len(self.robots)):  # draw robots
+            painter.setPen(QPen(Qt.white, 8, Qt.DashLine))
             pi = 3.14  # calculate pi
             radians = self.robots[i].alpha / 180.0 * pi  # convert degrees to radians
-            painter.setPen(
-                QPen(self.robots[i].color, 8, Qt.DashLine)
-            )  # use color of robot
+
             endx = int(self.robots[i].x + math.cos(radians) * self.robots[i].radius)
             endy = int(self.robots[i].y + math.sin(radians) * self.robots[i].radius)
             diameter = self.robots[i].radius * 2
@@ -97,12 +104,19 @@ class Arena(
                 diameter,
             )
 
+xPosition = 500
+yPosition = 500
+radius = 50
+directionInDegree = 45
+movementSpeed = 10
+colour = Qt.white
+testRobot = BasicRobot(xPosition, yPosition, radius, directionInDegree, movementSpeed, colour)
 
 App = QApplication(sys.argv)
 testarena = Arena()
-testarena.set_tile(2, 2, "Wall")
-testarena.set_tile(3, 3, "Wall")
-testarena.set_tile(2, 2, "Wall")
-testarena.add_robot(BasicRobot(500, 500, 250, -90, Qt.white))
+
+testarena.add_robot(testRobot)
 testarena.InitWindow()
+
+
 sys.exit(App.exec())
