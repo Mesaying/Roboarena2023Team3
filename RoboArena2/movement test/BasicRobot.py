@@ -1,6 +1,3 @@
-
-
-
 class BasicRobot:
     def __init__(self, xPos, yPos, rad, dir):
         self.x = xPos

@@ -30,7 +30,7 @@ class Arena(
         )
 
     def update_arena(self):
-        #print("update")
+        # print("update")
         self.robots[0].move()
         self.update()
 
@@ -104,13 +104,16 @@ class Arena(
                 diameter,
             )
 
+
 xPosition = 500
 yPosition = 500
 radius = 50
 directionInDegree = 45
 movementSpeed = 10
 colour = Qt.white
-testRobot = BasicRobot(xPosition, yPosition, radius, directionInDegree, movementSpeed, colour)
+testRobot = BasicRobot(
+    xPosition, yPosition, radius, directionInDegree, movementSpeed, colour
+)
 
 App = QApplication(sys.argv)
 testarena = Arena()
