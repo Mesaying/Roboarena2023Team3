@@ -77,7 +77,7 @@ class Arena(
         for i in range(len(self.robots)):  # draw robots
             pi = 3.14  # calculate pi
             radians = self.robots[i].alpha / 180.0 * pi  # convert degrees to radians
-
+            painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine)) #use color of robot
             endx = int(self.robots[i].x + math.cos(radians) * self.robots[i].radius)
             endy = int(self.robots[i].y + math.sin(radians) * self.robots[i].radius)
             diameter = self.robots[i].radius * 2
@@ -95,7 +95,7 @@ testarena = Arena()
 testarena.set_tile(2, 2, "Wall")
 testarena.set_tile(3, 3, "Wall")
 testarena.set_tile(2, 2, "Wall")
-testarena.add_robot(BasicRobot(500, 500, 250, -90))
+testarena.add_robot(BasicRobot(500, 500, 250, -90, Qt.white))
 testarena.InitWindow()
 sys.exit(App.exec())
 

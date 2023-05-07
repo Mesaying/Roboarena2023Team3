@@ -3,11 +3,12 @@ import math
 
 
 class BasicRobot:
-    def __init__(self, xPos, yPos, rad, dir):
+    def __init__(self, xPos, yPos, rad, dir, color):
         self.x = xPos
         self.y = yPos
         self.radius = rad
         self.alpha = -dir
+        self.color = color
 
     # cos(a)^2+sin(a)^2=1 that is why we use this for movement
     def move(self):
