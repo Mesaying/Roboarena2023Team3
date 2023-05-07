@@ -1,7 +1,6 @@
 import math
 
 
-
 class BasicRobot:
     def __init__(self, xPos, yPos, rad, dir, color):
         self.x = xPos
