@@ -1,13 +1,11 @@
 import math
 import sys
-import time
 
 from BasicRobot import BasicRobot
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import *
-
 
 
 class Arena(
@@ -62,27 +60,33 @@ class Arena(
         painter = QPainter(self)
         for y in range(0, 100):  # Iterates through every possible tile
             for x in range(0, 100):
-                next_tile = list_with_tiles.pop(0)  # first element is deleted and returned from the list
+                next_tile = list_with_tiles.pop(
+                    0
+                )  # first element is deleted and returned from the list
                 if next_tile == "w":
-                    self.tiles[y][x] = (wall())  # The coordinate is marked with the designated terrain_type
-                    painter.setPen(QPen(Qt.black, 8, Qt.DashLine))  # Depending on the type of the tile, different
+                    self.tiles[y][
+                        x
+                    ] = (
+                        wall()
+                    )  # The coordinate is marked with the designated terrain_type
+                    painter.setPen(
+                        QPen(Qt.black, 8, Qt.DashLine)
+                    )  # Depending on the type of the tile, different
                     painter.drawRect(x * 10, y * 10, 10, 10)  # colors are used
                 if next_tile == "a":
-                    self.tiles[y][x] = (water())
+                    self.tiles[y][x] = water()
                     painter.setPen(QPen(Qt.blue, 8, Qt.DashLine))
                     painter.drawRect(x * 10, y * 10, 10, 10)
                 if next_tile == "f":
-                    self.tiles[y][x] = (fire())
+                    self.tiles[y][x] = fire()
                     painter.setPen(QPen(Qt.red, 8, Qt.DashLine))
                     painter.drawRect(x * 10, y * 10, 10, 10)
                 if next_tile == "s":
-                    self.tiles[y][x] = (spikes())
+                    self.tiles[y][x] = spikes()
                     painter.setPen(QPen(Qt.black, 8, Qt.DashLine))
                     painter.drawRect(x * 10, y * 10, 10, 10)
                 if next_tile == "n":
-                    self.tiles[y][x] = (normal())
-
-
+                    self.tiles[y][x] = normal()
 
         for i in range(len(self.robots)):  # draw robots
             painter.setPen(QPen(Qt.white, 8, Qt.DashLine))
@@ -100,6 +104,7 @@ class Arena(
                 diameter,
             )
 
+
 App = QApplication(sys.argv)
 testarena = Arena()
 
@@ -110,13 +115,4 @@ testarena.add_robot(BasicRobot(500, 500, 250, -90))
 testarena.InitWindow()
 
 
-
 sys.exit(App.exec())
-
-
-
-
-
-
-
-
