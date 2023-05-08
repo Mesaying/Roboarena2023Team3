@@ -128,8 +128,3 @@ testarena.InitWindow()
 
 
 sys.exit(App.exec())
-
-
-
-
-
