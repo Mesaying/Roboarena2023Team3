@@ -54,7 +54,9 @@ class Arena(
         list_with_tiles = []
         with open("testarena.txt", "r") as file:  # Opens the textfile
             content = file.read()
-            content = content.replace(" ", "").replace("\n", "")  #ignoriert zeilenumbrüche und leerzeichen
+            content = content.replace(" ", "").replace(
+                "\n", ""
+            )  # ignoriert zeilenumbrüche und leerzeichen
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
 
