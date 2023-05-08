@@ -54,9 +54,7 @@ class Arena(
         list_with_tiles = []
         with open("testarena.txt", "r") as file:  # Opens the textfile
             content = file.read()
-            content = content.replace(" ", "").replace(
-                "\n", ""
-            )  # ignoriert zeilenumbrüche und leerzeichen
+            content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
 
@@ -86,7 +84,11 @@ class Arena(
                     painter.drawRect(x * 10, y * 10, 10, 10)
                 if next_tile == "s":
                     self.tiles[y][x] = spikes()
-                    painter.setPen(QPen(Qt.black, 8, Qt.DashLine))
+                    painter.setPen(QPen(Qt.gray, 8, Qt.DashLine))
+                    painter.drawRect(x * 10, y * 10, 10, 10)
+                if next_tile == "b":
+                    self.tiles[y][x] = boost()
+                    painter.setPen(QPen(Qt.green, 8, Qt.DashLine))
                     painter.drawRect(x * 10, y * 10, 10, 10)
                 if next_tile == "n":
                     self.tiles[y][x] = normal()
@@ -126,3 +128,8 @@ testarena.InitWindow()
 
 
 sys.exit(App.exec())
+
+
+
+
+
