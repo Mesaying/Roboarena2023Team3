@@ -5,7 +5,7 @@ from BasicRobot import BasicRobot
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from Terrain import *
+from Terrain import water, fire, spikes, wall, boost, normal
 
 
 class Arena(
