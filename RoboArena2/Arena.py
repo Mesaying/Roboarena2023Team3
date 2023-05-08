@@ -93,7 +93,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                     self.tiles[y][x] = normal()
 
         for i in range(len(self.robots)):  # draw robots
-            painter.setPen(QPen(Qt.white, 8, Qt.DashLine))
+            painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine))
             pi = 3.14  # calculate pi
             radians = (
                 self.robots[i].alpha / 180.0 * pi
@@ -120,7 +120,7 @@ yPosition = 500
 radius = 50
 directionInDegree = 45
 movementSpeed = 10
-colour = Qt.white
+colour = Qt.black
 testRobot = BasicRobot(
     xPosition, yPosition, radius, directionInDegree, movementSpeed, colour
 )
