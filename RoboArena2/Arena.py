@@ -39,7 +39,9 @@ class Arena(
     ):  # changes the type of tile in the included coordinate
         self.tiles[y][x] = type
 
-    def get_tile(self, x, y):  # return the type of the tile in the included coordinate
+    def get_tile(
+        self, x, y
+    ):  # return the type of the tile in the included coordinate
         return self.tiles[y][x]
 
     def add_robot(self, robot):
@@ -96,10 +98,16 @@ class Arena(
         for i in range(len(self.robots)):  # draw robots
             painter.setPen(QPen(Qt.white, 8, Qt.DashLine))
             pi = 3.14  # calculate pi
-            radians = self.robots[i].alpha / 180.0 * pi  # convert degrees to radians
+            radians = (
+                self.robots[i].alpha / 180.0 * pi
+            )  # convert degrees to radians
 
-            endx = int(self.robots[i].x + math.cos(radians) * self.robots[i].radius)
-            endy = int(self.robots[i].y + math.sin(radians) * self.robots[i].radius)
+            endx = int(
+                self.robots[i].x + math.cos(radians) * self.robots[i].radius
+            )
+            endy = int(
+                self.robots[i].y + math.sin(radians) * self.robots[i].radius
+            )
             diameter = self.robots[i].radius * 2
             painter.drawLine(self.robots[i].x, self.robots[i].y, endx, endy)
             painter.drawEllipse(
