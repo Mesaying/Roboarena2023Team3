@@ -5,12 +5,10 @@ from BasicRobot import BasicRobot
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from Terrain import water, fire, spikes, wall, boost, normal
+from Terrain import boost, fire, normal, spikes, wall, water
 
 
-class Arena(
-    QMainWindow
-):  # Erbt von QMainWindow class,
+class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
     def __init__(self):
         super().__init__()
@@ -26,7 +24,7 @@ class Arena(
         self.timer.start(100)
 
     def get_size(self):  # method to print actual size of the arena
-        print( # split the string in two lines due to max line length
+        print(  # split the string in two lines due to max line length
             f"The arena size is {self.width}x{self.height} pixels and "
             f"positioned top {self.top}, left {self.left}."
         )
@@ -69,12 +67,8 @@ class Arena(
                     0
                 )  # first element is deleted and returned from the list
                 if next_tile == "w":
-                    self.tiles[y][
-                        x
-                    ] = (
-                        wall()
-                    )  # The coordinate is marked with
-                       # the designated terrain_type
+                    self.tiles[y][x] = wall()  # The coordinate is marked with
+                    # the designated terrain_type
                     painter.setPen(
                         QPen(Qt.black, 8, Qt.DashLine)
                     )  # Depending on the type of the tile, different
