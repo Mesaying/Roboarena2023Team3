@@ -8,11 +8,13 @@ class terrain:
 
 class water(
     terrain
-):  # inherits from the motherclass terrain and gets the attributes from terrain
+):  # inherits from the motherclass terrain
+    # and gets the attributes from terrain
     movement = (
         0.5  # multiplicator how fast the robot move through this terrain
     )
-    solid = 0  # if the robot can move through this terrain(0=passable, 1= not passable)
+    solid = 0  # if the robot can move through this terrain
+               # (0=passable, 1= not passable)
     damage = 0  # how much damage the robot takes when passing through
     type = "a"
 

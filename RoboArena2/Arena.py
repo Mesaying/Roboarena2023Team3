@@ -10,7 +10,8 @@ from Terrain import water, fire, spikes, wall, boost, normal
 
 class Arena(
     QMainWindow
-):  # Erbt von QMainWindow class, allows to use methods like setWindowTitle directly...
+):  # Erbt von QMainWindow class,
+    # allows to use methods like setWindowTitle directly...
     def __init__(self):
         super().__init__()
         self.width = 1000
@@ -25,8 +26,9 @@ class Arena(
         self.timer.start(100)
 
     def get_size(self):  # method to print actual size of the arena
-        print(
-            f"The arena size is {self.width}x{self.height} pixels and positioned top {self.top}, left {self.left}."
+        print( # split the string in two lines due to max line length
+            f"The arena size is {self.width}x{self.height} pixels and "
+            f"positioned top {self.top}, left {self.left}."
         )
 
     def update_arena(self):
@@ -71,7 +73,8 @@ class Arena(
                         x
                     ] = (
                         wall()
-                    )  # The coordinate is marked with the designated terrain_type
+                    )  # The coordinate is marked with
+                       # the designated terrain_type
                     painter.setPen(
                         QPen(Qt.black, 8, Qt.DashLine)
                     )  # Depending on the type of the tile, different
