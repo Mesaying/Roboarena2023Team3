@@ -25,6 +25,7 @@ class BasicRobot:
         self.y = int(self.y + yVelocity)
 
     def rotate(self):
+        #TODO: replace this with tick time eventually
         self.calculateTurnSpeed(1/30)
 
         self.alpha += self.turnSpeed
