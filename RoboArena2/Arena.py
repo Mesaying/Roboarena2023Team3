@@ -123,7 +123,13 @@ accel = 10
 turnAcceleration = 2
 colour = Qt.black
 testRobot = BasicRobot(
-    xPos= xPosition,yPos= yPosition, rad= radius,dir= directionInDegree, acceleration= accel, turnAccel=turnAcceleration, color = colour
+    xPos=xPosition,
+    yPos=yPosition,
+    rad=radius,
+    dir=directionInDegree,
+    acceleration=accel,
+    turnAccel=turnAcceleration,
+    color=colour,
 )
 
 App = QApplication(sys.argv)

@@ -16,8 +16,8 @@ class BasicRobot:
 
     # cos(a)^2+sin(a)^2=1 that is why we use this for movement
     def move(self):
-        #TODO: replace this with tick time eventually
-        self.calculateSpeed(1/30)
+        # TODO: replace this with tick time eventually
+        self.calculateSpeed(1 / 30)
 
         xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
         yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
@@ -25,8 +25,8 @@ class BasicRobot:
         self.y = int(self.y + yVelocity)
 
     def rotate(self):
-        #TODO: replace this with tick time eventually
-        self.calculateTurnSpeed(1/30)
+        # TODO: replace this with tick time eventually
+        self.calculateTurnSpeed(1 / 30)
 
         self.alpha += self.turnSpeed
 
