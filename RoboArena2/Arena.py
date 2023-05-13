@@ -132,7 +132,7 @@ testRobot = BasicRobot(
     color=colour,
 )
 testRobot1 = BasicRobot(
-    xPos=xPosition -100,
+    xPos=xPosition - 100,
     yPos=yPosition,
     rad=radius,
     dir=directionInDegree,

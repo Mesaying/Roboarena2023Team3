@@ -1,9 +1,10 @@
 import math
 
-class BasicRobot:
 
+class BasicRobot:
     MAX_SPEED = 5
     MAX_TURNSPEED = 2
+
     def __init__(self, xPos, yPos, rad, dir, acceleration, turnAccel, color):
         self.x = xPos
         self.y = yPos
@@ -33,7 +34,11 @@ class BasicRobot:
         self.alpha += self.turnSpeed
 
     def calculateSpeed(self, deltaTime):
-        self.speed = min(self.speed + self.acceleration * deltaTime, self.MAX_SPEED)
+        self.speed = min(
+            self.speed + self.acceleration * deltaTime, self.MAX_SPEED
+        )
 
     def calculateTurnSpeed(self, deltaTime):
-        self.turnSpeed = min(self.turnSpeed + self.turnAccel * deltaTime, self.MAX_TURNSPEED)
+        self.turnSpeed = min(
+            self.turnSpeed + self.turnAccel * deltaTime, self.MAX_TURNSPEED
+        )
