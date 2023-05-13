@@ -119,16 +119,44 @@ xPosition = 500
 yPosition = 500
 radius = 50
 directionInDegree = 45
-movementSpeed = 10
+accel = 10
+turnAcceleration = 2
 colour = Qt.black
 testRobot = BasicRobot(
-    xPosition, yPosition, radius, directionInDegree, movementSpeed, colour
+    xPos=xPosition,
+    yPos=yPosition,
+    rad=radius,
+    dir=directionInDegree,
+    acceleration=accel,
+    turnAccel=turnAcceleration,
+    color=colour,
+)
+testRobot1 = BasicRobot(
+    xPos=xPosition - 100,
+    yPos=yPosition,
+    rad=radius,
+    dir=directionInDegree,
+    acceleration=accel,
+    turnAccel=turnAcceleration,
+    color=colour,
+)
+
+testRobot2 = BasicRobot(
+    xPos=xPosition + 100,
+    yPos=yPosition,
+    rad=radius,
+    dir=directionInDegree,
+    acceleration=accel,
+    turnAccel=turnAcceleration,
+    color=colour,
 )
 
 App = QApplication(sys.argv)
 testarena = Arena()
 
 testarena.add_robot(testRobot)
+testarena.add_robot(testRobot1)
+testarena.add_robot(testRobot2)
 testarena.InitWindow()
 
 
