@@ -131,11 +131,32 @@ testRobot = BasicRobot(
     turnAccel=turnAcceleration,
     color=colour,
 )
+testRobot1 = BasicRobot(
+    xPos=xPosition -100,
+    yPos=yPosition,
+    rad=radius,
+    dir=directionInDegree,
+    acceleration=accel,
+    turnAccel=turnAcceleration,
+    color=colour,
+)
+
+testRobot2 = BasicRobot(
+    xPos=xPosition + 100,
+    yPos=yPosition,
+    rad=radius,
+    dir=directionInDegree,
+    acceleration=accel,
+    turnAccel=turnAcceleration,
+    color=colour,
+)
 
 App = QApplication(sys.argv)
 testarena = Arena()
 
 testarena.add_robot(testRobot)
+testarena.add_robot(testRobot1)
+testarena.add_robot(testRobot2)
 testarena.InitWindow()
 
 
