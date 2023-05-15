@@ -9,19 +9,21 @@ class MapEditor(QWidget):
     def __init__(self):
         super().__init__()
 
-        # Fenstereigenschaften
+        # title and size of window
         self.setWindowTitle('Map Editor')
         self.setGeometry(100, 100, 1000, 1000)
 
-        # Grid Layout erstellen
+        # create Grid Layout
         grid_layout = QGridLayout()
         self.setLayout(grid_layout)
 
-        # Buttons erstellen
+        # create buttons
         self.draw_mode = None
         water_button = QPushButton('Water')
         grid_layout.addWidget(water_button)
         water_button.clicked.connect(lambda: self.set_draw_mode('water'))
+        #lambda so we can give functions as parameters
+        #without create new functions
 
         fire_button = QPushButton('Fire')
         grid_layout.addWidget(fire_button)
@@ -34,10 +36,12 @@ class MapEditor(QWidget):
         grid_layout.addWidget(save_button)
         save_button.clicked.connect(lambda: self.save_to_text_file('MapEditorArena.txt'))
 
-        # Initialisiere die Liste der Formen
+        # list of shapes,blue rectangle, red rectangle...
         self.shapes = []
         self.start_point = None
 
+
+    #converts the drawn arena into a textfile and saves this
     def save_to_text_file(self, filename):
         image = self.grab().toImage()
         image = image.scaled(100, 100)
