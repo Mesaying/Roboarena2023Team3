@@ -65,7 +65,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
         self.show()
-    
+
     # basic threading
     def runTask(self):
         # adds all robots to the threading dictionary
