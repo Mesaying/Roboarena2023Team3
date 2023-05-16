@@ -2,12 +2,13 @@ import math
 import sys
 
 from BasicRobot import BasicRobot
-from PyQt5.QtCore import Qt, QTimer, QObject, QThread, pyqtSignal, QRunnable, QThreadPool, pyqtSlot
+from PyQt5.QtCore import (Qt, QThread, QTimer, pyqtSignal)
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
-from time import sleep
-#QObject/QRunnable
+
+
+# QObject/QRunnable
 class Runnable(QThread):
     def __init__(self, robot):
         QThread.__init__(self)
@@ -25,6 +26,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
     robotSignal = pyqtSignal()
     listOfThreads = {}
+
     def __init__(self):
         super().__init__()
         self.width = 1000
@@ -78,8 +80,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         for i in range(len(self.listOfThreads)):
             self.robotSignal.connect(self.listOfThreads[i].moveRobot)
             self.listOfThreads[i].start()
-    
-    
 
     def paintEvent(self, event):  # Colors the tiles
         list_with_tiles = []
