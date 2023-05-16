@@ -2,26 +2,29 @@ import math
 import sys
 
 from BasicRobot import BasicRobot
-from PyQt5.QtCore import Qt, QTimer, QObject, QThread, pyqtSignal, QRunnable, QThreadPool
+from PyQt5.QtCore import Qt, QTimer, QObject, QThread, pyqtSignal, QRunnable, QThreadPool, pyqtSlot
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 from time import sleep
-
+#QObject/QRunnable
 class Runnable(QThread):
     def __init__(self, robot):
         QThread.__init__(self)
         self.robot = robot
 
     def run(self):
-        print()
-    
+        # function gets called at start()
+        pass
+
     def moveRobot(self):
         self.robot.move()
+
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
     robotSignal = pyqtSignal()
+    listOfThreads = {}
     def __init__(self):
         super().__init__()
         self.width = 1000
@@ -42,7 +45,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         )
 
     def update_arena(self):
-        self.robots[0].move()
         self.robotSignal.emit()
         self.update()
 
@@ -66,10 +68,16 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     
     # basic threading
     def runTask(self):
-        robot = self.robots[1]
-        self.newRorbotThread = Runnable(robot)
-        self.robotSignal.connect(self.newRorbotThread.moveRobot)
-        self.newRorbotThread.start()
+        # adds all robots to the threading dictionary
+        for i in range(len(self.robots)):
+            key = i
+            robot = self.robots[i]
+            value = Runnable(robot)
+            self.listOfThreads[key] = value
+        # starting the threads and connecting the signals
+        for i in range(len(self.listOfThreads)):
+            self.robotSignal.connect(self.listOfThreads[i].moveRobot)
+            self.listOfThreads[i].start()
     
     
 
