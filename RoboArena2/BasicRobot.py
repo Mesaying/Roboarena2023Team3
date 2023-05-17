@@ -1,7 +1,6 @@
 import math
-
 from enum import Enum
-from typing import Any
+
 
 class MovementTyp(Enum):
     Line = "Line"
@@ -13,7 +12,17 @@ class BasicRobot:
     MAX_SPEED = 5
     MAX_TURNSPEED = 2
 
-    def __init__(self, xPos, yPos, rad, dir, acceleration, turnAccel, color, movementtype):
+    def __init__(
+        self,
+        xPos,
+        yPos,
+        rad,
+        dir,
+        acceleration,
+        turnAccel,
+        color,
+        movementtype,
+    ):
         self.x = xPos
         self.y = yPos
         self.radius = rad
