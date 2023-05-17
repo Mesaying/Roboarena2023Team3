@@ -2,14 +2,31 @@ import math
 import sys
 
 from BasicRobot import BasicRobot
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import (Qt, QThread, QTimer, pyqtSignal)
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 
 
+# QObject/QRunnable
+class Runnable(QThread):
+    def __init__(self, robot):
+        QThread.__init__(self)
+        self.robot = robot
+
+    def run(self):
+        # function gets called at start()
+        pass
+
+    def moveRobot(self):
+        self.robot.move()
+
+
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
+    robotSignal = pyqtSignal()
+    listOfThreads = {}
+
     def __init__(self):
         super().__init__()
         self.width = 1000
@@ -30,8 +47,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         )
 
     def update_arena(self):
-        # print("update")
-        self.robots[0].move()
+        self.robotSignal.emit()
         self.update()
 
     def set_tile(
@@ -51,6 +67,19 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
         self.show()
+
+    # basic threading
+    def runTask(self):
+        # adds all robots to the threading dictionary
+        for i in range(len(self.robots)):
+            key = i
+            robot = self.robots[i]
+            value = Runnable(robot)
+            self.listOfThreads[key] = value
+        # starting the threads and connecting the signals
+        for i in range(len(self.listOfThreads)):
+            self.robotSignal.connect(self.listOfThreads[i].moveRobot)
+            self.listOfThreads[i].start()
 
     def paintEvent(self, event):  # Colors the tiles
         list_with_tiles = []
@@ -157,6 +186,7 @@ testarena = Arena()
 testarena.add_robot(testRobot)
 testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
+testarena.runTask()
 testarena.InitWindow()
 
 
