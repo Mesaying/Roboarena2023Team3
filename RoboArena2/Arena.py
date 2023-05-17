@@ -1,25 +1,26 @@
 import math
 import sys
 
-from BasicRobot import BasicRobot
+from BasicRobot import BasicRobot, MovementTyp
 from PyQt5.QtCore import (Qt, QThread, QTimer, pyqtSignal)
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
+from MovementManager import MovementManager_
 
 
-# QObject/QRunnable
-class Runnable(QThread):
+class Worker(QThread):
     def __init__(self, robot):
         QThread.__init__(self)
         self.robot = robot
 
     def run(self):
         # function gets called at start()
-        pass
+        self.movementManager = MovementManager_(self.robot)
 
     def moveRobot(self):
-        self.robot.move()
+        #self.robot.move()
+        self.movementManager.moveInShape()
 
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
@@ -74,7 +75,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         for i in range(len(self.robots)):
             key = i
             robot = self.robots[i]
-            value = Runnable(robot)
+            value = Worker(robot)
             self.listOfThreads[key] = value
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
@@ -159,6 +160,7 @@ testRobot = BasicRobot(
     acceleration=accel,
     turnAccel=turnAcceleration,
     color=colour,
+    movementtype = MovementTyp.Line,
 )
 testRobot1 = BasicRobot(
     xPos=xPosition - 100,
@@ -168,6 +170,7 @@ testRobot1 = BasicRobot(
     acceleration=accel,
     turnAccel=turnAcceleration,
     color=colour,
+    movementtype = MovementTyp.Circle,
 )
 
 testRobot2 = BasicRobot(
@@ -178,6 +181,7 @@ testRobot2 = BasicRobot(
     acceleration=accel,
     turnAccel=turnAcceleration,
     color=colour,
+    movementtype = MovementTyp.Wave,
 )
 
 App = QApplication(sys.argv)
