@@ -110,5 +110,44 @@ A robot in black drawn on the arena:
  We are satisfied with how the sprint went out. The programming part went relatively smooth, we have completed all tasks and
  hit our set goals. 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>  
+ <h2>Sprint 3</h2> 
+<br>
+<br>
+
+<p> Task1 <br>
+
+c)
+We changed the Robots from directly using a movement Speed variable to determine their speed to now calculate their current velocity using acceleration and the time between "frames".
+The same thing was done to the calculation of rotational speed.
+
+To avoid reaching infinite speeds we also introduced constants for maximum movement speed and maximum rotational speed.
+This is where we deviate a little from the original Task and instead of a programm wide constant introduce a different constant for every "type" of robot. This will allow us to have more or less agile types of robots in the future.
+Furthermore we did not clamp the robots aceleration but instead it's speed.
+Implementation of speed and aceleration: <br>
+<img src="assets/Sprint3/AccelerationCalculation.png"><br>
+
+<p>You can see the Robots moving here: <br>
+
+ <video width="960" height="720" controls src="assets/Sprint3/RobotsSimpleMove.mp4" type=""assets/Sprint3/RobotsSimpleMove.mp4"/>
+  Your browser does not support the video tag.
+</video>
+
+<p> Task2 <br>
+For now we only drew 4 different tiles: Grass, Fire, Water and Wall tiles <br>
+These were drawn by hand using an online Pixel art editor <br>
+  <img src="assets/Sprint3/Grass_tile.png">
+  <img src="assets/Sprint3/Fire_tile.png">
+  <img src="assets/Sprint3/Water_tile.png">
+  <img src="assets/Sprint3/Wall_tile.png">
+<br>
+
+We are not yet using these to draw the arena.
+
 </body>
 </html>
