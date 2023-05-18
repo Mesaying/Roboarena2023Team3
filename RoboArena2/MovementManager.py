@@ -18,7 +18,7 @@ class MovementManager_:
             case MovementTyp.Wave:
                 self.moveInWave()
             case _:
-                print("not yet defined")
+                print("MovementType not yet defined")
 
     def moveInLine(self):
         self.robot.move()

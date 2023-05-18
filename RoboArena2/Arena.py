@@ -19,7 +19,7 @@ class Worker(QThread):
         self.movementManager = MovementManager_(self.robot)
 
     def moveRobot(self):
-        # self.robot.move()
+        # MovementManager handles the movement
         self.movementManager.moveInShape()
 
 
