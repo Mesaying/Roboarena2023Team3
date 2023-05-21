@@ -1,11 +1,28 @@
 import math
+from enum import Enum
+
+
+class MovementTyp(Enum):
+    Line = "Line"
+    Circle = "Circle"
+    Wave = "Wave"
 
 
 class BasicRobot:
     MAX_SPEED = 5
     MAX_TURNSPEED = 2
 
-    def __init__(self, xPos, yPos, rad, dir, acceleration, turnAccel, color):
+    def __init__(
+        self,
+        xPos,
+        yPos,
+        rad,
+        dir,
+        acceleration,
+        turnAccel,
+        color,
+        movementtype,
+    ):
         self.x = xPos
         self.y = yPos
         self.radius = rad
@@ -13,9 +30,13 @@ class BasicRobot:
         self.color = color
         self.acceleration = acceleration
         self.turnAccel = turnAccel
+        self.movementtype = movementtype
 
         self.speed = 0
         self.turnSpeed = 0
+
+    def getMovementType(self):
+        return self.movementtype
 
     # cos(a)^2+sin(a)^2=1 that is why we use this for movement
     def move(self):
@@ -32,6 +53,12 @@ class BasicRobot:
         self.calculateTurnSpeed(1 / 30)
 
         self.alpha += self.turnSpeed
+
+    def rotateLeft(self):
+        # TODO: replace this with tick time eventually
+        self.calculateTurnSpeed(1 / 30)
+
+        self.alpha -= self.turnSpeed
 
     def calculateSpeed(self, deltaTime):
         self.speed = min(
