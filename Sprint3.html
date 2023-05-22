@@ -39,6 +39,19 @@ Implementation of speed and aceleration: <br>
  <video width="960" height="720" controls src="assets/Sprint3/RobotsSimpleMove.mp4" type=""assets/Sprint3/RobotsSimpleMove.mp4"/>
   Your browser does not support the video tag.
 </video>
+<br>
+d)
+For threads we use a worker class that inherits from QThread.<br>
+The MovementManager_ is a class that handles the movement wenn we start the thread we create an object of that class.<br>
+The moveRobot function gets called using a signal it uses the Movement Manager to update the Position.<br>                                                                                                                               
+<img src="assets/Sprint3/workerClass.png"><br>
+Some Problems here since we also tried QThreadpool it would be easier to run multiple Threads but since it does not support signals and slots we choose the Qthread.<br>
+The signal and a dictionary to store the threads.<br>
+<img src="assets/Sprint3/SignalForWorker.png"><br>
+This Function creates the threads and starts them:<br>
+<img src="assets/Sprint3/RunThreads.png"><br>
+The first for loop creates the threads and puts them in the dictionary.<br>
+The second one  connects the signals and starts the threads.<br>
 
 <p> Task2 <br>
 For now we only drew 4 different tiles: Grass, Fire, Water and Wall tiles <br>
