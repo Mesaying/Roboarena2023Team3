@@ -113,7 +113,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                     self.tiles[y][x] = fire()
                     pix = QPixmap("TileImages/Fire_tile.png")
                     pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x*10, y * 10, pix)
+                    painter.drawPixmap(x * 10, y * 10, pix)
                 if next_tile == "s":
                     self.tiles[y][x] = spikes()
                     pix = QPixmap("TileImages/Spike_tile.png")
