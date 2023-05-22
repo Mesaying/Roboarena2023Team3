@@ -23,13 +23,33 @@
     <br>
 
 <p> Task1 <br>
+    
+a)
+Map Editor:<br>
+We improved our map editor greatly, the different tiles can be drawn on the screen directly.<br>
+Through pushing a "save" - button a text file is created, which can be used to create the playable arena.<br>
+    
+class MapEditor:<br>
+We use a grid-layout which arranges widgets in a grid-like structure.<br>
+
+
+    
+The "save"    
+    
+Further improvement:<br>
+Instead of just coloring the tiles, we want to create the playable arena by letting the user draw our graphical tiles on the screen.<br>
+A backtrack option to reset the latest drawing would be useful.<br>
+
+    
+    
+b)
 
 c)
-We changed the Robots from directly using a movement Speed variable to determine their speed to now calculate their current velocity using acceleration and the time between "frames".
-The same thing was done to the calculation of rotational speed.
+We changed the Robots from directly using a movement Speed variable to determine their speed to now calculate their current velocity using acceleration and the time between "frames".<br>
+The same thing was done to the calculation of rotational speed.<br>
 
-To avoid reaching infinite speeds we also introduced constants for maximum movement speed and maximum rotational speed.
-This is where we deviate a little from the original Task and instead of a programm wide constant introduce a different constant for every "type" of robot. This will allow us to have more or less agile types of robots in the future.
+To avoid reaching infinite speeds we also introduced constants for maximum movement speed and maximum rotational speed.<br>
+This is where we deviate a little from the original Task and instead of a programm wide constant introduce a different constant for every "type" of robot. This will allow us to have more or less agile types of robots in the future.<br>
 Furthermore we did not clamp the robots aceleration but instead it's speed.
 Implementation of speed and aceleration: <br>
 <img src="assets/Sprint3/AccelerationCalculation.png"><br>
