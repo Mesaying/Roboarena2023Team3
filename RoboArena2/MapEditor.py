@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QGridLayout, QPushButton
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPainter, QBrush, QPen
 from PyQt5.QtCore import Qt, QRect
 import sys
@@ -13,38 +13,69 @@ class MapEditor(QWidget):
         self.setWindowTitle('Map Editor')
         self.setGeometry(100, 100, 1000, 1000)
 
-        # create Grid Layout
-        grid_layout = QGridLayout()
-        self.setLayout(grid_layout)
+        # create the main layout
+        main_layout = QGridLayout()
+        self.setLayout(main_layout)
 
         # create buttons
         self.draw_mode = None
         water_button = QPushButton('Water')
-        grid_layout.addWidget(water_button)
+        water_button.setMaximumWidth(100)
+        water_button.setMaximumHeight(30)
         water_button.clicked.connect(lambda: self.set_draw_mode('water'))
-        #lambda so we can give functions as parameters
-        #without create new functions
+        main_layout.addWidget(water_button, 1, 0, 1, 1)
 
         fire_button = QPushButton('Fire')
-        grid_layout.addWidget(fire_button)
+        fire_button.setMaximumWidth(100)
+        fire_button.setMaximumHeight(30)
         fire_button.clicked.connect(lambda: self.set_draw_mode('fire'))
+        main_layout.addWidget(fire_button, 1, 1, 1, 1)
+
         wall_button = QPushButton('Wall')
-        grid_layout.addWidget(wall_button)
+        wall_button.setMaximumWidth(100)
+        wall_button.setMaximumHeight(30)
         wall_button.clicked.connect(lambda: self.set_draw_mode('wall'))
+        main_layout.addWidget(wall_button, 1, 2, 1, 1)
+
+        boost_button = QPushButton('Boost')
+        boost_button.setMaximumWidth(100)
+        boost_button.setMaximumHeight(30)
+        boost_button.clicked.connect(lambda: self.set_draw_mode('boost'))
+        main_layout.addWidget(boost_button, 1, 3, 1, 1)
+
+        spikes_button = QPushButton('Spikes')
+        spikes_button.setMaximumWidth(100)
+        spikes_button.setMaximumHeight(30)
+        spikes_button.clicked.connect(lambda: self.set_draw_mode('spikes'))
+        main_layout.addWidget(spikes_button, 1, 4, 1, 1)
 
         save_button = QPushButton('Save')
-        grid_layout.addWidget(save_button)
+        save_button.setMaximumWidth(100)
+        save_button.setMaximumHeight(30)
         save_button.clicked.connect(lambda: self.save_to_text_file('MapEditorArena.txt'))
+        main_layout.addWidget(save_button, 1, 5, 1, 1)
+
+        # Add an empty stretch to push buttons to the bottom
+        main_layout.setRowStretch(0, 1)
+
+        #change size, position of buttons
+        water_button.setGeometry(50, 50, 100, 30)
+        fire_button.setGeometry(50, 100, 100, 30)
+        wall_button.setGeometry(50, 150, 100, 30)
+        boost_button.setGeometry(50, 200, 100, 30)
+        spikes_button.setGeometry(50, 250, 100, 30)
+        save_button.setGeometry(50, 300, 100, 30)
 
         # list of shapes,blue rectangle, red rectangle...
         self.shapes = []
         self.start_point = None
 
 
+
     #converts the drawn arena into a textfile and saves this
     def save_to_text_file(self, filename):
-        image = self.grab().toImage()
-        image = image.scaled(100, 100)
+        image = self.grab().toImage()    #makes screenshot of window
+        image = image.scaled(100, 100)   #scales to size 100x100 so that 1 pixel is 1 tile
 
         with open(filename, 'w') as file:
             for y in range(image.height()):
@@ -75,6 +106,12 @@ class MapEditor(QWidget):
             elif shape[0] == 'wall':
                 pen = QPen(Qt.black)
                 brush = QBrush(Qt.black)
+            elif shape[0] == 'spikes':
+                pen = QPen(Qt.gray)
+                brush = QBrush(Qt.gray)
+            elif shape[0] == 'boost':
+                pen = QPen(Qt.green)
+                brush = QBrush(Qt.green)
 
             painter.setPen(pen)
             painter.setBrush(brush)
