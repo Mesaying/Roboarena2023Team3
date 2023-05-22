@@ -70,6 +70,16 @@ A backtrack option to reset the latest drawing would be useful.<br><br>
     
     
 b)
+We use the images drawn in Task 2 in order to represent the tiles graphically. We currently differenciate between Normal, Fire, Water, Wall, Boost and Spike tiles. <br>
+
+<img src="assets/Sprint3/ArenaWithTiles.png">
+<br>
+<br>
+<br>
+The images are drawn each time the arena is drawn, we first check in the Text file of the arena which tile is at the given coordinate, we then load the corresponding image and scale it down to be 10 x 10 pixels large using a pixmap.
+<br> <br>
+<img src="assets/Sprint3/pixMapArena.png">
+<br> <br>
 
 c)
 We changed the Robots from directly using a movement Speed variable to determine their speed to now calculate their current velocity using acceleration and the time between "frames".<br>
