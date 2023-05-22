@@ -29,12 +29,31 @@ Map Editor:<br>
 We improved our map editor greatly, the different tiles can be drawn on the screen directly.<br>
 Through pushing a "save" - button a text file is created, which can be used to create the playable arena.<br>
     
+    
+
 class MapEditor:<br>
 We use a grid-layout which arranges widgets in a grid-like structure.<br>
+Clicked.connect function: When the water_button is clicked, a clicked signal is emitted, and the slot function, 
+which is the set_draw_mode method is executed.<br>
+Without lambda, the slot function would be immediately called without waiting for the button to be clicked.<br>
+The return value of self.set.draw_mode() would be passed to, which is none. It ensures that the past argument 
+remains a function.<br> 
+
 
 
     
-The "save"    
+The "save" button:<br>
+
+    
+    
+Difficulty:<br>
+Since we are using a grid-layout, the widgets are automatically aligned to a certain extent based on the layouts grid structure.<br>
+This made it difficult to position the buttons in a desireable way.<br>
+For example, the following code had no effect:<br>
+    
+
+We helped us, by adding an empty stretch which pushes the buttons at the bottom of the screen.<br>
+   
     
 Further improvement:<br>
 Instead of just coloring the tiles, we want to create the playable arena by letting the user draw our graphical tiles on the screen.<br>
