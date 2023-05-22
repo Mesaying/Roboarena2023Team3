@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QPainter, QPen
-from PyQt5.QtWidgets import QGridLayout, QPushButton, QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QGridLayout, QPushButton, QWidget
 
 
 class MapEditor(QWidget):
