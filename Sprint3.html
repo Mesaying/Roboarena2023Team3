@@ -37,7 +37,7 @@ We use a grid-layout which arranges widgets in a grid-like structure.<br>
 Clicked.connect function: When the water_button is clicked, a clicked signal is emitted, and the slot function, 
 which is the set_draw_mode method is executed.<br>
 Without lambda, the slot function would be immediately called without waiting for the button to be clicked.<br>
-The return value of self.set.draw_mode() would be passed to, which is none. It ensures that the past argument 
+The return value of self.set.draw_mode() would be passed to, which is none. Lambda ensures that the passed to argument 
 remains a function.<br><br> 
 
 
