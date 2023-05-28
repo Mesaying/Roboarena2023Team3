@@ -147,40 +147,20 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
 xPosition = 500
 yPosition = 500
-radius = 50
-directionInDegree = 45
-accel = 10
-turnAcceleration = 2
-colour = Qt.black
 testRobot = BasicRobot(
     xPos=xPosition,
     yPos=yPosition,
-    rad=radius,
-    dir=directionInDegree,
-    acceleration=accel,
-    turnAccel=turnAcceleration,
-    color=colour,
     movementtype=MovementTyp.Line,
 )
 testRobot1 = BasicRobot(
     xPos=xPosition - 100,
     yPos=yPosition,
-    rad=radius,
-    dir=directionInDegree,
-    acceleration=accel,
-    turnAccel=turnAcceleration,
-    color=colour,
     movementtype=MovementTyp.Circle,
 )
 
 testRobot2 = BasicRobot(
     xPos=xPosition + 100,
     yPos=yPosition,
-    rad=radius,
-    dir=directionInDegree,
-    acceleration=accel,
-    turnAccel=turnAcceleration,
-    color=colour,
     movementtype=MovementTyp.Wave,
 )
 
