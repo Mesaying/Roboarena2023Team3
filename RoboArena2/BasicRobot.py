@@ -1,5 +1,6 @@
 import math
 from enum import Enum
+
 from PyQt5.QtCore import Qt
 
 
@@ -22,7 +23,7 @@ class BasicRobot:
         self.x = xPos
         self.y = yPos
         self.movementtype = movementtype
-        
+
         self.color = Qt.black
         self.turnAccel = 2
         self.acceleration = 10
