@@ -1,6 +1,8 @@
 import math
 from enum import Enum
 
+from PyQt5.QtCore import Qt
+
 
 class MovementTyp(Enum):
     Line = "Line"
@@ -16,22 +18,17 @@ class BasicRobot:
         self,
         xPos,
         yPos,
-        rad,
-        dir,
-        acceleration,
-        turnAccel,
-        color,
         movementtype,
     ):
         self.x = xPos
         self.y = yPos
-        self.radius = rad
-        self.alpha = -dir
-        self.color = color
-        self.acceleration = acceleration
-        self.turnAccel = turnAccel
         self.movementtype = movementtype
 
+        self.color = Qt.black
+        self.turnAccel = 2
+        self.acceleration = 10
+        self.alpha = -45
+        self.radius = 50
         self.speed = 0
         self.turnSpeed = 0
 
