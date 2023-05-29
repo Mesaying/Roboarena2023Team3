@@ -4,7 +4,7 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 
@@ -99,28 +99,36 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                 if next_tile == "w":
                     self.tiles[y][x] = wall()  # The coordinate is marked with
                     # the designated terrain_type
-                    painter.setPen(
-                        QPen(Qt.black, 8, Qt.DashLine)
-                    )  # Depending on the type of the tile, different
-                    painter.drawRect(x * 10, y * 10, 10, 10)  # colors are used
+                    # Depending on the type of the tile, different
+                    # colors are used
+                    pix = QPixmap("TileImages/Wall_tile.png")
+                    pix = pix.scaledToWidth(10)
+                    painter.drawPixmap(x * 10, y * 10, pix)
                 if next_tile == "a":
                     self.tiles[y][x] = water()
-                    painter.setPen(QPen(Qt.blue, 8, Qt.DashLine))
-                    painter.drawRect(x * 10, y * 10, 10, 10)
+                    pix = QPixmap("TileImages/Water_tile.png")
+                    pix = pix.scaledToWidth(10)
+                    painter.drawPixmap(x * 10, y * 10, pix)
                 if next_tile == "f":
                     self.tiles[y][x] = fire()
-                    painter.setPen(QPen(Qt.red, 8, Qt.DashLine))
-                    painter.drawRect(x * 10, y * 10, 10, 10)
+                    pix = QPixmap("TileImages/Fire_tile.png")
+                    pix = pix.scaledToWidth(10)
+                    painter.drawPixmap(x * 10, y * 10, pix)
                 if next_tile == "s":
                     self.tiles[y][x] = spikes()
-                    painter.setPen(QPen(Qt.gray, 8, Qt.DashLine))
-                    painter.drawRect(x * 10, y * 10, 10, 10)
+                    pix = QPixmap("TileImages/Spike_tile.png")
+                    pix = pix.scaledToWidth(10)
+                    painter.drawPixmap(x * 10, y * 10, pix)
                 if next_tile == "b":
                     self.tiles[y][x] = boost()
-                    painter.setPen(QPen(Qt.green, 8, Qt.DashLine))
-                    painter.drawRect(x * 10, y * 10, 10, 10)
+                    pix = QPixmap("TileImages/Boost_tile.png")
+                    pix = pix.scaledToWidth(10)
+                    painter.drawPixmap(x * 10, y * 10, pix)
                 if next_tile == "n":
                     self.tiles[y][x] = normal()
+                    pix = QPixmap("TileImages/Normal_tile.png")
+                    pix = pix.scaledToWidth(10)
+                    painter.drawPixmap(x * 10, y * 10, pix)
 
         for i in range(len(self.robots)):  # draw robots
             painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine))
