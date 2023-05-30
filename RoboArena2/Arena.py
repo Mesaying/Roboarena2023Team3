@@ -1,32 +1,36 @@
 import math
 import sys
 
+from PyQt5 import QtGui
+
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
-from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QPainter, QPen, QPixmap
+from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal, QEvent
+from PyQt5.QtGui import QPainter, QPen, QPixmap, QInputEvent, QKeyEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 
 
 class Worker(QThread):
-    def __init__(self, robot):
+    def __init__(self, robot: BasicRobot, keys: dict):
         QThread.__init__(self)
         self.robot = robot
+        self.keys = keys
 
     def run(self):
         # function gets called at start()
         self.movementManager = MovementManager_(self.robot)
 
     def moveRobot(self):
-        # MovementManager handles the movement
-        self.movementManager.moveInShape()
+        # MovementManager handles the inputs
+        self.movementManager.handleInput(self.keys)
 
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
     robotSignal = pyqtSignal()
     listOfThreads = {}
+    keysPressed = {}
 
     def __init__(self):
         super().__init__()
@@ -73,14 +77,21 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     def runTask(self):
         # adds all robots to the threading dictionary
         for i in range(len(self.robots)):
-            key = i
-            robot = self.robots[i]
-            value = Worker(robot)
-            self.listOfThreads[key] = value
+                key = i
+                robot = self.robots[i]
+                value = Worker(robot, self.keysPressed)
+                self.listOfThreads[key] = value
+            
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
-            self.robotSignal.connect(self.listOfThreads[i].moveRobot)
-            self.listOfThreads[i].start()
+                self.robotSignal.connect(self.listOfThreads[i].moveRobot)
+                self.listOfThreads[i].start()
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        self.keysPressed[event.key()] = True
+    
+    def keyReleaseEvent(self, event: QKeyEvent) -> None:
+        self.keysPressed[event.key()] = False
 
     def paintEvent(self, event):  # Colors the tiles
         list_with_tiles = []
@@ -172,12 +183,19 @@ testRobot2 = BasicRobot(
     movementtype=MovementTyp.Wave,
 )
 
+testRobot3 = BasicRobot(
+    xPos=xPosition + 200,
+    yPos=yPosition,
+    movementtype=MovementTyp.Player1Control,
+)
+
 App = QApplication(sys.argv)
 testarena = Arena()
 
 testarena.add_robot(testRobot)
 testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
+testarena.add_robot(testRobot3)
 testarena.runTask()
 testarena.InitWindow()
 
