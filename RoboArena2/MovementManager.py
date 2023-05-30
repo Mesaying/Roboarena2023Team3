@@ -51,14 +51,14 @@ class MovementManager_:
         PressedTurnLeft = turnLeft in keys and keys[turnLeft]
         PressedTurnRight = turnRight in keys and keys[turnRight]
 
-        if(PressedMoveForward and not PressedMoveBack):
+        if PressedMoveForward and not PressedMoveBack:
             self.robot.move()
 
-        if(PressedMoveBack and not PressedMoveForward):
+        if PressedMoveBack and not PressedMoveForward:
             self.robot.moveBack()
 
-        if(PressedTurnLeft and not PressedTurnRight):
+        if PressedTurnLeft and not PressedTurnRight:
             self.robot.rotateLeft()
 
-        if(PressedTurnRight and not PressedTurnLeft):
+        if PressedTurnRight and not PressedTurnLeft:
             self.robot.rotate()
