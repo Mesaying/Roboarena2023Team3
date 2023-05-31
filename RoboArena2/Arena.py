@@ -32,7 +32,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         super().__init__()
         self.width = 1000
         self.height = 1000
-        self.tiles = [[terrain() for i in range(100)] for j in range(100)]
+        self.tiles = [[object() for i in range(100)] for j in range(100)]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
@@ -115,7 +115,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         painter = QPainter(self)
         for y in range(0, 100):  # Iterates through every possible tile
             for x in range(0, 100):
-                painter.drawPixmap(y * 10, x * 10, self.tiles[y][x].graphic)
+                pix = QPixmap(self.tiles[y][x].imagePath)
+                pix = pix.scaledToWidth(10)
+                painter.drawPixmap(y * 10, x * 10, pix)
 
         for i in range(len(self.robots)):  # draw robots
             painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine))
@@ -161,7 +163,6 @@ testRobot2 = BasicRobot(
 
 App = QApplication(sys.argv)
 testarena = Arena()
-
 testarena.add_robot(testRobot)
 testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
