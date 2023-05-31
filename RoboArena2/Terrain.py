@@ -1,4 +1,3 @@
-from PyQt5.QtGui import QPixmap
 
 
 class terrain:
@@ -29,12 +28,14 @@ class fire(terrain):
     type = "f"
     imagePath = "TileImages/Fire_tile.png"
 
+
 class spikes(terrain):
     movement = 1.0
     solid = 0
     damage = 20
     type = "s"
     imagePath = "TileImages/Spike_tile.png"
+
 
 class wall(terrain):
     movement = 0
@@ -43,6 +44,7 @@ class wall(terrain):
     type = "w"
     imagePath = "TileImages/Wall_tile.png"
 
+
 class boost(terrain):
     movement = 2.0
     solid = 0
@@ -50,12 +52,14 @@ class boost(terrain):
     type = "b"
     imagePath = "TileImages/Boost_tile.png"
 
+
 class normal(terrain):
     movement = 1.0
     solid = 0
     damage = 0
     type = "n"
     imagePath = "TileImages/Normal_tile.png"
+
 
 test_tyle = water()
 print(test_tyle.movement)

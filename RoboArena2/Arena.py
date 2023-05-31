@@ -6,7 +6,7 @@ from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from Terrain import boost, fire, normal, spikes, wall, water, terrain
+from Terrain import boost, fire, normal, spikes, wall, water
 
 
 class Worker(QThread):
@@ -41,7 +41,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.timeout.connect(self.update_arena)
         self.timer.start(100)
 
-
         list_with_tiles = []
         with open("testarena.txt", "r") as file:  # Opens the textfile
             content = file.read()
@@ -68,7 +67,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                     self.tiles[y][x] = boost()
                 if next_tile == "n":
                     self.tiles[y][x] = normal()
-
 
     def get_size(self):  # method to print actual size of the arena
         print(  # split the string in two lines due to max line length
