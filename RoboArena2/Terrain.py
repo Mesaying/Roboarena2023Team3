@@ -1,9 +1,12 @@
+
+
 class terrain:
     def __init__(self):
         self.movement
         self.solid
         self.damage
         self.type
+        self.imagePath
 
 
 class water(terrain):  # inherits from the motherclass terrain
@@ -15,6 +18,7 @@ class water(terrain):  # inherits from the motherclass terrain
     # (0=passable, 1= not passable)
     damage = 0  # how much damage the robot takes when passing through
     type = "a"
+    imagePath = "TileImages/Water_tile.png"
 
 
 class fire(terrain):
@@ -22,6 +26,7 @@ class fire(terrain):
     solid = 0
     damage = 10
     type = "f"
+    imagePath = "TileImages/Fire_tile.png"
 
 
 class spikes(terrain):
@@ -29,6 +34,7 @@ class spikes(terrain):
     solid = 0
     damage = 20
     type = "s"
+    imagePath = "TileImages/Spike_tile.png"
 
 
 class wall(terrain):
@@ -36,6 +42,7 @@ class wall(terrain):
     solid = 1
     damage = 0
     type = "w"
+    imagePath = "TileImages/Wall_tile.png"
 
 
 class boost(terrain):
@@ -43,6 +50,7 @@ class boost(terrain):
     solid = 0
     damage = 0
     type = "b"
+    imagePath = "TileImages/Boost_tile.png"
 
 
 class normal(terrain):
@@ -50,6 +58,7 @@ class normal(terrain):
     solid = 0
     damage = 0
     type = "n"
+    imagePath = "TileImages/Normal_tile.png"
 
 
 test_tyle = water()

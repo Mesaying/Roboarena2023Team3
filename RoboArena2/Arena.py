@@ -32,7 +32,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         super().__init__()
         self.width = 1000
         self.height = 1000
-        self.tiles = [[0 for i in range(100)] for j in range(100)]
+        self.tiles = [[object() for i in range(100)] for j in range(100)]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
@@ -40,6 +40,33 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_arena)
         self.timer.start(100)
+
+        list_with_tiles = []
+        with open("testarena.txt", "r") as file:  # Opens the textfile
+            content = file.read()
+            content = content.replace(" ", "").replace("\n", "")
+        for letter in content:  # saves every letter in a list
+            list_with_tiles.append(letter)
+        for y in range(0, 100):  # Iterates through every possible tile
+            for x in range(0, 100):
+                next_tile = list_with_tiles.pop(
+                    0
+                )  # first element is deleted and returned from the list
+                if next_tile == "w":
+                    self.tiles[y][x] = wall()  # The coordinate is marked with
+                    # the designated terrain_type
+                    # Depending on the type of the tile, different
+                    # colors are used
+                if next_tile == "a":
+                    self.tiles[y][x] = water()
+                if next_tile == "f":
+                    self.tiles[y][x] = fire()
+                if next_tile == "s":
+                    self.tiles[y][x] = spikes()
+                if next_tile == "b":
+                    self.tiles[y][x] = boost()
+                if next_tile == "n":
+                    self.tiles[y][x] = normal()
 
     def get_size(self):  # method to print actual size of the arena
         print(  # split the string in two lines due to max line length
@@ -83,52 +110,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             self.listOfThreads[i].start()
 
     def paintEvent(self, event):  # Colors the tiles
-        list_with_tiles = []
-        with open("testarena.txt", "r") as file:  # Opens the textfile
-            content = file.read()
-            content = content.replace(" ", "").replace("\n", "")
-        for letter in content:  # saves every letter in a list
-            list_with_tiles.append(letter)
-
         painter = QPainter(self)
         for y in range(0, 100):  # Iterates through every possible tile
             for x in range(0, 100):
-                next_tile = list_with_tiles.pop(
-                    0
-                )  # first element is deleted and returned from the list
-                if next_tile == "w":
-                    self.tiles[y][x] = wall()  # The coordinate is marked with
-                    # the designated terrain_type
-                    # Depending on the type of the tile, different
-                    # colors are used
-                    pix = QPixmap("TileImages/Wall_tile.png")
-                    pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x * 10, y * 10, pix)
-                if next_tile == "a":
-                    self.tiles[y][x] = water()
-                    pix = QPixmap("TileImages/Water_tile.png")
-                    pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x * 10, y * 10, pix)
-                if next_tile == "f":
-                    self.tiles[y][x] = fire()
-                    pix = QPixmap("TileImages/Fire_tile.png")
-                    pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x * 10, y * 10, pix)
-                if next_tile == "s":
-                    self.tiles[y][x] = spikes()
-                    pix = QPixmap("TileImages/Spike_tile.png")
-                    pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x * 10, y * 10, pix)
-                if next_tile == "b":
-                    self.tiles[y][x] = boost()
-                    pix = QPixmap("TileImages/Boost_tile.png")
-                    pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x * 10, y * 10, pix)
-                if next_tile == "n":
-                    self.tiles[y][x] = normal()
-                    pix = QPixmap("TileImages/Normal_tile.png")
-                    pix = pix.scaledToWidth(10)
-                    painter.drawPixmap(x * 10, y * 10, pix)
+                pix = QPixmap(self.tiles[y][x].imagePath)
+                pix = pix.scaledToWidth(10)
+                painter.drawPixmap(y * 10, x * 10, pix)
 
         for i in range(len(self.robots)):  # draw robots
             painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine))
@@ -174,7 +161,6 @@ testRobot2 = BasicRobot(
 
 App = QApplication(sys.argv)
 testarena = Arena()
-
 testarena.add_robot(testRobot)
 testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
