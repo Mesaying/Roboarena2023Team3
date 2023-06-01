@@ -7,6 +7,8 @@ class terrain:
         self.damage
         self.type
         self.imagePath
+    def getCollision(self):
+        return self.solid
 
 
 class water(terrain):  # inherits from the motherclass terrain

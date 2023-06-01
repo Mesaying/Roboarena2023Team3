@@ -118,7 +118,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                 painter.drawPixmap(y * 10, x * 10, pix)
 
         for i in range(len(self.robots)):  # draw robots
-            painter.setPen(QPen(self.robots[i].color, 8, Qt.DashLine))
+            painter.setPen(QPen(self.robots[i].color, 1, Qt.DashLine))
             pi = 3.14  # calculate pi
             radians = (
                 self.robots[i].alpha / 180.0 * pi
@@ -141,7 +141,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
 
 xPosition = 500
-yPosition = 500
+yPosition = 250
 testRobot = BasicRobot(
     xPos=xPosition,
     yPos=yPosition,
@@ -161,8 +161,8 @@ testRobot2 = BasicRobot(
 
 App = QApplication(sys.argv)
 testarena = Arena()
-testarena.add_robot(testRobot)
-testarena.add_robot(testRobot1)
+#testarena.add_robot(testRobot)
+#testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
 testarena.runTask()
 testarena.InitWindow()
