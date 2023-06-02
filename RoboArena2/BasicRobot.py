@@ -8,6 +8,7 @@ class MovementTyp(Enum):
     Line = "Line"
     Circle = "Circle"
     Wave = "Wave"
+    Player1Control = "Player1Control"
 
 
 class BasicRobot:
@@ -44,6 +45,15 @@ class BasicRobot:
         yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
         self.x = int(self.x + xVelocity)
         self.y = int(self.y + yVelocity)
+
+    def moveBack(self):
+        # TODO: replace this with tick time eventually
+        self.calculateSpeed(1 / 30)
+
+        xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
+        yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
+        self.x = int(self.x - xVelocity)
+        self.y = int(self.y - yVelocity)
 
     def rotate(self):
         # TODO: replace this with tick time eventually

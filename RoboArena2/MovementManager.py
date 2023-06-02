@@ -1,13 +1,14 @@
-from BasicRobot import MovementTyp
+from BasicRobot import BasicRobot, MovementTyp
+from PyQt5.QtCore import Qt
 
 
 class MovementManager_:
     waveConter = 0
 
-    def __init__(self, robot):
+    def __init__(self, robot: BasicRobot):
         self.robot = robot
 
-    def moveInShape(self):
+    def handleInput(self, keys: dict):
         Movementtyp_ = self.robot.getMovementType()
 
         match (Movementtyp_):
@@ -17,6 +18,8 @@ class MovementManager_:
                 self.moveInCircle()
             case MovementTyp.Wave:
                 self.moveInWave()
+            case MovementTyp.Player1Control:
+                self.handleInputPlayer1(keys)
             case _:
                 print("MovementType not yet defined")
 
@@ -37,3 +40,25 @@ class MovementManager_:
             self.robot.rotateLeft()
             self.waveConter += 1
             self.waveConter = self.waveConter % 100
+
+    def handleInputPlayer1(self, keys: dict):
+        moveForward = Qt.Key.Key_W
+        moveBack = Qt.Key.Key_S
+        turnLeft = Qt.Key.Key_A
+        turnRight = Qt.Key.Key_D
+        PressedMoveForward = moveForward in keys and keys[moveForward]
+        PressedMoveBack = moveBack in keys and keys[moveBack]
+        PressedTurnLeft = turnLeft in keys and keys[turnLeft]
+        PressedTurnRight = turnRight in keys and keys[turnRight]
+
+        if PressedMoveForward and not PressedMoveBack:
+            self.robot.move()
+
+        if PressedMoveBack and not PressedMoveForward:
+            self.robot.moveBack()
+
+        if PressedTurnLeft and not PressedTurnRight:
+            self.robot.rotateLeft()
+
+        if PressedTurnRight and not PressedTurnLeft:
+            self.robot.rotate()
