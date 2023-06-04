@@ -29,7 +29,7 @@ class BasicRobot:
         self.color = Qt.black
         self.turnAccel = 2
         self.acceleration = 10
-        self.alpha = -45
+        self.alpha = 180
         self.radius = 50
         self.speed = 0
         self.turnSpeed = 0
@@ -104,6 +104,9 @@ class BasicRobot:
         endX = round(endX)
         endY = round(endY)
 
+        freeX = self.x
+        freeY = self.y
+
         while (currY != endY) | (currX != endX):
 
             xDir = endX - currX
@@ -118,10 +121,14 @@ class BasicRobot:
             currX += xDir
             currY += yDir
 
-            for x in range(int(currX - int((self.radius/10))), int(currX + math.ceil((self.radius/10)))):
-                for y in range(int(currY - math.ceil((self.radius/10))), int(currY + math.ceil((self.radius/10)))):
-                    #print(xDir)
-                    if self.tiles[round(y/10)][round(x/10)].getCollision() != 0:
-                        return (currX - xDir), (currY - yDir)
+            for x in range(math.ceil(currX - math.ceil(self.radius)), math.ceil(currX + math.ceil(self.radius))):
+                for y in range(math.ceil(currY - math.ceil(self.radius)), math.ceil(currY + math.ceil(self.radius))):
+
+                    if self.tiles[math.floor(x/10)][math.floor(y/10)].getCollision() != 0:
+                        print("test")
+                        return freeX, freeY
+
+            freeX = currX
+            freeY = currY
 
         return endX, endY
