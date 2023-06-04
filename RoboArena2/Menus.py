@@ -1,7 +1,8 @@
-import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+import sys
+
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.uic import loadUi
 
 
@@ -62,7 +63,7 @@ class PlayMenu(MainMenu):
 
         self.loadImage(r"MenuAssets\arobot.jpg")
 
-        loadUi('MenuAssets\PlayMenu.ui', self)
+        loadUi("MenuAssets\PlayMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoloClicked)
         self.MultiplayerButton.clicked.connect(self.MultiplayerClicked)
@@ -86,7 +87,7 @@ class SettingsMenu(MainMenu):
 
         self.loadImage(r"MenuAssets\arobot.jpg")
 
-        loadUi('MenuAssets\SettingsMenu.ui', self)
+        loadUi("MenuAssets\SettingsMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoundClicked)
         self.MultiplayerButton.clicked.connect(self.GraphicsClicked)
@@ -104,7 +105,7 @@ class SettingsMenu(MainMenu):
         self.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainMenu()
     window.show()
