@@ -150,13 +150,13 @@ testRobot = BasicRobot(
 testRobot1 = BasicRobot(
     xPos=xPosition - 100,
     yPos=yPosition,
-    movementtype=MovementTyp.Circle,
+    movementtype=MovementTyp.Wave,
 )
 
 testRobot2 = BasicRobot(
     xPos=xPosition + 100,
     yPos=yPosition,
-    movementtype=MovementTyp.Line,
+    movementtype=MovementTyp.Circle,
 )
 
 App = QApplication(sys.argv)
