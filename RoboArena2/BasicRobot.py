@@ -2,8 +2,7 @@ import math
 from enum import Enum
 
 from PyQt5.QtCore import Qt
-
-from Terrain import wall, water, fire, spikes, boost, normal
+from Terrain import boost, fire, normal, spikes, wall, water
 
 
 class MovementTyp(Enum):
@@ -108,23 +107,32 @@ class BasicRobot:
         freeY = self.y
 
         while (currY != endY) | (currX != endX):
-
             xDir = endX - currX
             yDir = endY - currY
 
-            if (xDir != 0):
+            if xDir != 0:
                 xDir = math.copysign(1, xDir)
 
-            if (yDir != 0):
+            if yDir != 0:
                 yDir = math.copysign(1, yDir)
 
             currX += xDir
             currY += yDir
 
-            for x in range(math.ceil(currX - math.ceil(self.radius)), math.ceil(currX + math.ceil(self.radius))):
-                for y in range(math.ceil(currY - math.ceil(self.radius)), math.ceil(currY + math.ceil(self.radius))):
-
-                    if self.tiles[math.floor(x/10)][math.floor(y/10)].getCollision() != 0:
+            for x in range(
+                math.ceil(currX - math.ceil(self.radius)),
+                math.ceil(currX + math.ceil(self.radius)),
+            ):
+                for y in range(
+                    math.ceil(currY - math.ceil(self.radius)),
+                    math.ceil(currY + math.ceil(self.radius)),
+                ):
+                    if (
+                        self.tiles[math.floor(x / 10)][
+                            math.floor(y / 10)
+                        ].getCollision()
+                        != 0
+                    ):
                         print("test")
                         return freeX, freeY
 

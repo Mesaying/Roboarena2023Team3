@@ -161,8 +161,8 @@ testRobot2 = BasicRobot(
 
 App = QApplication(sys.argv)
 testarena = Arena()
-#testarena.add_robot(testRobot)
-#testarena.add_robot(testRobot1)
+# testarena.add_robot(testRobot)
+# testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
 testarena.runTask()
 testarena.InitWindow()
