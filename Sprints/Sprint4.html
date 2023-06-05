@@ -34,6 +34,19 @@
 
 <p><strong><span style="font-size: larger;">Stretch goals:</span></strong> <br>
 -Different classes of robots
--Multiple attack-abilities to choose from
+-Multiple attack-abilities to choose from <br>
+
+<p><strong><span style="font-size: larger;">Collision Detection:</span></strong> <br>
+Implementing collision detection turned out to be a little more challenging than I thought. <br>
+In the solution I ended up with I basically iterate over every tile the robots plans to move across. <br>
+If we encounter any solid tiles within the radius of the robot, we stop moving at the last position at which there were no solid tiles within the robots radius.
+<br>
+
+Code for collision detection: <br>
+<img src="assets/Sprint4/RoboarenaCollDect.png">     <br>
+
+A robot hitting a wall and only being able to go away from it: <br>
+<video width="960" height="720" controls src="assets/Sprint4/RoboAgainstWall.gif" type=""assets/Sprint4/RoboAgainstWall.gif"/>
+
 </body>
 </html>
