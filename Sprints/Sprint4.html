@@ -52,7 +52,18 @@ Some Refactoring:<br>
 Basic Robot needs only position and Movementtype:<br>
 <img src="assets/Sprint4/BasicRobotRefactoring.png">     <br>  
 Added some type Hints:<br>
-<img src="assets/Sprint4/WorkerRefactoring.png">     <br>                                                   
+<img src="assets/Sprint4/WorkerRefactoring.png">     <br>
+<br>                                 
+Player Controls:<br>
+First I added the PlayerControl as an enum so we can say which Robot we want to control for now just one.<br>
+Next I wanted to get the Player Inputs a Problem was that KeyEvent only Returns one Pressed Key<br>
+also it does not automatically keep track of the Keys we keep Pressing.<br>
+My solution was to use Key Press- and Release- Events and write the Keys in a dictionary:<br>
+<img src="assets/Sprint4/GettingInputs.png"><br>
+We keep track of all Pressed Keys so we can easily add new Player Controls.<br>
+<br>
+The MovementManager calls a function that than uses the inputs:<br>
+<img src="assets/Sprint4/Player1BasicMovement.png"><br>                                           
 
 </body>
 </html>
