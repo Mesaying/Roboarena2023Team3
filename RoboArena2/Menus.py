@@ -17,7 +17,7 @@ class MainMenu(QMainWindow):
         self.loadImage(r"MenuAssets\arobot.jpg")
 
         # Load the UI file
-        loadUi("MenuAssets\MainMenu.ui", self)
+        loadUi("MenuAssets/MainMenu.ui", self)
 
         # Make the window non-resizable
         self.setFixedSize(self.size())
@@ -63,7 +63,7 @@ class PlayMenu(MainMenu):
 
         self.loadImage(r"MenuAssets\arobot.jpg")
 
-        loadUi("MenuAssets\PlayMenu.ui", self)
+        loadUi("MenuAssets/PlayMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoloClicked)
         self.MultiplayerButton.clicked.connect(self.MultiplayerClicked)
@@ -87,7 +87,7 @@ class SettingsMenu(MainMenu):
 
         self.loadImage(r"MenuAssets\arobot.jpg")
 
-        loadUi("MenuAssets\SettingsMenu.ui", self)
+        loadUi("MenuAssets/SettingsMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoundClicked)
         self.MultiplayerButton.clicked.connect(self.GraphicsClicked)
