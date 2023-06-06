@@ -19,6 +19,21 @@
 <body>
     <h2 class="sprint-heading">Sprint 4</h2>
 
+        <p><strong><span style="font-size: larger;">Minimum viable product:</span></strong> <br>
+-1v1 type of game mode controlled with one keyboard (local coop) <br>
+-5 different types of terrain <br>
+-Main Menu <br>
+-Ability to shoot for both robots <br>
+-in-game UI to show cooldown and health of robots <br>
+-Main Menu <br>
+-Including sound effects and music<br>
+        
+<p><strong><span style="font-size: larger;">Stretch goals:</span></strong> <br>
+-Different classes of robots <br>
+-Multiple attack-abilities to choose from <br>
+-Online co-op" <br><br>
+    
+    
     <br>
     <b>Creating prototype game menus(Nico):  </b> <br><br>
     
@@ -64,18 +79,7 @@
     
     <img src="Sprint4/undoreset.gif" alt="GIF Image"> <br><br>
 
-    <p><strong><span style="font-size: larger;">Minimum viable product:</span></strong> <br>
--1v1 type of game mode controlled with one keyboard (local coop) <br>
--5 different types of terrain <br>
--Main Menu <br>
--Ability to shoot for both robots <br>
--in-game UI to show cooldown and health of robots <br>
--Main Menu <br>
-
-<p><strong><span style="font-size: larger;">Stretch goals:</span></strong> <br>
--Different classes of robots <br>
--Multiple attack-abilities to choose from <br>
-
+   
 <p><strong><span style="font-size: larger;">Collision Detection:</span></strong> <br>
 Implementing collision detection turned out to be a little more challenging than I thought. <br>
 In the solution I ended up with I basically iterate over every tile the robots plans to move across. <br>
@@ -87,6 +91,23 @@ Code for collision detection: <br>
 
 A robot hitting a wall and only being able to go away from it: <br>
 <video width="960" height="720" controls src="Sprint4/RoboAgainstWall.mp4" type=""Sprint4/RoboAgainstWall.mp4"/> <br>
+                                                                                                              
+<b>Some Refactoring: </b> <br>
+Basic Robot needs only position and Movementtype:<br>
+<img src="Sprint4/BasicRobotRefactoring.png">     <br>  
+Added some type Hints:<br>
+<img src="Sprint4/WorkerRefactoring.png">     <br>
+<br>                                 
+Player Controls:<br>
+First I added the PlayerControl as an enum so we can say which Robot we want to control for now just one.<br>
+Next I wanted to get the Player Inputs a Problem was that KeyEvent only Returns one Pressed Key<br>
+also it does not automatically keep track of the Keys we keep Pressing.<br>
+My solution was to use Key Press- and Release- Events and write the Keys in a dictionary:<br>
+<img src="Sprint4/GettingInputs.png"><br>
+We keep track of all Pressed Keys so we can easily add new Player Controls.<br>
+<br>
+The MovementManager calls a function that than uses the inputs:<br>
+<img src="Sprint4/Player1BasicMovement.png"><br>                 
     
 
 
