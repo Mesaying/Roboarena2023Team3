@@ -1,13 +1,13 @@
-import sys
+import importlib
 import os
+import sys
 import threading
 
-from PyQt5.QtCore import QUrl, QThread
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.uic import loadUi
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-import importlib
 
 
 class MainMenu(QMainWindow):
@@ -61,7 +61,7 @@ class MainMenu(QMainWindow):
         position = self.getWindowPos()
         x_coord = position.x()
         y_coord = position.y()
-        self.play_menu = PlayMenu(x_coord,y_coord)
+        self.play_menu = PlayMenu(x_coord, y_coord)
         self.play_menu.show()
         self.close()
 
@@ -91,6 +91,7 @@ class MainMenu(QMainWindow):
     def moveWindowPos(self):
         self.move(self.x_position, self.y_position)
 
+
 class PlayMenu(MainMenu):
     def __init__(self, x_position, y_position):
         super().__init__()
@@ -102,7 +103,7 @@ class PlayMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi('MenuAssets\PlayMenu.ui', self)
+        loadUi("MenuAssets\PlayMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoloClicked)
         self.MultiplayerButton.clicked.connect(self.MultiplayerClicked)
@@ -139,7 +140,7 @@ class SettingsMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi('MenuAssets\SettingsMenu.ui', self)
+        loadUi("MenuAssets\SettingsMenu.ui", self)
 
         self.GraphicsButton.clicked.connect(self.GraphicsClicked)
         self.BackButton.clicked.connect(self.BackClicked)
@@ -172,7 +173,7 @@ class ExtrasMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi('MenuAssets\ExtrasMenu.ui', self)
+        loadUi("MenuAssets\ExtrasMenu.ui", self)
 
         self.MapEditorButton.clicked.connect(self.MapEditorClicked)
         self.BackButton.clicked.connect(self.BackClicked)
@@ -186,7 +187,7 @@ class ExtrasMenu(MainMenu):
         self.headline.setFont(font)
 
     def MapEditorClicked(self):
-        MapEditor = importlib.import_module('MapEditor').MapEditor
+        MapEditor = importlib.import_module("MapEditor").MapEditor
         self.map_editor = MapEditor()
         self.map_editor.show()
         self.close()
@@ -196,12 +197,14 @@ class ExtrasMenu(MainMenu):
         self.main_menu.show()
         self.close()
 
+
 """
 media_player = QMediaPlayer()
     media = QMediaContent(QUrl.fromLocalFile("Sounds/guitar.mp3"))  # Replace with the path to your sound file
     media_player.setMedia(media)
     media_player.play()
 """
+
 
 class MusicPlayer:
     def __init__(self):
@@ -220,7 +223,8 @@ class MusicPlayer:
     def play(self):
         self.media_player.play()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Create the QApplication instance in the main thread
     app = QApplication(sys.argv)
 
