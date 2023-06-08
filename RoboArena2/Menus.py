@@ -17,7 +17,7 @@ class MainMenu(QMainWindow):
         self.height = 1000
 
         # Load and display the image
-        self.loadImage(r"MenuAssets\arobot.jpg")
+        self.loadImage(r"MenuAssets\\arobot.jpg")
 
         # Load the UI file
         loadUi("MenuAssets\\MainMenu.ui", self)
@@ -196,16 +196,6 @@ class ExtrasMenu(MainMenu):
         self.main_menu = MainMenu()
         self.main_menu.show()
         self.close()
-
-
-"""
-media_player = QMediaPlayer()
-    media = QMediaContent(QUrl.fromLocalFile("Sounds/guitar.mp3"))  
-    # Replace with the path to your sound file
-    media_player.setMedia(media)
-    media_player.play()
-"""
-
 
 class MusicPlayer:
     def __init__(self):
