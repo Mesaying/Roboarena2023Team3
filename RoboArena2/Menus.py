@@ -197,6 +197,7 @@ class ExtrasMenu(MainMenu):
         self.main_menu.show()
         self.close()
 
+
 class MusicPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
