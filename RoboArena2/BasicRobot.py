@@ -15,6 +15,7 @@ class MovementTyp(Enum):
 class BasicRobot:
     MAX_SPEED = 5
     MAX_TURNSPEED = 2
+    MAX_HEALTH = 100
 
     def __init__(
         self,
@@ -33,6 +34,7 @@ class BasicRobot:
         self.radius = 50
         self.speed = 0
         self.turnSpeed = 0
+        self.health = self.MAX_HEALTH
 
         list_with_tiles = []
         with open("testarena.txt", "r") as file:  # Opens the textfile
@@ -150,3 +152,18 @@ class BasicRobot:
             freeY = currY
 
         return endX, endY
+
+    # taking damage function
+    def takeDamage(self, Damage: int) -> None:
+        if Damage < self.health:
+            self.health -= Damage
+        else:
+            self.health = 0
+
+    # healing funktion
+    # no overhealth
+    def heal(self, healingAmount: int) -> None:
+        if self.health + healingAmount < self.MAX_HEALTH:
+            self.health += healingAmount
+        else:
+            self.health = self.MAX_HEALTH

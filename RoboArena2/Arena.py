@@ -4,7 +4,7 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QKeyEvent, QPainter, QPen, QPixmap
+from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 
@@ -147,6 +147,22 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                 diameter,
                 diameter,
             )
+
+        for i in self.robots:
+            barSize = 10
+            painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
+            painter.setBrush(QBrush(Qt.green, Qt.SolidPattern))
+            xPos = self.calcxPositionHealthBar(i)
+            yPos = self.calcyPositionHealthBar(i, barSize)
+            painter.drawRect(xPos, yPos, i.health, barSize)
+
+    def calcxPositionHealthBar(self, robot: BasicRobot) -> int:
+        xPos = robot.x - int(robot.health / 2)
+        return xPos
+
+    def calcyPositionHealthBar(self, robot: BasicRobot, barSize: int) -> int:
+        yPos = robot.y - robot.radius - barSize
+        return yPos
 
 
 xPosition = 500
