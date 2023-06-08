@@ -20,7 +20,7 @@ class MainMenu(QMainWindow):
         self.loadImage(r"MenuAssets\arobot.jpg")
 
         # Load the UI file
-        loadUi("MenuAssets\MainMenu.ui", self)
+        loadUi("MenuAssets\\MainMenu.ui", self)
 
         # Set the window title and add a headline
         self.setWindowTitle("Main Menu")
@@ -103,7 +103,7 @@ class PlayMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi("MenuAssets\PlayMenu.ui", self)
+        loadUi("MenuAssets\\PlayMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoloClicked)
         self.MultiplayerButton.clicked.connect(self.MultiplayerClicked)
@@ -140,7 +140,7 @@ class SettingsMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi("MenuAssets\SettingsMenu.ui", self)
+        loadUi("MenuAssets\\SettingsMenu.ui", self)
 
         self.GraphicsButton.clicked.connect(self.GraphicsClicked)
         self.BackButton.clicked.connect(self.BackClicked)
@@ -173,7 +173,7 @@ class ExtrasMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi("MenuAssets\ExtrasMenu.ui", self)
+        loadUi("MenuAssets\\ExtrasMenu.ui", self)
 
         self.MapEditorButton.clicked.connect(self.MapEditorClicked)
         self.BackButton.clicked.connect(self.BackClicked)
@@ -200,7 +200,8 @@ class ExtrasMenu(MainMenu):
 
 """
 media_player = QMediaPlayer()
-    media = QMediaContent(QUrl.fromLocalFile("Sounds/guitar.mp3"))  # Replace with the path to your sound file
+    media = QMediaContent(QUrl.fromLocalFile("Sounds/guitar.mp3"))  
+    # Replace with the path to your sound file
     media_player.setMedia(media)
     media_player.play()
 """
