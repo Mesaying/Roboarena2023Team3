@@ -75,13 +75,13 @@ class BasicRobot:
 
         xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
         yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
-        colls = self.collisionDetection(self.x + (vec * xVelocity), self.y + (vec *yVelocity))
+        colls = self.collisionDetection(self.x + (vec * xVelocity), self.y + (vec * yVelocity))
+
         self.x = int(colls[0])
         self.y = int(colls[1])
 
     def rotate(self, vec, deltaTime):
         self.calculateTurnSpeed(deltaTime)
-
         self.alpha += self.turnSpeed * vec
 
     def calculateSpeed(self, deltaTime):
