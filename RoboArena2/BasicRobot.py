@@ -64,14 +64,13 @@ class BasicRobot:
     def getMovementType(self):
         return self.movementtype
 
+    #called every game-tick
     def tick(self, moveInputVec, rotationInputVec, deltaTime):
         self.rotate(rotationInputVec, deltaTime)
         self.move(moveInputVec, deltaTime)
 
-
     # cos(a)^2+sin(a)^2=1 that is why we use this for movement
     def move(self, vec, deltaTime):
-        # TODO: replace this with tick time eventually
         self.calculateSpeed(deltaTime)
 
         xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
@@ -81,7 +80,6 @@ class BasicRobot:
         self.y = int(colls[1])
 
     def rotate(self, vec, deltaTime):
-        # TODO: replace this with tick time eventually
         self.calculateTurnSpeed(deltaTime)
 
         self.alpha += self.turnSpeed * vec
