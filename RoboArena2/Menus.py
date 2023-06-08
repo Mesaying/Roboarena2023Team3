@@ -201,9 +201,9 @@ class ExtrasMenu(MainMenu):
 class MusicPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
-        media = QMediaContent(QUrl.fromLocalFile("Sounds/nicebassiguess.mp3"))
+        media = QMediaContent(QUrl.fromLocalFile("Sounds/A Journey Awaits.mp3"))
         self.media_player.setMedia(media)
-        self.media_player.setVolume(50)  # Adjust the volume as needed
+        self.media_player.setVolume(10)  # Adjust the volume as needed
 
         self.media_player.mediaStatusChanged.connect(self.restart_playback)
 
