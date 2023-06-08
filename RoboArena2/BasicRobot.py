@@ -152,18 +152,18 @@ class BasicRobot:
             freeY = currY
 
         return endX, endY
-    
+
     # taking damage function
-    def takeDamage(self, Damage : int ) -> None:
-        if(Damage < self.health):
+    def takeDamage(self, Damage: int) -> None:
+        if Damage < self.health:
             self.health -= Damage
         else:
             self.health = 0
 
     # healing funktion
     # no overhealth
-    def heal(self, healingAmount : int) -> None:
-        if(self.health + healingAmount < self.MAX_HEALTH):
+    def heal(self, healingAmount: int) -> None:
+        if self.health + healingAmount < self.MAX_HEALTH:
             self.health += healingAmount
         else:
             self.health = self.MAX_HEALTH
