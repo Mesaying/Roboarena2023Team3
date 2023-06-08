@@ -65,7 +65,9 @@ class BasicRobot:
         return self.movementtype
 
     def tick(self, moveInputVec, rotationInputVec, deltaTime):
+        self.rotate(rotationInputVec, deltaTime)
         self.move(moveInputVec, deltaTime)
+
 
     # cos(a)^2+sin(a)^2=1 that is why we use this for movement
     def move(self, vec, deltaTime):
