@@ -74,7 +74,7 @@ class MovementManager_:
             self.robot.weapon.shootWeapon()
         else:
             self.weaponsCurrentlyShoot = False
-        
+
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
 
     def reduceTimerToShoot(self) -> None:

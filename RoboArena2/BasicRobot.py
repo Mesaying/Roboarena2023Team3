@@ -3,7 +3,7 @@ from enum import Enum
 
 from PyQt5.QtCore import Qt
 from Terrain import boost, fire, normal, spikes, wall, water
-from Weapon import Weapon, WeaponName, WeaponTyp
+from Weapon import Weapon, WeaponName
 
 
 class MovementTyp(Enum):
