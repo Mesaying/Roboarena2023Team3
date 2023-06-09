@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
+from Weapon import Weapon, WeaponName, WeaponTyp
 
 
 class Worker(QThread):
@@ -155,6 +156,15 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             xPos = self.calcxPositionHealthBar(i)
             yPos = self.calcyPositionHealthBar(i, barSize)
             painter.drawRect(xPos, yPos, i.health, barSize)
+            if i.weaponsCurrentlyShoot:
+                painter.setPen(QPen(Qt.red, 2, Qt.SolidLine))
+                match(i.weapon.typ):
+                    case WeaponTyp.hitscan:
+                        endPosX = self.calcXEndHitScan(i)
+                        endPosY = self.calcYEndHitScan(i)
+                        painter.drawLine(i.x, i.y, endPosX, endPosY)
+                    case _:
+                        pass
 
     def calcxPositionHealthBar(self, robot: BasicRobot) -> int:
         xPos = robot.x - int(robot.health / 2)
@@ -163,7 +173,16 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     def calcyPositionHealthBar(self, robot: BasicRobot, barSize: int) -> int:
         yPos = robot.y - robot.radius - barSize
         return yPos
-
+    
+    def calcXEndHitScan(self, robot: BasicRobot) -> int:
+        pi = 3.14  # calculate pi
+        radians = robot.alpha / 180.0 * pi # convert degrees to radians
+        return int(robot.x + math.cos(radians) * robot.weapon.size)
+    
+    def calcYEndHitScan(self, robot: BasicRobot) -> int:
+        pi = 3.14  # calculate pi
+        radians = robot.alpha / 180.0 * pi # convert degrees to radians
+        return int(robot.y + math.sin(radians) * robot.weapon.size)
 
 xPosition = 500
 yPosition = 250
