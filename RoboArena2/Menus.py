@@ -1,13 +1,16 @@
-import importlib
-import os
 import sys
+import os
 import threading
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt5.QtCore import QUrl, QThread, QTimer
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.uic import loadUi
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+import importlib
+import configparser
+
+
 
 
 class MainMenu(QMainWindow):
@@ -20,7 +23,7 @@ class MainMenu(QMainWindow):
         self.loadImage(r"MenuAssets\\arobot.jpg")
 
         # Load the UI file
-        loadUi("MenuAssets\\MainMenu.ui", self)
+        loadUi("MenuAssets\MainMenu.ui", self)
 
         # Set the window title and add a headline
         self.setWindowTitle("Main Menu")
@@ -28,6 +31,7 @@ class MainMenu(QMainWindow):
         self.headline.setGeometry(350, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
 
         # Make the window non-resizable
@@ -61,7 +65,7 @@ class MainMenu(QMainWindow):
         position = self.getWindowPos()
         x_coord = position.x()
         y_coord = position.y()
-        self.play_menu = PlayMenu(x_coord, y_coord)
+        self.play_menu = PlayMenu(x_coord,y_coord)
         self.play_menu.show()
         self.close()
 
@@ -91,7 +95,6 @@ class MainMenu(QMainWindow):
     def moveWindowPos(self):
         self.move(self.x_position, self.y_position)
 
-
 class PlayMenu(MainMenu):
     def __init__(self, x_position, y_position):
         super().__init__()
@@ -103,7 +106,7 @@ class PlayMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi("MenuAssets\\PlayMenu.ui", self)
+        loadUi('MenuAssets\PlayMenu.ui', self)
 
         self.SoloButton.clicked.connect(self.SoloClicked)
         self.MultiplayerButton.clicked.connect(self.MultiplayerClicked)
@@ -115,6 +118,7 @@ class PlayMenu(MainMenu):
         self.headline.setGeometry(450, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
 
     def SoloClicked(self):
@@ -140,10 +144,30 @@ class SettingsMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi("MenuAssets\\SettingsMenu.ui", self)
+        loadUi('MenuAssets\SettingsMenu.ui', self)
 
         self.GraphicsButton.clicked.connect(self.GraphicsClicked)
         self.BackButton.clicked.connect(self.BackClicked)
+
+        # Connect the slider valueChanged signal to a function
+        self.SoundSlider.valueChanged.connect(self.sliderValueChanged)
+
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read('config.txt')  # Path to config file
+        volume = config.getint('Settings', 'volume')
+
+
+        # QLabel for displaying volume text
+        self.volumeLabel = QLabel(self)
+        self.volumeLabel.setGeometry(600, 462, 181, 121)
+
+        # Display Volume Label and chane font
+        font = QFont()
+        font.setPointSize(14)  # Set the desired font size
+        font.setBold(True)  # Optionally, set the font weight to bold
+        self.volumeLabel.setFont(font)
+        self.volumeLabel.setText(f"Volume: {volume}")
 
         # Set the window title and add a headline
         self.setWindowTitle("Settings Menu")
@@ -151,7 +175,24 @@ class SettingsMenu(MainMenu):
         self.headline.setGeometry(400, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
+
+    def sliderValueChanged(self, value):
+        # Update the configuration file with the new volume value
+        config = configparser.ConfigParser()
+        config.read('config.txt')  # Path to config file
+        config.set('Settings', 'volume', str(value))
+
+        # Overwrite config file
+        with open('config.txt', 'w') as config_file:
+            config.write(config_file)
+
+        self.volumeLabel.setText(f"Volume: {value}")
+
+        print("Slider value changed:", value)
+
+
 
     def GraphicsClicked(self):
         print("g")
@@ -173,7 +214,7 @@ class ExtrasMenu(MainMenu):
 
         self.moveWindowPos()
 
-        loadUi("MenuAssets\\ExtrasMenu.ui", self)
+        loadUi('MenuAssets\ExtrasMenu.ui', self)
 
         self.MapEditorButton.clicked.connect(self.MapEditorClicked)
         self.BackButton.clicked.connect(self.BackClicked)
@@ -184,10 +225,11 @@ class ExtrasMenu(MainMenu):
         self.headline.setGeometry(400, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
 
     def MapEditorClicked(self):
-        MapEditor = importlib.import_module("MapEditor").MapEditor
+        MapEditor = importlib.import_module('MapEditor').MapEditor
         self.map_editor = MapEditor()
         self.map_editor.show()
         self.close()
@@ -197,37 +239,54 @@ class ExtrasMenu(MainMenu):
         self.main_menu.show()
         self.close()
 
-
 class MusicPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
-        media = QMediaContent(
-            QUrl.fromLocalFile("Sounds/A Journey Awaits.mp3")
-        )
+        media = QMediaContent(QUrl.fromLocalFile("Sounds/nicebassiguess.mp3"))
         self.media_player.setMedia(media)
-        self.media_player.setVolume(10)  # Adjust the volume as needed
+
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read('config.txt')  # Path to config file
+        self.volume = config.getint('Settings', 'volume')
+
+        # Adjust volume
+        self.media_player.setVolume(self.volume)
 
         self.media_player.mediaStatusChanged.connect(self.restart_playback)
+
+        # Create a QTimer to update the volume regularly
+        self.volume_timer = QTimer()
+        self.volume_timer.timeout.connect(self.update_volume)
+        self.volume_timer.start(1000)
 
     def restart_playback(self, status):
         if status == QMediaPlayer.EndOfMedia:
             self.media_player.setPosition(0)
             self.media_player.play()
 
+    def update_volume(self):
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read('config.txt')  # Path to config file
+        self.volume = config.getint('Settings', 'volume')
+
+        # Adjust volume
+        self.media_player.setVolume(self.volume)
+
     def play(self):
         self.media_player.play()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Create the QApplication instance in the main thread
     app = QApplication(sys.argv)
 
     # Create an instance of the MusicPlayer class
     music_player = MusicPlayer()
 
-    # Run the music playback in a separate thread
-    thread = threading.Thread(target=music_player.play)
-    thread.start()
+    # Run the music playback in the main thread
+    music_player.play()
 
     # Continue with the main program execution
     window = MainMenu()
