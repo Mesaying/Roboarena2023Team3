@@ -11,7 +11,9 @@ from Weapon import WeaponTyp
 
 
 class Worker(QThread):
-    def __init__(self, robot: BasicRobot, keys: dict, robots: type[BasicRobot]):
+    def __init__(
+        self, robot: BasicRobot, keys: dict, robots: type[BasicRobot]
+    ):
         QThread.__init__(self)
         self.robot = robot
         self.keys = keys
@@ -26,7 +28,7 @@ class Worker(QThread):
         self.movementManager.handleInput(self.keys)
 
     def calculateDamage(self) -> None:
-        if(self.robot.weaponsCurrentlyShoot):
+        if self.robot.weaponsCurrentlyShoot:
             xEndLine = self.getLineXEnd()
             yEndLine = self.getLineYEnd()
             lineX = self.robot.x - xEndLine
@@ -35,22 +37,27 @@ class Worker(QThread):
             lineDirectionX = self.normalizeVector(lineX, lengthLine)
             lineDirectionY = self.normalizeVector(lineY, lengthLine)
             for i in self.robots:
-                if not(i is self.robot):
-                    lineCircleXVector = float(self.getCircleToLineX(i, xEndLine))
-                    lineCircleYVector = float(self.getCircleToLineY(i, yEndLine))
-                    distance = self.dotProduct(lineDirectionX,
-                                            lineDirectionY,
-                                            lineCircleXVector,
-                                            lineCircleYVector)
+                if not (i is self.robot):
+                    lineCircleXVector = float(
+                        self.getCircleToLineX(i, xEndLine)
+                    )
+                    lineCircleYVector = float(
+                        self.getCircleToLineY(i, yEndLine)
+                    )
+                    distance = self.dotProduct(
+                        lineDirectionX,
+                        lineDirectionY,
+                        lineCircleXVector,
+                        lineCircleYVector,
+                    )
                     distance = self.distanceOnLine(distance, lengthLine)
                     projectionX = int(lineDirectionX * distance)
                     projectionY = int(lineDirectionY * distance)
                     closestX = xEndLine + projectionX
                     closestY = yEndLine + projectionY
-                    distanceToShot = self.distanceBetweenPonts(i.x,
-                                                               i.y,
-                                                               closestX,
-                                                               closestY)
+                    distanceToShot = self.distanceBetweenPonts(
+                        i.x, i.y, closestX, closestY
+                    )
                     distanceToShot = int(distanceToShot)
                     self.applyDamage(i, distanceToShot)
 
@@ -58,47 +65,46 @@ class Worker(QThread):
         pi = 3.14  # calculate pi
         radians = self.robot.alpha / 180.0 * pi  # convert degrees to radians
         return int(self.robot.x + math.cos(radians) * self.robot.weapon.size)
-    
+
     def getLineYEnd(self) -> int:
         pi = 3.14  # calculate pi
         radians = self.robot.alpha / 180.0 * pi  # convert degrees to radians
         return int(self.robot.y + math.sin(radians) * self.robot.weapon.size)
-    
-    def getCircleToLineX(self, target : BasicRobot, xPos : int) -> int:
+
+    def getCircleToLineX(self, target: BasicRobot, xPos: int) -> int:
         return target.x - xPos
-    
-    def getCircleToLineY(self, target : BasicRobot, yPos : int) -> int:
+
+    def getCircleToLineY(self, target: BasicRobot, yPos: int) -> int:
         return target.y - yPos
-    
-    def LengthVector(self, xVec : int, yVec : int) -> float:
+
+    def LengthVector(self, xVec: int, yVec: int) -> float:
         length = math.sqrt(xVec * xVec + yVec * yVec)
         return length
-    
-    def normalizeVector(self, Vec : int, length : float) -> float:
+
+    def normalizeVector(self, Vec: int, length: float) -> float:
         vecAsFloat = float(Vec)
         normalized = vecAsFloat / length
         return normalized
-    
-    def dotProduct(self, x1 : float,y1 : float, x2 : float, y2 : float) -> float:
+
+    def dotProduct(self, x1: float, y1: float, x2: float, y2: float) -> float:
         return x1 * x2 + y1 * y2
-    
-    def distanceOnLine(self, distance : float, length : float) -> float:
+
+    def distanceOnLine(self, distance: float, length: float) -> float:
         dist = distance
         if dist < 0:
             dist = 0
         if dist > length:
             dist = length
         return dist
-    
-    def distanceBetweenPonts(self, x1 : int, y1 : int, x2 : int, y2 : int) -> int:
+
+    def distanceBetweenPonts(self, x1: int, y1: int, x2: int, y2: int) -> int:
         dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
         return dist
-    
-    def applyDamage(self, robot : BasicRobot, dist : int) -> None:
+
+    def applyDamage(self, robot: BasicRobot, dist: int) -> None:
         didHit = robot.radius >= dist
         if didHit:
             robot.takeDamage(self.robot.weapon.damage)
-    
 
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
