@@ -58,7 +58,6 @@ class Worker(QThread):
                     distanceToShot = self.distanceBetweenPonts(
                         i.x, i.y, closestX, closestY
                     )
-                    distanceToShot = int(distanceToShot)
                     self.applyDamage(i, distanceToShot)
 
     def getLineXEnd(self) -> int:
@@ -98,7 +97,7 @@ class Worker(QThread):
         return dist
 
     def distanceBetweenPonts(self, x1: int, y1: int, x2: int, y2: int) -> int:
-        dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        dist = int(math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2))
         return dist
 
     def applyDamage(self, robot: BasicRobot, dist: int) -> None:
