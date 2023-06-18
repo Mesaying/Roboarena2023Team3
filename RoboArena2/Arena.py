@@ -11,10 +11,11 @@ from Weapon import WeaponTyp
 
 
 class Worker(QThread):
-    def __init__(self, robot: BasicRobot, keys: dict):
+    def __init__(self, robot: BasicRobot, keys: dict, robots: type[BasicRobot]):
         QThread.__init__(self)
         self.robot = robot
         self.keys = keys
+        self.robots = robots
 
     def run(self):
         # function gets called at start()
@@ -24,10 +25,86 @@ class Worker(QThread):
         # MovementManager handles the inputs
         self.movementManager.handleInput(self.keys)
 
+    def calculateDamage(self) -> None:
+        if(self.robot.weaponsCurrentlyShoot):
+            xEndLine = self.getLineXEnd()
+            yEndLine = self.getLineYEnd()
+            lineX = self.robot.x - xEndLine
+            lineY = self.robot.y - yEndLine
+            lengthLine = self.LengthVector(lineX, lineY)
+            lineDirectionX = self.normalizeVector(lineX, lengthLine)
+            lineDirectionY = self.normalizeVector(lineY, lengthLine)
+            for i in self.robots:
+                if not(i is self.robot):
+                    lineCircleXVector = float(self.getCircleToLineX(i, xEndLine))
+                    lineCircleYVector = float(self.getCircleToLineY(i, yEndLine))
+                    distance = self.dotProduct(lineDirectionX,
+                                            lineDirectionY,
+                                            lineCircleXVector,
+                                            lineCircleYVector)
+                    distance = self.distanceOnLine(distance, lengthLine)
+                    projectionX = int(lineDirectionX * distance)
+                    projectionY = int(lineDirectionY * distance)
+                    closestX = xEndLine + projectionX
+                    closestY = yEndLine + projectionY
+                    distanceToShot = self.distanceBetweenPonts(i.x,
+                                                               i.y,
+                                                               closestX,
+                                                               closestY)
+                    distanceToShot = int(distanceToShot)
+                    self.applyDamage(i, distanceToShot)
+
+    def getLineXEnd(self) -> int:
+        pi = 3.14  # calculate pi
+        radians = self.robot.alpha / 180.0 * pi  # convert degrees to radians
+        return int(self.robot.x + math.cos(radians) * self.robot.weapon.size)
+    
+    def getLineYEnd(self) -> int:
+        pi = 3.14  # calculate pi
+        radians = self.robot.alpha / 180.0 * pi  # convert degrees to radians
+        return int(self.robot.y + math.sin(radians) * self.robot.weapon.size)
+    
+    def getCircleToLineX(self, target : BasicRobot, xPos : int) -> int:
+        return target.x - xPos
+    
+    def getCircleToLineY(self, target : BasicRobot, yPos : int) -> int:
+        return target.y - yPos
+    
+    def LengthVector(self, xVec : int, yVec : int) -> float:
+        length = math.sqrt(xVec * xVec + yVec * yVec)
+        return length
+    
+    def normalizeVector(self, Vec : int, length : float) -> float:
+        vecAsFloat = float(Vec)
+        normalized = vecAsFloat / length
+        return normalized
+    
+    def dotProduct(self, x1 : float,y1 : float, x2 : float, y2 : float) -> float:
+        return x1 * x2 + y1 * y2
+    
+    def distanceOnLine(self, distance : float, length : float) -> float:
+        dist = distance
+        if dist < 0:
+            dist = 0
+        if dist > length:
+            dist = length
+        return dist
+    
+    def distanceBetweenPonts(self, x1 : int, y1 : int, x2 : int, y2 : int) -> int:
+        dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        return dist
+    
+    def applyDamage(self, robot : BasicRobot, dist : int) -> None:
+        didHit = robot.radius >= dist
+        if didHit:
+            robot.takeDamage(self.robot.weapon.damage)
+    
+
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
     robotSignal = pyqtSignal()
+    hitSignal = pyqtSignal()
     listOfThreads = {}
     keysPressed = {}
 
@@ -79,6 +156,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def update_arena(self):
         self.robotSignal.emit()
+        self.hitSignal.emit()
         self.update()
 
     def set_tile(
@@ -105,12 +183,13 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         for i in range(len(self.robots)):
             key = i
             robot = self.robots[i]
-            value = Worker(robot, self.keysPressed)
+            value = Worker(robot, self.keysPressed, self.robots)
             self.listOfThreads[key] = value
 
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
             self.robotSignal.connect(self.listOfThreads[i].moveRobot)
+            self.hitSignal.connect(self.listOfThreads[i].calculateDamage)
             self.listOfThreads[i].start()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
