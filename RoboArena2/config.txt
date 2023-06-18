@@ -1,3 +1,4 @@
 [Settings]
-volume = 99
+music = 81
+game_sounds = 50
 
