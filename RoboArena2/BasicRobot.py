@@ -131,7 +131,6 @@ class BasicRobot:
                         ].getCollision()
                         != 0
                     ):
-                        print("test")
                         return freeX, freeY
 
             freeX = currX
