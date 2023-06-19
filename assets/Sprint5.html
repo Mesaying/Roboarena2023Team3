@@ -81,7 +81,7 @@
         added maxHealth and health as ints<br>
         added function to heal and deal demage<br>
         <img src="Sprint5/healingAndDamage.png"><br>
-        Weapons are objects we use enums to differentiate
+        Weapons are objects we use enums to differentiate<br>
         <img src="Sprint5/weaponEnum.png"><br>
         The Weapon stores the attributes<br>
         <img src="Sprint5/weaponClass.png"><br>
@@ -91,7 +91,19 @@
         <img src="Sprint5/helperfuncForHealthAndShoot.png"><br>
         Drawing the healthbar and shoot<br>
         <img src="Sprint5/DrawHealthbarAndShoot.png"><br>
-        <img src="Sprint5/inGameHealthbar.png"><br>
+        <img src="Sprint5/inGameHealthbar.png"><br><br>
+        To calculate if we hit we use vector Math<br>
+        we treat our shot as a line a vector ab and the robot we are checking<br>
+        to ac from end shot to center of robot we calculate the length. Using the length we normalize the vector ab<br>
+        to get the direction. We get the distance using the dotproduct of the normalazied vector and ac.<br>
+        The distace on line function enshures the closest point is on the line.<br>
+        Now we make the Projection vector using distance and the direction.<br>
+        Using this vector we can find the closest point on the line to our circle.<br>
+        Now we only need to cheeck if the closest point is closer than the raidius than we apply the damage.<br>
+        <img src="Sprint5/DamagecalcPart1.png"><br>
+        <img src="Sprint5/DamagecalcPart2.png"><br>
+        <img src="Sprint5/DamagecalcPart3.png"><br>
+        <img src="Sprint5/DamagecalcPart4.png"><br>
 
 </body>
 </html>
