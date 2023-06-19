@@ -24,20 +24,35 @@
         <p><strong><span style="font-size: larger;">Improving and extending menu structure</span></strong> <br>
 
         A short video to demonstrate the menu structure and the playing background sound. <br>    
-        <video width="720" height="480" controls>
+        <video width="1000" height="720" controls>
   <source src="Sprint5/Menu_Sound_Video.mp4" type="video/mp4">
 </video>
             
-         <br>To ensure that the menu windows always have the same starting position, we pass the positions of the currently displayed menu window to the upcoming window.</br>
+         <br>To ensure that the menu windows always have the same starting position, we pass the positions of the currently displayed menu window to the upcoming window.<br>
+        <img src="Sprint5/coordinates.JPG" alt="Italian Trulli"> <br>
    
     
         <p><strong><span style="font-size: larger;">Including background sound</span></strong> <br>
-
+        
         We work with a config file to save changes made in the options menu. <br>
         Changing values in the options menu will overwrite the entries in the config file.<br>
+
+            <img src="Sprint5/slider_value_changed.JPG" alt="Italian Trulli"> <br>
+            
         It ensures that changes made will remain even if you quit and restart the game. <br>
         Currently our only entries are regarding the game sound. <br>
         A possible stretch goal could be to provide players with the ability to modify the game controls through the options menu and save the changes in the config file.<br>
+
+        To play the music we implemented a class MusicPlayer:<br>
+        
+        <img src="Sprint5/class musicplayer.JPG" alt="Italian Trulli"> <br>    
+
+
+        With following functions:<br>
+        <img src="Sprint5/functionsmusicplayer.JPG" alt="Italian Trulli"> <br>
+
+        Restart_playback causes the music to run in a loop. <br>
+        The update_music function is called every 500 milliseconds and adjusts the volume of the music based on the value specified in the config file.<br><br>
    
         <p><strong><span style="font-size: larger;">Improving Map Editor and including it in the menu structure</span></strong> <br>
 
@@ -49,8 +64,9 @@
         <img src="Sprint5/LoadMap.JPG" alt="Italian Trulli">
             
             
-        Problem: 
+        Problem: <br>
         Circular dependency between the menus.py and mapeditor.py file. Solved with following code line: <br>
+        <img src="Sprint5/command_circular_dependency.JPG" alt="Italian Trulli"> <br>
 
 
 </body>
