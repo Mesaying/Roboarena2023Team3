@@ -1,10 +1,10 @@
+import configparser
 import importlib
 import os
 import sys
-import threading
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import QTimer, QUrl
+from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.uic import loadUi
@@ -28,6 +28,7 @@ class MainMenu(QMainWindow):
         self.headline.setGeometry(350, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
 
         # Make the window non-resizable
@@ -99,7 +100,7 @@ class PlayMenu(MainMenu):
         self.x_position = x_position
         self.y_position = y_position
 
-        self.loadImage(r"MenuAssets\brobot.png")
+        self.loadImage(r"MenuAssets\\brobot.png")
 
         self.moveWindowPos()
 
@@ -115,10 +116,16 @@ class PlayMenu(MainMenu):
         self.headline.setGeometry(450, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
 
     def SoloClicked(self):
-        print("g")
+        position = self.getWindowPos()
+        x_coord = position.x()
+        y_coord = position.y()
+        self.solo_menu = SoloMenu(x_coord, y_coord)
+        self.solo_menu.show()
+        self.close()
 
     def MultiplayerClicked(self):
         print("g")
@@ -136,7 +143,7 @@ class SettingsMenu(MainMenu):
         self.x_position = x_position
         self.y_position = y_position
 
-        self.loadImage(r"MenuAssets\robotc.png")
+        self.loadImage(r"MenuAssets\\robotc.png")
 
         self.moveWindowPos()
 
@@ -145,13 +152,47 @@ class SettingsMenu(MainMenu):
         self.GraphicsButton.clicked.connect(self.GraphicsClicked)
         self.BackButton.clicked.connect(self.BackClicked)
 
+        # Connect the slider valueChanged signal to a function
+        self.SoundSlider.valueChanged.connect(self.sliderValueChanged)
+
+        # Get music volume from config file
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        music = config.getint("Settings", "music")
+
+        # QLabel for displaying volume text
+        self.musicLabel = QLabel(self)
+        self.musicLabel.setGeometry(600, 370, 181, 121)
+
+        # Display Volume Label and chane font
+        font = QFont()
+        font.setPointSize(14)  # Set the desired font size
+        font.setBold(True)  # Optionally, set the font weight to bold
+        self.musicLabel.setFont(font)
+        self.musicLabel.setText(f"Volume: {music}")
+
         # Set the window title and add a headline
         self.setWindowTitle("Settings Menu")
         self.headline = QLabel("Settings", self)
         self.headline.setGeometry(400, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
+
+    def sliderValueChanged(self, value):
+        # Update the configuration file with the new volume value
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        config.set("Settings", "music", str(value))
+
+        # Overwrite config file
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
+
+        self.musicLabel.setText(f"Volume: {value}")
+
+        print("Slider value changed:", value)
 
     def GraphicsClicked(self):
         print("g")
@@ -169,7 +210,7 @@ class ExtrasMenu(MainMenu):
         self.x_position = x_position
         self.y_position = y_position
 
-        self.loadImage(r"MenuAssets\scaryrobot.png")
+        self.loadImage(r"MenuAssets\\scaryrobot.png")
 
         self.moveWindowPos()
 
@@ -184,6 +225,7 @@ class ExtrasMenu(MainMenu):
         self.headline.setGeometry(400, 100, 800, 100)
         font = self.headline.font()
         font.setPointSize(48)
+        font.setBold(True)
         self.headline.setFont(font)
 
     def MapEditorClicked(self):
@@ -198,21 +240,90 @@ class ExtrasMenu(MainMenu):
         self.close()
 
 
+class SoloMenu(MainMenu):
+    def __init__(self, x_position, y_position):
+        super().__init__()
+
+        self.x_position = x_position
+        self.y_position = y_position
+
+        self.loadImage(r"MenuAssets\\robotc.png")
+
+        self.moveWindowPos()
+
+        loadUi("MenuAssets\\SoloMenu.ui", self)
+
+        # To prevent starting the game without robot/arena choosen
+        self.robot_selected = False
+        self.arena_selected = False
+
+        self.PlayButton.clicked.connect(self.PlayClicked)
+        self.RobotButton.clicked.connect(self.RobotClicked)
+        self.BackButton.clicked.connect(self.BackClicked)
+
+        # Set the window title and add a headline
+        self.setWindowTitle("Solo")
+        self.headline = QLabel("Solo", self)
+        self.headline.setGeometry(400, 100, 800, 100)
+        font = self.headline.font()
+        font.setPointSize(48)
+        font.setBold(True)
+        self.headline.setFont(font)
+
+    def PlayClicked(self):
+        print("g")
+
+    def RobotClicked(self):
+        print("g")
+
+    def ArenaClicked(self):
+        print("g")
+
+    def BackClicked(self):
+        position = self.getWindowPos()
+        x_coord = position.x()
+        y_coord = position.y()
+        self.play_menu = PlayMenu(
+            x_coord, y_coord
+        )  # Pass the current main menu as parent
+        self.play_menu.show()
+        self.close()
+
+
 class MusicPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
-        media = QMediaContent(
-            QUrl.fromLocalFile("Sounds/A Journey Awaits.mp3")
-        )
+        media = QMediaContent(QUrl.fromLocalFile("Sounds\\nicebassiguess.mp3"))
         self.media_player.setMedia(media)
-        self.media_player.setVolume(10)  # Adjust the volume as needed
+
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        self.music = config.getint("Settings", "music")
+
+        # Adjust volume
+        self.media_player.setVolume(self.music)
 
         self.media_player.mediaStatusChanged.connect(self.restart_playback)
+
+        # Create a QTimer to update the volume regularly
+        self.music_timer = QTimer()
+        self.music_timer.timeout.connect(self.update_music)
+        self.music_timer.start(500)
 
     def restart_playback(self, status):
         if status == QMediaPlayer.EndOfMedia:
             self.media_player.setPosition(0)
             self.media_player.play()
+
+    def update_music(self):
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        self.music = config.getint("Settings", "music")
+
+        # Adjust volume
+        self.media_player.setVolume(self.music)
 
     def play(self):
         self.media_player.play()
@@ -225,9 +336,8 @@ if __name__ == "__main__":
     # Create an instance of the MusicPlayer class
     music_player = MusicPlayer()
 
-    # Run the music playback in a separate thread
-    thread = threading.Thread(target=music_player.play)
-    thread.start()
+    # Run the music playback in the main thread
+    music_player.play()
 
     # Continue with the main program execution
     window = MainMenu()

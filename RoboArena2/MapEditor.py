@@ -3,7 +3,7 @@ import sys
 from Menus import ExtrasMenu
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QPainter, QPen
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QFileDialog, QMainWindow
 from PyQt5.uic import loadUi
 
 
@@ -109,6 +109,9 @@ class MapEditor(QMainWindow):
             elif shape[0] == "boost":
                 pen = QPen(Qt.green)
                 brush = QBrush(Qt.green)
+            elif shape[0] == "normal":
+                pen = QPen(Qt.white)
+                brush = QBrush(Qt.white)
 
             painter.setPen(pen)
             painter.setBrush(brush)
@@ -133,6 +136,9 @@ class MapEditor(QMainWindow):
             elif shape[0] == "boost":
                 pen = QPen(Qt.green)
                 brush = QBrush(Qt.green)
+            elif shape[0] == "normal":
+                pen = QPen(Qt.white)
+                brush = QBrush(Qt.white)
 
             painter.setPen(pen)
             painter.setBrush(brush)
@@ -180,12 +186,51 @@ class MapEditor(QMainWindow):
         self.update()
 
     def back(self):
-        self.extras_menu = ExtrasMenu()
+        position = self.pos()
+        x_coord = position.x()
+        y_coord = position.y()
+        self.extras_menu = ExtrasMenu(x_coord, y_coord)
         self.extras_menu.show()
         self.close()
 
     def load_map_txt(self):
-        print("totdo")
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.ExistingFile)
+        file_dialog.setNameFilter("Text Files (*.txt)")
+        if file_dialog.exec_():
+            selected_files = file_dialog.selectedFiles()
+            file_path = selected_files[0]
+            print("Selected file:", file_path)
+            with open(file_path, "r") as file:
+                text = (
+                    file.read().replace(" ", "").replace("\n", "")
+                )  # sprint bringen
+                index = 0
+                for x in range(100):
+                    for y in range(100):
+                        letter = text[index]
+                        index = index + 1
+                        print(letter)
+                        if letter == "a":
+                            self.set_draw_mode("water")
+                        if letter == "f":
+                            self.set_draw_mode("fire")
+                        if letter == "s":
+                            self.set_draw_mode("spikes")
+                        if letter == "w":
+                            self.set_draw_mode("wall")
+                        if letter == "b":
+                            self.set_draw_mode("boost")
+                        if letter == "n":
+                            self.set_draw_mode("normal")
+                        shape = (
+                            self.draw_mode,
+                            y * 10,
+                            x * 10,
+                            1 * 10,
+                            1 * 10,
+                        )
+                        self.shapes.append(shape)
 
 
 if __name__ == "__main__":

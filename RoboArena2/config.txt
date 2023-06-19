@@ -1,0 +1,4 @@
+[Settings]
+music = 81
+game_sounds = 50
+
