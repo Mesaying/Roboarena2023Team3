@@ -21,18 +21,18 @@
 
     
 
-        <p><strong><span style="font-size: larger;">Improving and extending menu structure</span></strong> <br>
+        <p><strong><span style="font-size: larger;">Improving and extending menu structure</span></strong> <br><br>
 
         A short video to demonstrate the menu structure and the playing background sound. <br>    
         <video width="1000" height="720" controls>
   <source src="Sprint5/Menu_Sound_Video.mp4" type="video/mp4">
-</video>
+</video> <br>
             
          <br>To ensure that the menu windows always have the same starting position, we pass the positions of the currently displayed menu window to the upcoming window.<br>
-        <img src="Sprint5/coordinates.JPG" alt="Italian Trulli"> <br>
+        <img src="Sprint5/coordinates.JPG" alt="Italian Trulli"> <br><br>
    
     
-        <p><strong><span style="font-size: larger;">Including background sound</span></strong> <br>
+        <p><strong><span style="font-size: larger;">Including background sound</span></strong> <br><br>
         
         We work with a config file to save changes made in the options menu. <br>
         Changing values in the options menu will overwrite the entries in the config file.<br>
@@ -52,22 +52,27 @@
         <img src="Sprint5/functionsmusicplayer.JPG" alt="Italian Trulli"> <br>
 
         Restart_playback causes the music to run in a loop. <br>
-        The update_music function is called every 500 milliseconds and adjusts the volume of the music based on the value specified in the config file.<br><br>
+        The update_music function is called every 500 milliseconds and adjusts the volume of the music based on the value specified in the config file.<br>
+
+        <p>Difficulties</p>
+        Actually Finding an implementation where the music is played independently by the actions of the player in the main menu. <br> 
+        In previous versions the music didnt loop or got restarted every time a window(menu) is switched. <br>
+        Among others we tried to use threads to play the music which didnt end up working.  <br><br>
    
-        <p><strong><span style="font-size: larger;">Improving Map Editor and including it in the menu structure</span></strong> <br>
+        <p><strong><span style="font-size: larger;">Improving Map Editor and including it in the menu structure</span></strong> <br><br>
 
         Remade the UI of the mapeditor with qtdesigner. <br>
         Put the buttons in an non-drawable area to the right. Beforehand they were in the midst of the screen<br>
 
         Implemented load function to convert an already saved txt.file back to a drawn arena. <br>
 
-        <img src="Sprint5/LoadMap.JPG" alt="Italian Trulli">
+        <img src="Sprint5/LoadMap.JPG" alt="Italian Trulli"> <br>
             
             
-        Problem: <br>
-        Circular dependency between the menus.py and mapeditor.py file. Solved with following code line: <br>
+        <p>Problem:</p> <br>
+        Circular dependency between the Menus.py and MapEditor.py file. Solved with following code line: <br>
         <img src="Sprint5/command_circular_dependency.JPG" alt="Italian Trulli"> <br>
-
+        MapEditor only gets imported, when we actually switch to the MapEditor window.<br>
 
 </body>
 </html>
