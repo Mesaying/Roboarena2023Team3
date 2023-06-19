@@ -26,20 +26,17 @@ class MovementManager_:
                 print("MovementType not yet defined")
 
     def moveInLine(self):
-        self.robot.move()
+        self.robot.tick(1, 0, (1 / 30))
 
     def moveInCircle(self):
-        self.robot.move()
-        self.robot.rotate()
+        self.robot.tick(1, 1, (1 / 30))
 
     def moveInWave(self):
         if self.waveConter < 50:
-            self.robot.move()
-            self.robot.rotate()
+            self.robot.tick(1, 1, (1 / 30))
             self.waveConter += 1
         else:
-            self.robot.move()
-            self.robot.rotateLeft()
+            self.robot.tick(1, -1, (1 / 30))
             self.waveConter += 1
             self.waveConter = self.waveConter % 100
 
@@ -56,18 +53,22 @@ class MovementManager_:
         PressedTurnRight = turnRight in keys and keys[turnRight]
         PressedShootWeapon = shootWeapon in keys and keys[shootWeapon]
 
+        moveVec = 0
+        rotVec = 0
+
         if PressedMoveForward and not PressedMoveBack:
-            self.robot.move()
+            moveVec += 1
 
         if PressedMoveBack and not PressedMoveForward:
-            self.robot.moveBack()
+            moveVec -= 1
 
         if PressedTurnLeft and not PressedTurnRight:
-            self.robot.rotateLeft()
+            rotVec += 1
 
         if PressedTurnRight and not PressedTurnLeft:
-            self.robot.rotate()
+            rotVec -= 1
 
+        self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
             self.weaponsCurrentlyShoot = True
             self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
