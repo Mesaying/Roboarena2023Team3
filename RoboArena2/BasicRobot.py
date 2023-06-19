@@ -64,7 +64,7 @@ class BasicRobot:
     def getMovementType(self):
         return self.movementtype
 
-    #called every game-tick
+    # called every game-tick
     def tick(self, moveInputVec, rotationInputVec, deltaTime):
         self.rotate(rotationInputVec, deltaTime)
         self.move(moveInputVec, deltaTime)
@@ -75,7 +75,9 @@ class BasicRobot:
 
         xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
         yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
-        colls = self.collisionDetection(self.x + (vec * xVelocity), self.y + (vec * yVelocity))
+        colls = self.collisionDetection(
+            self.x + (vec * xVelocity), self.y + (vec * yVelocity)
+        )
 
         self.x = int(colls[0])
         self.y = int(colls[1])

@@ -24,17 +24,17 @@ class MovementManager_:
                 print("MovementType not yet defined")
 
     def moveInLine(self):
-        self.robot.tick(1, 0, (1/30))
+        self.robot.tick(1, 0, (1 / 30))
 
     def moveInCircle(self):
-        self.robot.tick(1, 1, (1/30))
+        self.robot.tick(1, 1, (1 / 30))
 
     def moveInWave(self):
         if self.waveConter < 50:
-            self.robot.tick(1, 1, (1/30))
+            self.robot.tick(1, 1, (1 / 30))
             self.waveConter += 1
         else:
-            self.robot.tick(1, -1, (1/30))
+            self.robot.tick(1, -1, (1 / 30))
             self.waveConter += 1
             self.waveConter = self.waveConter % 100
 
@@ -51,7 +51,6 @@ class MovementManager_:
         moveVec = 0
         rotVec = 0
 
-
         if PressedMoveForward and not PressedMoveBack:
             moveVec += 1
 
@@ -64,4 +63,4 @@ class MovementManager_:
         if PressedTurnRight and not PressedTurnLeft:
             rotVec -= 1
 
-        self.robot.tick(moveVec, rotVec, 1/30)
+        self.robot.tick(moveVec, rotVec, 1 / 30)
