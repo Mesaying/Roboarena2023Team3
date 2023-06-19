@@ -63,7 +63,7 @@ class MovementManager_:
             moveVec -= 1
 
         if PressedTurnLeft and not PressedTurnRight:
-            rotVec -= 1
+            rotVec += 1
 
         if PressedTurnRight and not PressedTurnLeft:
             rotVec -= 1
