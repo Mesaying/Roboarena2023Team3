@@ -57,7 +57,7 @@
         Restart_playback causes the music to run in a loop. <br>
         The update_music function is called every 500 milliseconds and adjusts the volume of the music based on the value specified in the config file.<br>
 
-        <p>Difficulties</p>
+        <b>Difficulties</b>
         Actually Finding an implementation where the music is played independently by the actions of the player in the main menu. <br> 
         In previous versions the music didnt loop or got restarted every time a window(menu) is switched. <br>
         Among others we tried to use threads to play the music which didnt end up working.  <br><br>
@@ -69,15 +69,17 @@
 
         Implemented load function to convert an already saved txt.file back to a drawn arena. <br>
 
-        <img src="Sprint5/LoadMap.JPG" alt="Italian Trulli"> <br>
+        <img src="Sprint5/LoadMap.JPG" alt="Italian Trulli"> <br><br>
             
             
-        <p>Problem:</p> <br>
+        <b>Problem:</b><br>
         Circular dependency between the Menus.py and MapEditor.py file. Solved with following code line: <br>
         <img src="Sprint5/command_circular_dependency.JPG" alt="Italian Trulli"> <br>
-        MapEditor only gets imported, when we actually switch to the MapEditor window.<br><br><br><br>
+        MapEditor only gets imported, when we actually switch to the MapEditor window.<br><br><br><br><br><br>
 
-        Adding Health and Weapons(Marcel John)<br>
+
+        <p><strong><span style="font-size: larger;">Adding Health and Weapons (Marcel John) </span></strong> <br><br>
+        
         added maxHealth and health as ints<br>
         added function to heal and deal demage<br>
         <img src="Sprint5/healingAndDamage.png"><br>
