@@ -24,9 +24,9 @@
 
         <p><strong><span style="font-size: larger;">Improving and extending menu structure (Nico) </span></strong> <br><br>
 
-        Included new menu pages and extended the options menu to allow the player to control the volume of the game music.<br>
+        Included new menu pages and extended the options menu to allow the player to control the volume of the game music.<br><br>
             
-        A short video to demonstrate the menu structure and the playing background sound. <br>    
+        Following a short video to demonstrate the menu structure and the playing background sound. <br>    
         <video width="1000" height="720" controls>
   <source src="Sprint5/Menu_Sound_Video.mp4" type="video/mp4">
 </video> <br>
@@ -38,6 +38,9 @@
         <p><strong><span style="font-size: larger;">Including background sound</span></strong> <br><br>
         
         We work with a config file to save changes made in the options menu. <br>
+            
+        <img src="Sprint5/config file.JPG" alt="Italian Trulli"> <br>
+            
         Changing values in the options menu will overwrite the entries in the config file.<br>
 
             <img src="Sprint5/slider_value_changed.JPG" alt="Italian Trulli"> <br>
@@ -57,7 +60,7 @@
         Restart_playback causes the music to run in a loop. <br>
         The update_music function is called every 500 milliseconds and adjusts the volume of the music based on the value specified in the config file.<br>
 
-        <b>Difficulties</b>
+        <b>Difficulties</b><br>
         Actually Finding an implementation where the music is played independently by the actions of the player in the main menu. <br> 
         In previous versions the music didnt loop or got restarted every time a window(menu) is switched. <br>
         Among others we tried to use threads to play the music which didnt end up working.  <br><br>
