@@ -8,6 +8,7 @@ from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
+import cProfile
 
 
 class Worker(QThread):
@@ -126,6 +127,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.timeout.connect(self.update_arena)
         self.timer.start(100)
 
+
         list_with_tiles = []
         with open("testarena.txt", "r") as file:  # Opens the textfile
             content = file.read()
@@ -152,6 +154,24 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                     self.tiles[y][x] = boost()
                 if next_tile == "n":
                     self.tiles[y][x] = normal()
+
+        # Draw arena
+        self.arena_drawn = 0
+        self.arena_pixmap = QPixmap(1000, 1000)
+        self.arena_pixmap.fill(Qt.transparent)
+        self.render_arena()
+
+
+    def render_arena(self):
+        painter = QPainter(self.arena_pixmap)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        for y in range(0, 100):  # Iterates through every possible tile
+            for x in range(0, 100):
+
+                pix = QPixmap(self.tiles[x][y].imagePath)
+                pix = pix.scaledToWidth(10)
+                painter.drawPixmap(y * 10, x * 10, pix)
 
     def get_size(self):  # method to print actual size of the arena
         print(  # split the string in two lines due to max line length
@@ -205,11 +225,11 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def paintEvent(self, event):  # Colors the tiles
         painter = QPainter(self)
-        for y in range(0, 100):  # Iterates through every possible tile
-            for x in range(0, 100):
-                pix = QPixmap(self.tiles[y][x].imagePath)
-                pix = pix.scaledToWidth(10)
-                painter.drawPixmap(y * 10, x * 10, pix)
+
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Draw the pre-rendered arena pixmap onto the widget
+        painter.drawPixmap(self.rect(), self.arena_pixmap)
 
         for i in range(len(self.robots)):  # draw robots
             painter.setPen(QPen(self.robots[i].color, 1, Qt.DashLine))
