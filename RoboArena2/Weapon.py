@@ -21,7 +21,6 @@ class Weapon:
         self.typ = WeaponTyp.hitscan
         self.name = name
         self.getWeaponStats(name)
-        
 
     def getWeaponStats(self, name: WeaponName) -> None:
         match (name):
@@ -45,5 +44,3 @@ class Weapon:
                 self.size = 2000
                 self.ticksToNextShoot = 15
                 self.typ = WeaponTyp.hitscan
-
-
