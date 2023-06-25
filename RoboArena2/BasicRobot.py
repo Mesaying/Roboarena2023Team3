@@ -125,21 +125,15 @@ class BasicRobot:
             currX += xDir
             currY += yDir
 
-            #print(self.robots[0], self.robots[1])
 
             for robot in self.robots:
-                if self.movementtype != MovementTyp.Player1Control:
-                    break
                 if robot != self:
                     dist = abs(currX - robot.x) + abs(currY - robot.y)
-                    print(dist)
                     if dist < self.radius + robot.radius:
-                        print("did return")
                         return freeX, freeY
 
                 if self.movementtype == MovementTyp.Player1Control:
                     pass
-                    #print("didnt return")
 
             for x in range(
                 math.ceil(currX - math.ceil(self.radius)),
