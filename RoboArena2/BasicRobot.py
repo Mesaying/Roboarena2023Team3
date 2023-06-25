@@ -128,8 +128,8 @@ class BasicRobot:
 
             for robot in self.robots:
                 if robot != self:
-                    dist = abs(currX - robot.x) + abs(currY - robot.y)
-                    if dist < self.radius + robot.radius:
+                    dist = (currX - robot.x) ** 2 + abs(currY - robot.y) ** 2
+                    if dist <= (self.radius + robot.radius) ** 2:
                         return freeX, freeY
 
                 if self.movementtype == MovementTyp.Player1Control:
