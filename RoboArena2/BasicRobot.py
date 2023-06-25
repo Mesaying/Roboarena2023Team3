@@ -14,8 +14,8 @@ class MovementTyp(Enum):
 
 
 class BasicRobot:
-    MAX_SPEED = 5
-    MAX_TURNSPEED = 2
+    MAX_SPEED = 20
+    MAX_TURNSPEED = 10
     MAX_HEALTH = 100
 
     def __init__(
@@ -29,12 +29,12 @@ class BasicRobot:
         self.movementtype = movementtype
         self.tiles = [[object() for i in range(100)] for j in range(100)]
         self.color = Qt.black
-        self.turnAccel = 2
+        self.turnAccel = 20
         self.acceleration = 10
         self.alpha = 180
         self.radius = 50
-        self.speed = 0
-        self.turnSpeed = 0
+        self.speed = 10
+        self.turnSpeed = 10
         self.health = self.MAX_HEALTH
         self.weapon = Weapon(WeaponName.basicHitscan)
         self.weaponsCurrentlyShoot = False
@@ -45,8 +45,8 @@ class BasicRobot:
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
-        for y in range(0, 100):  # Iterates through every possible tile
-            for x in range(0, 100):
+        for y in range(0, 20):  # Iterates through every possible tile
+            for x in range(0, 20):
                 next_tile = list_with_tiles.pop(
                     0
                 )  # first element is deleted and returned from the list
