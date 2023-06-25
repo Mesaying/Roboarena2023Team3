@@ -76,7 +76,6 @@ class BasicRobot:
         self.rotate(rotationInputVec, deltaTime)
         self.move(moveInputVec, deltaTime)
 
-
     def tileLogic(self):
         currTile = self.tiles[round(self.x / 10)][round(self.y / 10)]
 
@@ -84,7 +83,7 @@ class BasicRobot:
         damage = 0
 
         self.moveMultiplier = currTile.movement
-        damage += currTile.damage;
+        damage += currTile.damage
 
         self.takeDamage(damage)
 
@@ -92,8 +91,16 @@ class BasicRobot:
     def move(self, vec, deltaTime):
         self.calculateSpeed(deltaTime)
 
-        xVelocity = (math.cos(math.radians(self.alpha))) * self.speed * self.moveMultiplier
-        yVelocity = (math.sin(math.radians(self.alpha))) * self.speed * self.moveMultiplier
+        xVelocity = (
+            (math.cos(math.radians(self.alpha)))
+            * self.speed
+            * self.moveMultiplier
+        )
+        yVelocity = (
+            (math.sin(math.radians(self.alpha)))
+            * self.speed
+            * self.moveMultiplier
+        )
         colls = self.collisionDetection(
             self.x + (vec * xVelocity), self.y + (vec * yVelocity)
         )
