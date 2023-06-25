@@ -125,7 +125,6 @@ class BasicRobot:
             currX += xDir
             currY += yDir
 
-
             for robot in self.robots:
                 if robot != self:
                     dist = (currX - robot.x) ** 2 + abs(currY - robot.y) ** 2
