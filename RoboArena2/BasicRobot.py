@@ -92,8 +92,8 @@ class BasicRobot:
     def move(self, vec, deltaTime):
         self.calculateSpeed(deltaTime)
 
-        xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
-        yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
+        xVelocity = (math.cos(math.radians(self.alpha))) * self.speed * self.moveMultiplier
+        yVelocity = (math.sin(math.radians(self.alpha))) * self.speed * self.moveMultiplier
         colls = self.collisionDetection(
             self.x + (vec * xVelocity), self.y + (vec * yVelocity)
         )
