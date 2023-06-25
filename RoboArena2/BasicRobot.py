@@ -27,7 +27,7 @@ class BasicRobot:
         self.x = xPos
         self.y = yPos
         self.movementtype = movementtype
-        self.tiles = [[object() for i in range(100)] for j in range(100)]
+        self.tiles = [[None for i in range(20)] for j in range(20)]
         self.color = Qt.black
         self.turnAccel = 20
         self.acceleration = 10
@@ -40,11 +40,12 @@ class BasicRobot:
         self.weaponsCurrentlyShoot = False
 
         list_with_tiles = []
-        with open("testarena.txt", "r") as file:  # Opens the textfile
+        with open("trffff.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
+            print(list_with_tiles)
         for y in range(0, 20):  # Iterates through every possible tile
             for x in range(0, 20):
                 next_tile = list_with_tiles.pop(
@@ -102,6 +103,7 @@ class BasicRobot:
         )
 
     def collisionDetection(self, endX, endY):
+        asscounter = 0
         currX = self.x
         currY = self.y
 
@@ -127,14 +129,19 @@ class BasicRobot:
             for x in range(
                 math.ceil(currX - math.ceil(self.radius)),
                 math.ceil(currX + math.ceil(self.radius)),
+
             ):
+                asscounter = asscounter + 1
                 for y in range(
                     math.ceil(currY - math.ceil(self.radius)),
                     math.ceil(currY + math.ceil(self.radius)),
+
                 ):
+                    asscounter = asscounter + 1
+
                     if (
-                        self.tiles[math.floor(x / 10)][
-                            math.floor(y / 10)
+                        self.tiles[math.floor(x / 50)][
+                            math.floor(y / 50)
                         ].getCollision()
                         != 0
                     ):
