@@ -28,6 +28,7 @@ class BasicRobot:
         self.y = yPos
         self.movementtype = movementtype
         self.tiles = [[object() for i in range(100)] for j in range(100)]
+        self.robots = []
         self.color = Qt.black
         self.turnAccel = 2
         self.acceleration = 10
@@ -123,6 +124,13 @@ class BasicRobot:
 
             currX += xDir
             currY += yDir
+
+            for robot in self.robots:
+                if robot != self:
+                    dist = abs(currX - robot.x + currY - robot.y)
+                    if dist <= (self.radius + robot.radius):
+                        print(freeX, freeY)
+                        return freeX, freeY
 
             for x in range(
                 math.ceil(currX - math.ceil(self.radius)),

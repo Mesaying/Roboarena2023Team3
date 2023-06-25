@@ -176,6 +176,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def add_robot(self, robot):
         self.robots.append(robot)
+        for r in self.robots:
+            r.robots.append(robot)
 
     def InitWindow(self):  # Displays the Arena
         self.setWindowTitle(self.title)
@@ -289,7 +291,7 @@ testRobot2 = BasicRobot(
 )
 
 testRobot3 = BasicRobot(
-    xPos=xPosition + 200,
+    xPos=xPosition + 300,
     yPos=yPosition,
     movementtype=MovementTyp.Player1Control,
 )
