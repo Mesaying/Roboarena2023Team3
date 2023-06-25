@@ -179,7 +179,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         for r in self.robots:
             for ro in self.robots:
                 if ro not in r.robots:
-                    print("Append")
                     r.robots.append(ro)
 
     def InitWindow(self):  # Displays the Arena
