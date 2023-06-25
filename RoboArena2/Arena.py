@@ -118,7 +118,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         super().__init__()
         self.width = 1000
         self.height = 1000
-        self.tiles = [[object() for i in range(100)] for j in range(100)]
+        self.tiles = [[object() for i in range(20)] for j in range(20)]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
@@ -129,13 +129,13 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
 
         list_with_tiles = []
-        with open("testarena.txt", "r") as file:  # Opens the textfile
+        with open("trffff.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
-        for y in range(0, 100):  # Iterates through every possible tile
-            for x in range(0, 100):
+        for y in range(0, 20):  # Iterates through every possible tile
+            for x in range(0, 20):
                 next_tile = list_with_tiles.pop(
                     0
                 )  # first element is deleted and returned from the list
@@ -146,13 +146,13 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                     # colors are used
                 if next_tile == "a":
                     self.tiles[y][x] = water()
-                if next_tile == "f":
+                elif next_tile == "f":
                     self.tiles[y][x] = fire()
-                if next_tile == "s":
+                elif next_tile == "s":
                     self.tiles[y][x] = spikes()
-                if next_tile == "b":
+                elif next_tile == "b":
                     self.tiles[y][x] = boost()
-                if next_tile == "n":
+                else:
                     self.tiles[y][x] = normal()
 
         # Draw arena
@@ -166,12 +166,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         painter = QPainter(self.arena_pixmap)
         painter.setRenderHint(QPainter.Antialiasing)
 
-        for y in range(0, 100):  # Iterates through every possible tile
-            for x in range(0, 100):
-
+        for y in range(0, 20):  # Iterates through every possible tile
+            for x in range(0, 20):
+                print(type(self.tiles[x][y]))
                 pix = QPixmap(self.tiles[x][y].imagePath)
-                pix = pix.scaledToWidth(10)
-                painter.drawPixmap(y * 10, x * 10, pix)
+                pix = pix.scaledToWidth(50)
+                painter.drawPixmap(y * 50, x * 50, pix)
 
     def get_size(self):  # method to print actual size of the arena
         print(  # split the string in two lines due to max line length
