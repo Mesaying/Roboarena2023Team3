@@ -32,7 +32,7 @@ class BasicRobot:
         self.turnAccel = 20
         self.acceleration = 10
         self.alpha = 180
-        self.radius = 50
+        self.radius = 20
         self.speed = 10
         self.turnSpeed = 10
         self.health = self.MAX_HEALTH
