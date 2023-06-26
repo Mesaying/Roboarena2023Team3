@@ -1,11 +1,13 @@
 import sys
-from PyQt5.QtCore import Qt, QRect
-from PyQt5.QtGui import QPainter, QPen, QPixmap
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow
 from PyQt5.uic import loadUi
 
 GRID_SIZE = 20
 GRID_CELL_SIZE = 50
+
 
 class MapEditor(QMainWindow):
     def __init__(self):
@@ -24,8 +26,15 @@ class MapEditor(QMainWindow):
         for row in range(GRID_SIZE):
             for col in range(GRID_SIZE):
                 label = QLabel(self)
-                label.setGeometry(col * GRID_CELL_SIZE, row * GRID_CELL_SIZE, GRID_CELL_SIZE, GRID_CELL_SIZE)
-                label.setStyleSheet("background-color: white; border: 1px solid gray;")
+                label.setGeometry(
+                    col * GRID_CELL_SIZE,
+                    row * GRID_CELL_SIZE,
+                    GRID_CELL_SIZE,
+                    GRID_CELL_SIZE,
+                )
+                label.setStyleSheet(
+                    "background-color: white; border: 1px solid gray;"
+                )
                 self.grid[row][col] = label
 
         # Create buttons and connect signals
@@ -33,7 +42,9 @@ class MapEditor(QMainWindow):
         self.fire_button.clicked.connect(lambda: self.set_draw_mode("fire"))
         self.wall_button.clicked.connect(lambda: self.set_draw_mode("wall"))
         self.boost_button.clicked.connect(lambda: self.set_draw_mode("boost"))
-        self.spikes_button.clicked.connect(lambda: self.set_draw_mode("spikes"))
+        self.spikes_button.clicked.connect(
+            lambda: self.set_draw_mode("spikes")
+        )
         self.new_button.clicked.connect(lambda: self.clear_grid())
         self.save_button.clicked.connect(lambda: self.save_to_text_file())
 
@@ -83,18 +94,20 @@ class MapEditor(QMainWindow):
             for col in range(GRID_SIZE):
                 label = self.grid[row][col]
                 label.clear()  # Remove the pixmap from the label
-                label.setStyleSheet("background-color: white; border: 1px solid gray;")
+                label.setStyleSheet(
+                    "background-color: white; border: 1px solid gray;"
+                )
 
     def save_to_text_file(self):
-        #opens dialog
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save Map", "", "Text Files (*.txt)")
+        # opens dialog
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, "Save Map", "", "Text Files (*.txt)"
+        )
 
-        with open(file_path, 'w') as file:
+        with open(file_path, "w") as file:
             for row in range(GRID_SIZE):
                 for col in range(GRID_SIZE):
                     file.write(str(self.tile_array[row][col]))
-
-
 
 
 if __name__ == "__main__":

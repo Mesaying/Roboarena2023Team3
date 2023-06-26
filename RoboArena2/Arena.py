@@ -8,7 +8,6 @@ from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
-import cProfile
 
 
 class Worker(QThread):
@@ -127,7 +126,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.timeout.connect(self.update_arena)
         self.timer.start(100)
 
-
         list_with_tiles = []
         with open("trffff.txt", "r") as file:  # Opens the textfile
             content = file.read()
@@ -160,7 +158,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.arena_pixmap = QPixmap(1000, 1000)
         self.arena_pixmap.fill(Qt.transparent)
         self.render_arena()
-
 
     def render_arena(self):
         painter = QPainter(self.arena_pixmap)
@@ -325,4 +322,3 @@ testarena.InitWindow()
 
 
 sys.exit(App.exec())
-

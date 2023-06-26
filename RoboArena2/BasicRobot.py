@@ -129,13 +129,11 @@ class BasicRobot:
             for x in range(
                 math.ceil(currX - math.ceil(self.radius)),
                 math.ceil(currX + math.ceil(self.radius)),
-
             ):
                 asscounter = asscounter + 1
                 for y in range(
                     math.ceil(currY - math.ceil(self.radius)),
                     math.ceil(currY + math.ceil(self.radius)),
-
                 ):
                     asscounter = asscounter + 1
 
