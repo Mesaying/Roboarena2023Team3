@@ -142,7 +142,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                     # the designated terrain_type
                     # Depending on the type of the tile, different
                     # colors are used
-                if next_tile == "a":
+                elif next_tile == "a":
                     self.tiles[y][x] = water()
                 elif next_tile == "f":
                     self.tiles[y][x] = fire()
