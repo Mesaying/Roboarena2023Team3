@@ -35,6 +35,7 @@ class BasicRobot:
         self.radius = 20
         self.speed = 10
         self.turnSpeed = 10
+        self.moveMultiplier = 1
         self.health = self.MAX_HEALTH
         self.weapon = Weapon(WeaponName.basicHitscan)
         self.weaponsCurrentlyShoot = False
@@ -72,15 +73,35 @@ class BasicRobot:
 
     # called every game-tick
     def tick(self, moveInputVec, rotationInputVec, deltaTime):
+        self.tileLogic()
         self.rotate(rotationInputVec, deltaTime)
         self.move(moveInputVec, deltaTime)
+
+    def tileLogic(self):
+        currTile = self.tiles[round(self.x / 10)][round(self.y / 10)]
+
+        self.moveMultiplier = 1
+        damage = 0
+
+        self.moveMultiplier = currTile.movement
+        damage += currTile.damage
+
+        self.takeDamage(damage)
 
     # cos(a)^2+sin(a)^2=1 that is why we use this for movement
     def move(self, vec, deltaTime):
         self.calculateSpeed(deltaTime)
 
-        xVelocity = (math.cos(math.radians(self.alpha))) * self.speed
-        yVelocity = (math.sin(math.radians(self.alpha))) * self.speed
+        xVelocity = (
+            (math.cos(math.radians(self.alpha)))
+            * self.speed
+            * self.moveMultiplier
+        )
+        yVelocity = (
+            (math.sin(math.radians(self.alpha)))
+            * self.speed
+            * self.moveMultiplier
+        )
         colls = self.collisionDetection(
             self.x + (vec * xVelocity), self.y + (vec * yVelocity)
         )
