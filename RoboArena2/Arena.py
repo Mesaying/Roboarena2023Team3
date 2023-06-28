@@ -105,6 +105,13 @@ class Worker(QThread):
         if didHit:
             robot.takeDamage(self.robot.weapon.damage)
 
+    def getRobotOfThread(self) -> BasicRobot:
+        return self.robot
+    
+    def stop(self) -> None:
+        self.wait()
+    
+
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # allows to use methods like setWindowTitle directly...
@@ -179,6 +186,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     def update_arena(self):
         self.robotSignal.emit()
         self.hitSignal.emit()
+        self.reoveOnDeath()
         self.update()
 
     def set_tile(
@@ -195,28 +203,67 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.robots.append(robot)
         for r in self.robots:
             for ro in self.robots:
-                if ro not in r.robots:
-                    r.robots.append(ro)
+                if ro not in self.robots:
+                    self.robots.append(ro)
 
     def InitWindow(self):  # Displays the Arena
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
         self.show()
 
+    #killing the robot
+    def reoveOnDeath(self) -> None:
+        foundDeadrobot = False
+        RobotToKill = testRobot1
+        for key in self.listOfThreads:
+            if key.health <= 0:
+                thread = self.listOfThreads[key]
+                self.killThread(thread)
+                foundDeadrobot = True
+                RobotToKill = key
+        if foundDeadrobot:
+            self.removeThreadFromDictionary(RobotToKill)
+            self.removeRobotFromList(RobotToKill)      
+                
+
+    def killThread(self, thread : Worker) -> None:
+        thread.exec_
+        try: self.robotSignal.disconnect(thread.moveRobot)
+        except Exception: pass
+        try: self.hitSignal.disconnect(thread.moveRobot)
+        except Exception: pass
+        thread.stop()
+    
+    def removeThreadFromDictionary(self, key : BasicRobot) -> None:
+        try: del self.listOfThreads[key]
+        except Exception: pass
+    
+    def removeRobotFromList(self, robot : BasicRobot) -> None:
+        robotlocation = len(self.robots)
+        for i in range(len(self.robots)):
+            if robot is self.robots[i]:
+                robotlocation = i
+
+        if self.robots[robotlocation].health <= 0:
+            del self.robots[robotlocation]
+
+
     # basic threading
     def runTask(self):
         # adds all robots to the threading dictionary
         for i in range(len(self.robots)):
-            key = i
+            #key = i
             robot = self.robots[i]
+            key = robot
             value = Worker(robot, self.keysPressed, self.robots)
             self.listOfThreads[key] = value
 
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
-            self.robotSignal.connect(self.listOfThreads[i].moveRobot)
-            self.hitSignal.connect(self.listOfThreads[i].calculateDamage)
-            self.listOfThreads[i].start()
+            robotOfThread = self.robots[i]
+            self.robotSignal.connect(self.listOfThreads[robotOfThread].moveRobot)
+            self.hitSignal.connect(self.listOfThreads[robotOfThread].calculateDamage)
+            self.listOfThreads[robotOfThread].start()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = True
