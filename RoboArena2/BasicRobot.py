@@ -35,6 +35,7 @@ class BasicRobot:
         self.radius = 20
         self.speed = 10
         self.turnSpeed = 10
+        self.robots = []
         self.moveMultiplier = 1
         self.health = self.MAX_HEALTH
         self.weapon = Weapon(WeaponName.basicHitscan)
@@ -78,7 +79,7 @@ class BasicRobot:
         self.move(moveInputVec, deltaTime)
 
     def tileLogic(self):
-        currTile = self.tiles[round(self.x / 10)][round(self.y / 10)]
+        currTile = self.tiles[round(self.x / 50)][round(self.y / 50)]
 
         self.moveMultiplier = 1
         damage = 0
