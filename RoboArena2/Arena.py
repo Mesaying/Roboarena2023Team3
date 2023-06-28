@@ -107,10 +107,9 @@ class Worker(QThread):
 
     def getRobotOfThread(self) -> BasicRobot:
         return self.robot
-    
+
     def stop(self) -> None:
         self.wait()
-    
 
 
 class Arena(QMainWindow):  # Erbt von QMainWindow class,
@@ -211,7 +210,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.setGeometry(self.top, self.left, self.width, self.height)
         self.show()
 
-    #killing the robot
+    # killing the robot
     def reoveOnDeath(self) -> None:
         foundDeadrobot = False
         RobotToKill = testRobot1
@@ -223,22 +222,27 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                 RobotToKill = key
         if foundDeadrobot:
             self.removeThreadFromDictionary(RobotToKill)
-            self.removeRobotFromList(RobotToKill)      
-                
+            self.removeRobotFromList(RobotToKill)
 
-    def killThread(self, thread : Worker) -> None:
+    def killThread(self, thread: Worker) -> None:
         thread.exec_
-        try: self.robotSignal.disconnect(thread.moveRobot)
-        except Exception: pass
-        try: self.hitSignal.disconnect(thread.moveRobot)
-        except Exception: pass
+        try:
+            self.robotSignal.disconnect(thread.moveRobot)
+        except Exception:
+            pass
+        try:
+            self.hitSignal.disconnect(thread.moveRobot)
+        except Exception:
+            pass
         thread.stop()
-    
-    def removeThreadFromDictionary(self, key : BasicRobot) -> None:
-        try: del self.listOfThreads[key]
-        except Exception: pass
-    
-    def removeRobotFromList(self, robot : BasicRobot) -> None:
+
+    def removeThreadFromDictionary(self, key: BasicRobot) -> None:
+        try:
+            del self.listOfThreads[key]
+        except Exception:
+            pass
+
+    def removeRobotFromList(self, robot: BasicRobot) -> None:
         robotlocation = len(self.robots)
         for i in range(len(self.robots)):
             if robot is self.robots[i]:
@@ -247,12 +251,11 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         if self.robots[robotlocation].health <= 0:
             del self.robots[robotlocation]
 
-
     # basic threading
     def runTask(self):
         # adds all robots to the threading dictionary
         for i in range(len(self.robots)):
-            #key = i
+            # key = i
             robot = self.robots[i]
             key = robot
             value = Worker(robot, self.keysPressed, self.robots)
@@ -261,8 +264,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
             robotOfThread = self.robots[i]
-            self.robotSignal.connect(self.listOfThreads[robotOfThread].moveRobot)
-            self.hitSignal.connect(self.listOfThreads[robotOfThread].calculateDamage)
+            self.robotSignal.connect(
+                self.listOfThreads[robotOfThread].moveRobot
+            )
+            self.hitSignal.connect(
+                self.listOfThreads[robotOfThread].calculateDamage
+            )
             self.listOfThreads[robotOfThread].start()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
