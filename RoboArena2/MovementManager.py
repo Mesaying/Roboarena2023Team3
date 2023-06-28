@@ -63,16 +63,15 @@ class MovementManager_:
             moveVec -= 1
 
         if PressedTurnLeft and not PressedTurnRight:
-            rotVec += 1
+            rotVec -= 1
 
         if PressedTurnRight and not PressedTurnLeft:
-            rotVec -= 1
+            rotVec += 1
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
             self.weaponsCurrentlyShoot = True
             self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
-            self.robot.weapon.shootWeapon()
         else:
             self.weaponsCurrentlyShoot = False
 

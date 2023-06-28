@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sprint 4</title>
+    <style>
+        body {
+            background-color: #D3D3D3;
+            font-family: Arial, sans-serif;
+        }
+
+        .sprint-heading {
+            font-size: 50px;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="sprint-heading">Sprint 6</h2>
+
+    
+
+        <p><strong><span style="font-size: larger;">Reducing performance issues (Nico) </span></strong> <br><br>
+
+        While running the main game we experienced a significant amount of lag. <br>
+        One reason was, that with every self.update() call of our window, we iterated through every tile to call the arena. <br>
+        We changed the code, that the arena is drawn once and saved as a pixmap. <br>
+        With every self.update() the arena is displayed now just by drawing the single pixmap.<br>
+
+        
+
+</body>
+</html>
