@@ -1,6 +1,7 @@
+import itertools
+
 from BasicRobot import BasicRobot, MovementTyp
 from PyQt5.QtCore import Qt
-import itertools
 
 
 class MovementManager_:
@@ -85,19 +86,18 @@ class MovementManager_:
 
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
-            if PressedMoveBack :
+            if PressedMoveBack:
                 self.dashAbility(dashDistance, -1)
                 self.dashcooldown = dashcooldowntime
             else:
                 self.dashAbility(dashDistance, 1)
                 self.dashcooldown = dashcooldowntime
 
-
     def reduceTimerToShoot(self) -> None:
         if self.ticksToNextShoot > 0:
             self.ticksToNextShoot -= 1
 
-    def dashAbility(self, distance : int, vec : int) -> None:
+    def dashAbility(self, distance: int, vec: int) -> None:
         tick = 1 / 30
         rotation = 0
         for i in itertools.repeat(None, distance):
