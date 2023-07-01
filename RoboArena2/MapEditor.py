@@ -45,11 +45,12 @@ class MapEditor(QMainWindow):
         self.spikes_button.clicked.connect(
             lambda: self.set_draw_mode("spikes")
         )
-        self.normal_button.clicked.connect(lambda: self.set_draw_mode(("normal")))
+        self.normal_button.clicked.connect(
+            lambda: self.set_draw_mode(("normal"))
+        )
         self.undo_button.clicked.connect(lambda: self.undo())
         self.new_button.clicked.connect(lambda: self.clear_grid())
         self.save_button.clicked.connect(lambda: self.save_to_text_file())
-
 
         # Initialize draw mode to None
         self.draw_mode = None
@@ -95,7 +96,7 @@ class MapEditor(QMainWindow):
                 pixmap = QPixmap(image_path)
                 label.setPixmap(pixmap.scaled(GRID_CELL_SIZE, GRID_CELL_SIZE))
 
-                self.tiles_drawn.append([row , col])
+                self.tiles_drawn.append([row, col])
 
     def clear_grid(self):
         for row in range(GRID_SIZE):
@@ -117,7 +118,6 @@ class MapEditor(QMainWindow):
                 for col in range(GRID_SIZE):
                     file.write(str(self.tile_array[row][col]))
 
-
     def undo(self):
         # removes last drawn tile
         if len(self.tiles_drawn) > 0:
@@ -129,8 +129,9 @@ class MapEditor(QMainWindow):
             label = self.grid[row][col]
             label.clear()  # Remove the pixmap from the label
             label.setStyleSheet(
-            "background-color: white; border: 1px solid gray;"
+                "background-color: white; border: 1px solid gray;"
             )
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

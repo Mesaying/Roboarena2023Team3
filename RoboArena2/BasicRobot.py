@@ -167,7 +167,7 @@ class BasicRobot:
                     math.ceil(currY + math.ceil(self.radius)),
                 ):
                     asscounter = asscounter + 1
-                    #print(self.tiles[math.floor(x/50)][math.floor(y/50)])
+                    # print(self.tiles[math.floor(x/50)][math.floor(y/50)])
                     if (
                         self.tiles[math.floor(x / 50)][
                             math.floor(y / 50)
