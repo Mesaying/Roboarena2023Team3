@@ -42,7 +42,7 @@ class BasicRobot:
         self.weaponsCurrentlyShoot = False
 
         list_with_tiles = []
-        with open("testa.txt", "r") as file:  # Opens the textfile
+        with open("walla.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
@@ -125,7 +125,6 @@ class BasicRobot:
         )
 
     def collisionDetection(self, endX, endY):
-        asscounter = 0
         currX = self.x
         currY = self.y
 
@@ -154,14 +153,10 @@ class BasicRobot:
                     if dist <= (self.radius + robot.radius) ** 2:
                         return freeX, freeY
 
-                if self.movementtype == MovementTyp.Player1Control:
-                    pass
-
             for y in range(
-                math.ceil(currX - math.ceil(self.radius)),
-                math.ceil(currX + math.ceil(self.radius)+0.1),self.radius
+                math.ceil(currX - (self.radius)),
+                math.ceil(currX + (self.radius)+0.1),self.radius
             ):
-                asscounter = asscounter + 1
                 for x in range(
                     math.ceil(currY - math.ceil(self.radius)),
                     math.ceil(currY + math.ceil(self.radius)+0.1),self.radius
@@ -174,7 +169,6 @@ class BasicRobot:
             freeX = currX
             freeY = currY
 
-        print(asscounter)
         return endX, endY
 
     # taking damage function
