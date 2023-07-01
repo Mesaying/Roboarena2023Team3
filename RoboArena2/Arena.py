@@ -127,11 +127,13 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.start(100)
 
         list_with_tiles = []
-        with open("trffff.txt", "r") as file:  # Opens the textfile
+        with open("testa.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
+            print("letter",letter)
             list_with_tiles.append(letter)
+        print("len", len(list_with_tiles))
         for y in range(0, 20):  # Iterates through every possible tile
             for x in range(0, 20):
                 next_tile = list_with_tiles.pop(
