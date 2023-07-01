@@ -42,7 +42,7 @@ class BasicRobot:
         self.weaponsCurrentlyShoot = False
 
         list_with_tiles = []
-        with open("trffff.txt", "r") as file:  # Opens the textfile
+        with open("testa.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
@@ -157,17 +157,17 @@ class BasicRobot:
                 if self.movementtype == MovementTyp.Player1Control:
                     pass
 
-            for x in range(
+            for y in range(
                 math.ceil(currX - math.ceil(self.radius)),
                 math.ceil(currX + math.ceil(self.radius)),
             ):
                 asscounter = asscounter + 1
-                for y in range(
+                for x in range(
                     math.ceil(currY - math.ceil(self.radius)),
                     math.ceil(currY + math.ceil(self.radius)),
                 ):
                     asscounter = asscounter + 1
-
+                    #print(self.tiles[math.floor(x/50)][math.floor(y/50)])
                     if (
                         self.tiles[math.floor(x / 50)][
                             math.floor(y / 50)
