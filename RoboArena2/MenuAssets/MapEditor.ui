@@ -96,7 +96,7 @@
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>300</y>
+      <y>700</y>
       <width>100</width>
       <height>60</height>
      </rect>
@@ -109,7 +109,7 @@
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>360</y>
+      <y>760</y>
       <width>100</width>
       <height>60</height>
      </rect>
@@ -163,6 +163,45 @@
      <string>Back</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="normal_button">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>300</y>
+      <width>100</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Normal</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="player_1_button">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>360</y>
+      <width>100</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>P1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="player_2_button">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>420</y>
+      <width>100</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>P2</string>
+    </property>
+   </widget>
    <zorder>lineEdit</zorder>
    <zorder>water_button</zorder>
    <zorder>fire_button</zorder>
@@ -174,6 +213,9 @@
    <zorder>undo_button</zorder>
    <zorder>load_button</zorder>
    <zorder>back_button</zorder>
+   <zorder>normal_button</zorder>
+   <zorder>player_1_button</zorder>
+   <zorder>player_2_button</zorder>
   </widget>
  </widget>
  <resources/>
