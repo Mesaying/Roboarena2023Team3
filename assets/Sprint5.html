@@ -114,40 +114,5 @@
         <img src="Sprint5/DamagecalcPart2.png"><br>
         <img src="Sprint5/DamagecalcPart3.png"><br>
         <img src="Sprint5/DamagecalcPart4.png"><br>
-
-
-
-        <p><strong><span style="font-size: larger;">Adding Robot to Robot Collision detection (Tom) </span></strong> <br><br>
-        Since we don't want our robots to be able to drive through each other we extended our previous collision detection function to also take other robots into account.<br>
-        We do this by giving each robot an array which conatins all other robots currently alive in the arena. <br>
-        <img src="Sprint5/UpdateRobotRobotArray.png"><br>
-
-        And then iterating over all other robots to check if we are intersecting with any of them. Since all of our robots will be of circular shape this is quite inexpensive.<br>
-        <img src="Sprint5/RobotRobotCollFunc.png"><br>
-
-
-        <p><strong><span style="font-size: larger;">Adding Tile Logic to our Game (Tom) </span></strong> <br><br>
-        In our Game we have differnet kinds of Terrain, such as Fire, Water, Spikes and more. Each of these should have a specific effect on the players whenever they drive over them. <br>
-        At first our robots were much bigger than our Tiles, meaning at any point the robot would be on multiple tiles at a time, so we opted to apply every effect of every Tile the Robot was currently on.<br>
-        This was a bad Idea since its very hard to see which tiles you are actually on and the sum of all the effects can be quite overwhelming and even cancel eachother out, leading to very confusing behaviour.<br>
-        We have since adjusted our Robots to be much smaller than the tiles, now we only ever apply the effect of one Tile!<br>
-
-        <br>Size of a Robot next to a Tile:<br>
-
-        <img src="Sprint5/RobotTileComparison.png"><br>
-
-        This had the nice side effects of making our collision detection faster since there are less tiles to check for collision and our reading of the Arena Text file has also gotten faster since it is smaller now.<br>
-
-
-        How we apply effects of each Tile type currently:<br>
-        <img src="Sprint5/TileLogicFunc.png"><br>
-
-        The Move multiplier as seen above is then multiplied with our speed in the move function, resulting in slower or faster movement.<br>
-        <img src="Sprint5/MoveMultInFunc.png"><br>
-
-        <p><strong><span style="font-size: larger;">Looking for SFX and music for our Game(Tom) </span></strong> <br><br>
-        We also want some basic sounds for our Game that are not going to get us into any legal trouble because of copoyright. <br>
-        I own a license to all the pre selected sounds so we are in the clear as far as copyright goes. If you want to listen in, you can find all the preselected sounds under Art/Audio.<br>
-
 </body>
 </html>
