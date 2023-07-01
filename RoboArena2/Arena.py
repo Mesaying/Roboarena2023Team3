@@ -133,7 +133,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.start(100)
 
         list_with_tiles = []
-        with open("testa.txt", "r") as file:  # Opens the textfile
+        with open("walla.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list

@@ -159,19 +159,14 @@ class BasicRobot:
 
             for y in range(
                 math.ceil(currX - math.ceil(self.radius)),
-                math.ceil(currX + math.ceil(self.radius)),
+                math.ceil(currX + math.ceil(self.radius)+0.1),self.radius
             ):
                 asscounter = asscounter + 1
                 for x in range(
                     math.ceil(currY - math.ceil(self.radius)),
-                    math.ceil(currY + math.ceil(self.radius)),
+                    math.ceil(currY + math.ceil(self.radius)+0.1),self.radius
                 ):
-                    asscounter = asscounter + 1
-
-                    if (
-                        self.tiles[math.floor(x / 50)][
-                            math.floor(y / 50)
-                        ].getCollision()
+                    if (self.tiles[math.floor(x / 50)][math.floor(y / 50)                        ].getCollision()
                         != 0
                     ):
                         return freeX, freeY
@@ -179,6 +174,7 @@ class BasicRobot:
             freeX = currX
             freeY = currY
 
+        print(asscounter)
         return endX, endY
 
     # taking damage function

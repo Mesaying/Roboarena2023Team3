@@ -39,7 +39,7 @@ class spikes(terrain):
 
 
 class wall(terrain):
-    movement = 0
+    movement = 1.0
     solid = 1
     damage = 0
     type = "w"
