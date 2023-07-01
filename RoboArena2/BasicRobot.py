@@ -155,13 +155,18 @@ class BasicRobot:
 
             for y in range(
                 math.ceil(currX - (self.radius)),
-                math.ceil(currX + (self.radius)+0.1),self.radius
+                math.ceil(currX + (self.radius) + 0.1),
+                self.radius,
             ):
                 for x in range(
                     math.ceil(currY - math.ceil(self.radius)),
-                    math.ceil(currY + math.ceil(self.radius)+0.1),self.radius
+                    math.ceil(currY + math.ceil(self.radius) + 0.1),
+                    self.radius,
                 ):
-                    if (self.tiles[math.floor(x / 50)][math.floor(y / 50)                        ].getCollision()
+                    if (
+                        self.tiles[math.floor(x / 50)][
+                            math.floor(y / 50)
+                        ].getCollision()
                         != 0
                     ):
                         return freeX, freeY
