@@ -1,4 +1,4 @@
-from BasicRobot import *
+from BasicRobot import BasicRobot, MovementTyp
 
 
 class Destroyer(BasicRobot):
