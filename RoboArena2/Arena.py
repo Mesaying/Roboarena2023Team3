@@ -133,7 +133,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.start(100)
 
         list_with_tiles = []
-        with open("testa.txt", "r") as file:  # Opens the textfile
+        with open("walla.txt", "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
@@ -204,8 +204,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.robots.append(robot)
         for r in self.robots:
             for ro in self.robots:
-                if ro not in self.robots:
-                    self.robots.append(ro)
+                if ro not in r.robots:
+                    r.robots.append(ro)
 
     def InitWindow(self):  # Displays the Arena
         self.setWindowTitle(self.title)
