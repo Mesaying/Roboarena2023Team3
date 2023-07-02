@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow
 from PyQt5.uic import loadUi
+from Menus import *
 
 GRID_SIZE = 20
 GRID_CELL_SIZE = 50
@@ -52,6 +53,7 @@ class MapEditor(QMainWindow):
         self.new_button.clicked.connect(lambda: self.clear_grid())
         self.save_button.clicked.connect(lambda: self.save_to_text_file())
 
+        self.back_button.clicked.connect(lambda: self.back())
         # Initialize draw mode to None
         self.draw_mode = None
 
@@ -131,6 +133,20 @@ class MapEditor(QMainWindow):
             label.setStyleSheet(
                 "background-color: white; border: 1px solid gray;"
             )
+
+    def back(self):
+        position = self.getWindowPos()
+        x_coord = position.x()
+        y_coord = position.y()
+        self.extras_menu = ExtrasMenu(
+            x_coord, y_coord
+        )  # Pass the current main menu as parent
+        self.extras_menu.show()
+        self.close()
+
+    def getWindowPos(self):
+        window_pos = self.pos()
+        return window_pos
 
 
 if __name__ == "__main__":
