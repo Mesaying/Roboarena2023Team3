@@ -1,10 +1,10 @@
 import sys
 
+from Menus import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow
 from PyQt5.uic import loadUi
-from Menus import *
 
 GRID_SIZE = 20
 GRID_CELL_SIZE = 50

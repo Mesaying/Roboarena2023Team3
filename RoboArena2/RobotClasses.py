@@ -1,5 +1,6 @@
 from BasicRobot import *
 
+
 class Destroyer(BasicRobot):
     def __init__(self, xPos, yPos, movementtype):
         super().__init__(xPos, yPos, movementtype)
@@ -19,6 +20,3 @@ class Velocity(BasicRobot):
         super().__init__(xPos, yPos, movementtype)
         self.health = 75
         self.speed = 15
-
-
-
