@@ -4,9 +4,10 @@ import os
 import sys
 
 from PyQt5.QtCore import QTimer, QUrl
-from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtGui import QFont, QPixmap, QPainter, QColor
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QDialog, QRadioButton, QPushButton, QVBoxLayout, \
+    QMessageBox, QFileDialog
 from PyQt5.uic import loadUi
 
 
@@ -240,6 +241,7 @@ class ExtrasMenu(MainMenu):
         self.close()
 
 
+
 class SoloMenu(MainMenu):
     def __init__(self, x_position, y_position):
         super().__init__()
@@ -259,6 +261,7 @@ class SoloMenu(MainMenu):
 
         self.PlayButton.clicked.connect(self.PlayClicked)
         self.RobotButton.clicked.connect(self.RobotClicked)
+        self.ArenaButton.clicked.connect(self.ArenaClicked)
         self.BackButton.clicked.connect(self.BackClicked)
 
         # Set the window title and add a headline
@@ -270,14 +273,31 @@ class SoloMenu(MainMenu):
         font.setBold(True)
         self.headline.setFont(font)
 
+        # To select Robot class
+        self.robot_class_list = ["Destroyer", "Tank", "Velocity"]
+
     def PlayClicked(self):
-        print("g")
+        if self.RobotButton.text() == "Robot":
+            error_message = "No Robot selected"
+            QMessageBox.critical(self, "Error", error_message)
+        elif self.ArenaButton.text() ==  "Arena":
+            error_message = "No Arena selected"
+            QMessageBox.critical(self, "Error", error_message)
 
     def RobotClicked(self):
-        print("g")
+        robot_class = self.robot_class_list.pop(0)
+        self.robot_class_list.append(robot_class)
+        self.RobotButton.setText(robot_class)
 
     def ArenaClicked(self):
-        print("g")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Choose Arena", "", "Text Files (*.txt)")
+
+        if file_path:
+            arena_name = os.path.basename(file_path)
+            print("Selected arena:", arena_name)
+            self.ArenaButton.setText(arena_name)
+
+
 
     def BackClicked(self):
         position = self.getWindowPos()
