@@ -24,18 +24,34 @@
 
         <p><strong><span style="font-size: larger;">Reducing performance issues (Nico) </span></strong> <br><br>
 
+        <img src="Sprint6/draw_arena1.JPG"><br>
+
+        <img src="Sprint6/draw_arena2.JPG"><br>
+
         While running the main game we experienced a significant amount of lag. <br>
         One reason was, that with every self.update() call of our window, we iterated through every tile to call the arena. <br>
         We changed the code, that the arena is drawn once and saved as a pixmap. <br>
         With every self.update() the arena is displayed now just by drawing the single pixmap.<br>
         We also have significantly increased the size of the tiles, which not only is more visually appealing but also improves the collision detection efficiency.<br>
-
-        <img src="Sprint6/BetterCollDectLoop.png"><br>            
+       
 
 
         <p><strong><span style="font-size: larger;">Added robot classes with different stats and made them pickable in the Menu </span></strong> <br><br>
 
+            
+        The different classes: <br>
+        <img src="Sprint6/RobotClasses.JPG"><br><br>
+
+        Functions which allow changing the class in the menu: <br>
+        <img src="Sprint6/select_robot_menu"><br>
+
+        
+
         If the player attempts to start the game without selecting a class and arena, error messages will pop up.<br>
+
+        <img src="Sprint6/no_robot_selected.JPG"><br>
+
+        <img src="Sprint6/no_arena_selected.JPG"><br>
 
         <p><strong><span style="font-size: larger;">Improvements to MapEditor </span></strong> <br><br>
 
