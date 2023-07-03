@@ -4,10 +4,10 @@ import os
 import sys
 
 from PyQt5.QtCore import QTimer, QUrl
-from PyQt5.QtGui import QFont, QPixmap, QPainter, QColor
+from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QDialog, QRadioButton, QPushButton, QVBoxLayout, \
-    QMessageBox, QFileDialog
+from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
+                             QMessageBox)
 from PyQt5.uic import loadUi
 
 
@@ -241,7 +241,6 @@ class ExtrasMenu(MainMenu):
         self.close()
 
 
-
 class SoloMenu(MainMenu):
     def __init__(self, x_position, y_position):
         super().__init__()
@@ -280,7 +279,7 @@ class SoloMenu(MainMenu):
         if self.RobotButton.text() == "Robot":
             error_message = "No Robot selected"
             QMessageBox.critical(self, "Error", error_message)
-        elif self.ArenaButton.text() ==  "Arena":
+        elif self.ArenaButton.text() == "Arena":
             error_message = "No Arena selected"
             QMessageBox.critical(self, "Error", error_message)
 
@@ -290,14 +289,14 @@ class SoloMenu(MainMenu):
         self.RobotButton.setText(robot_class)
 
     def ArenaClicked(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Choose Arena", "", "Text Files (*.txt)")
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Choose Arena", "", "Text Files (*.txt)"
+        )
 
         if file_path:
             arena_name = os.path.basename(file_path)
             print("Selected arena:", arena_name)
             self.ArenaButton.setText(arena_name)
-
-
 
     def BackClicked(self):
         position = self.getWindowPos()
