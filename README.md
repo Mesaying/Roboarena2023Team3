@@ -1,5 +1,4 @@
 # RoboArena 2023
-## Team 3
 ### **Marcel John, Tom Wolf, Nico Schreiner**
 
 
