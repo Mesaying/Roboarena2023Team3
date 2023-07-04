@@ -2,7 +2,8 @@ import math
 import sys
 
 from BasicRobot import BasicRobot, MovementTyp
-from Globals import gl_arena_size_width, gl_arena_size_height , gl_tile_size , gl_tiles_amount 
+from Globals import (gl_arena_size_height, gl_arena_size_width, gl_tile_size,
+                     gl_tiles_amount)
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap

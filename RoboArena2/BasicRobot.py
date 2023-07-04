@@ -1,7 +1,7 @@
 import math
 from enum import Enum
 
-from Globals import  gl_tile_size , gl_tiles_amount
+from Globals import gl_tile_size, gl_tiles_amount
 from PyQt5.QtCore import Qt
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import Weapon, WeaponName
@@ -49,7 +49,9 @@ class BasicRobot:
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
             print(list_with_tiles)
-        for y in range(0, gl_tiles_amount):  # Iterates through every possible tile
+        for y in range(
+            0, gl_tiles_amount
+        ):  # Iterates through every possible tile
             for x in range(0, gl_tiles_amount):
                 next_tile = list_with_tiles.pop(
                     0
@@ -80,7 +82,9 @@ class BasicRobot:
         self.move(moveInputVec, deltaTime)
 
     def tileLogic(self):
-        currTile = self.tiles[round(self.x / gl_tile_size)][round(self.y / gl_tile_size)]
+        currTile = self.tiles[round(self.x / gl_tile_size)][
+            round(self.y / gl_tile_size)
+        ]
 
         self.moveMultiplier = 1
         damage = 0
