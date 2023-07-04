@@ -1,5 +1,4 @@
 import math
-import Globals
 from enum import Enum
 
 from PyQt5.QtCore import Qt
