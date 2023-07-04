@@ -1,6 +1,6 @@
-#### RoboArena 2023
-### Team 3
-## Marcel John, Tom Wolf, Nico Schreiner
+# RoboArena 2023
+## Team 3
+### Marcel John, Tom Wolf, Nico Schreiner
 
 
 ## Sprints
@@ -10,7 +10,7 @@ https://mesaying.github.io/Roboarena2023Team3/
 
 ## Controls
 
-# Player1
+#### Player1
 
-# Player2
+#### Player2
 
