@@ -1,6 +1,6 @@
-<p><strong><span style="font-size: larger;"> RoboArena 2023 </span></strong> <br><br>
-<p><strong><span style="font-size: larger;"> Team 3 </span></strong> <br><br>
-<p><strong><span style="font-size: larger;"> Marcel John, Tom Wolf, Nico Schreiner  </span></strong> <br><br>
+<p><strong><span style="font-size: xx-large;"> RoboArena 2023 </span></strong> <br><br>
+<p><strong><span style="font-size: xx-large;"> Team 3 </span></strong> <br><br>
+<p><strong><span style="font-size: xx-large;"> Marcel John, Tom Wolf, Nico Schreiner  </span></strong> <br><br>
 
 
 Roboarena 2023
