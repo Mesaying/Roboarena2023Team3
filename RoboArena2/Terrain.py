@@ -61,12 +61,14 @@ class normal(terrain):
     type = "n"
     imagePath = "TileImages/Normal_tile.png"
 
+
 class player1(terrain):
     movement = 1.0
     solid = 0
     damage = 0
     type = "n"
     imagePath = "TileImages/Normal_tile.png"
+
 
 class player2(terrain):
     movement = 1.0
