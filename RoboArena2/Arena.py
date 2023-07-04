@@ -1,6 +1,7 @@
 import math
 import sys
 
+from Globals import *
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
@@ -121,9 +122,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def __init__(self):
         super().__init__()
-        self.width = 1000
-        self.height = 1000
-        self.tiles = [[object() for i in range(20)] for j in range(20)]
+        self.width = gl_arena_size_width
+        self.height = gl_arena_size_height
+        self.tiles = [[object() for i in range(gl_tiles_amount)] for j in range(gl_tiles_amount)]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
@@ -140,8 +141,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             print("letter", letter)
             list_with_tiles.append(letter)
         print("len", len(list_with_tiles))
-        for y in range(0, 20):  # Iterates through every possible tile
-            for x in range(0, 20):
+        for y in range(0, gl_tiles_amount):  # Iterates through every possible tile
+            for x in range(0, gl_tiles_amount):
                 next_tile = list_with_tiles.pop(
                     0
                 )  # first element is deleted and returned from the list
@@ -163,7 +164,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         # Draw arena
         self.arena_drawn = 0
-        self.arena_pixmap = QPixmap(1000, 1000)
+        self.arena_pixmap = QPixmap(gl_arena_size_width, gl_arena_size_height)
         self.arena_pixmap.fill(Qt.transparent)
         self.render_arena()
 
@@ -171,12 +172,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         painter = QPainter(self.arena_pixmap)
         painter.setRenderHint(QPainter.Antialiasing)
 
-        for y in range(0, 20):  # Iterates through every possible tile
-            for x in range(0, 20):
+        for y in range(0, gl_tiles_amount):  # Iterates through every possible tile
+            for x in range(0, gl_tiles_amount):
                 print(type(self.tiles[x][y]))
                 pix = QPixmap(self.tiles[x][y].imagePath)
-                pix = pix.scaledToWidth(50)
-                painter.drawPixmap(y * 50, x * 50, pix)
+                pix = pix.scaledToWidth(gl_tile_size)
+                painter.drawPixmap(y * gl_tile_size, x * gl_tile_size, pix)
 
     def get_size(self):  # method to print actual size of the arena
         print(  # split the string in two lines due to max line length
