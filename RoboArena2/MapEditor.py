@@ -1,5 +1,5 @@
-import sys
 import configparser
+import sys
 
 from Menus import ExtrasMenu
 from PyQt5.QtCore import Qt
@@ -64,8 +64,8 @@ class MapEditor(QMainWindow):
         self.load_button.clicked.connect(lambda: self.load())
         self.back_button.clicked.connect(lambda: self.back())
 
-        #self.player_1_button.clicked.connect()
-        #self.player_2_button.clicked.connect()
+        # self.player_1_button.clicked.connect()
+        # self.player_2_button.clicked.connect()
 
         # Initialize draw mode to None
         self.draw_mode = None
@@ -171,12 +171,14 @@ class MapEditor(QMainWindow):
             with open(file_path, "r") as file:
                 content = file.read().strip()  # Read the content of the file
 
-
             # Check if the file has the expected length of 400
             expected_length = tile_amount * tile_amount
             if len(content) != expected_length:
-                raise ValueError("Invalid map file. The File is expected to contain:", expected_length, "letters.")
-
+                raise ValueError(
+                    "Invalid map file. The File is expected to contain:",
+                    expected_length,
+                    "letters.",
+                )
 
             # Clear the grid and tile array
             self.clear_grid()

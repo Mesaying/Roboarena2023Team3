@@ -1,7 +1,7 @@
-import math
 import configparser
-
+import math
 from enum import Enum
+
 from PyQt5.QtCore import Qt
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import Weapon, WeaponName
@@ -36,7 +36,9 @@ class BasicRobot:
         self.x = xPos
         self.y = yPos
         self.movementtype = movementtype
-        self.tiles = [[None for i in range(tile_amount)] for j in range(tile_amount)]
+        self.tiles = [
+            [None for i in range(tile_amount)] for j in range(tile_amount)
+        ]
         self.color = Qt.black
         self.turnAccel = 20
         self.acceleration = 10
@@ -88,7 +90,9 @@ class BasicRobot:
         self.move(moveInputVec, deltaTime)
 
     def tileLogic(self):
-        currTile = self.tiles[round(self.x / tile_size)][round(self.y / tile_size)]
+        currTile = self.tiles[round(self.x / tile_size)][
+            round(self.y / tile_size)
+        ]
 
         self.moveMultiplier = 1
         damage = 0

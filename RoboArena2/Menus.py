@@ -1,8 +1,8 @@
 import configparser
 import importlib
 import os
-import sys
 import subprocess
+import sys
 
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
@@ -10,10 +10,10 @@ from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
                              QMessageBox)
 from PyQt5.uic import loadUi
-import subprocess
 
 config = configparser.ConfigParser()
 config.read("config.txt")
+
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -286,9 +286,9 @@ class SoloMenu(MainMenu):
             error_message = "No Arena selected"
             QMessageBox.critical(self, "Error", error_message)
         else:
-            file_path = 'Arena.py'
-            subprocess.Popen(['python', file_path])
-            #sys.exit()
+            file_path = "Arena.py"
+            subprocess.Popen(["python", file_path])
+            # sys.exit()
 
     def RobotClicked(self):
         robot_class = self.robot_class_list.pop(0)

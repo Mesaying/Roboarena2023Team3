@@ -1,6 +1,6 @@
+import configparser
 import math
 import sys
-import configparser
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
 
-
 config = configparser.ConfigParser()
 config.read("config.txt")
 selected_map = config.get("Map", "selected_map")
@@ -18,6 +17,7 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
+
 
 class Worker(QThread):
     def __init__(
@@ -132,7 +132,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         super().__init__()
         self.width = arena_size_width
         self.height = arena_size_height
-        self.tiles = [[object() for i in range(tile_amount)] for j in range(tile_amount)]
+        self.tiles = [
+            [object() for i in range(tile_amount)] for j in range(tile_amount)
+        ]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
