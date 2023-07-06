@@ -1,19 +1,19 @@
 import configparser
 import importlib
 import os
-import sys
 import subprocess
+import sys
 
+from Globals import gl_selected_arena
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
                              QMessageBox)
 from PyQt5.uic import loadUi
-from Globals import gl_selected_arena, gl_selected_robot
-import subprocess
 
 config = configparser.ConfigParser()
+
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -288,11 +288,11 @@ class SoloMenu(MainMenu):
         else:
             # Specify the path to the Python file you want to start
             print("gl1", gl_selected_arena)
-            file_path = 'Arena.py'
+            file_path = "Arena.py"
             # Start the Python file using the subprocess module
-            subprocess.Popen(['python', file_path])
+            subprocess.Popen(["python", file_path])
             print("gl2", gl_selected_arena)
-            #sys.exit()
+            # sys.exit()
 
     def RobotClicked(self):
         robot_class = self.robot_class_list.pop(0)

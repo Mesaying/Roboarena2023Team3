@@ -1,17 +1,16 @@
+import configparser
 import math
 import sys
-import configparser
 
-from Globals import gl_arena_size_width, gl_arena_size_height , gl_tile_size , gl_tiles_amount, \
-    gl_selected_arena
 from BasicRobot import BasicRobot, MovementTyp
+from Globals import (gl_arena_size_height, gl_arena_size_width,
+                     gl_tile_size, gl_tiles_amount)
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
-
 
 config = configparser.ConfigParser()
 
@@ -129,7 +128,10 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         super().__init__()
         self.width = gl_arena_size_width
         self.height = gl_arena_size_height
-        self.tiles = [[object() for i in range(gl_tiles_amount)] for j in range(gl_tiles_amount)]
+        self.tiles = [
+            [object() for i in range(gl_tiles_amount)]
+            for j in range(gl_tiles_amount)
+        ]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
@@ -141,12 +143,16 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         list_with_tiles = []
 
         config.read("config.txt")  # Path to config file
-        with open(config.get("Map", "selected_map"), "r") as file:  # Opens the textfile
+        with open(
+            config.get("Map", "selected_map"), "r"
+        ) as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
-        for y in range(0, gl_tiles_amount):  # Iterates through every possible tile
+        for y in range(
+            0, gl_tiles_amount
+        ):  # Iterates through every possible tile
             for x in range(0, gl_tiles_amount):
                 next_tile = list_with_tiles.pop(
                     0
@@ -177,7 +183,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         painter = QPainter(self.arena_pixmap)
         painter.setRenderHint(QPainter.Antialiasing)
 
-        for y in range(0, gl_tiles_amount):  # Iterates through every possible tile
+        for y in range(
+            0, gl_tiles_amount
+        ):  # Iterates through every possible tile
             for x in range(0, gl_tiles_amount):
                 print(type(self.tiles[x][y]))
                 pix = QPixmap(self.tiles[x][y].imagePath)

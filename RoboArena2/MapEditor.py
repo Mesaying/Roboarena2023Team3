@@ -162,12 +162,14 @@ class MapEditor(QMainWindow):
             with open(file_path, "r") as file:
                 content = file.read().strip()  # Read the content of the file
 
-
             # Check if the file has the expected length of 400
             expected_length = GRID_SIZE * GRID_SIZE
             if len(content) != expected_length:
-                raise ValueError("Invalid map file. The File is expected to contain:", expected_length, "letters.")
-
+                raise ValueError(
+                    "Invalid map file. The File is expected to contain:",
+                    expected_length,
+                    "letters.",
+                )
 
             # Clear the grid and tile array
             self.clear_grid()
