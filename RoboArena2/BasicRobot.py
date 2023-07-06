@@ -1,9 +1,18 @@
+import configparser
 import math
 from enum import Enum
 
 from PyQt5.QtCore import Qt
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import Weapon, WeaponName
+
+config = configparser.ConfigParser()
+config.read("config.txt")
+selected_map = config.get("Map", "selected_map")
+arena_size_width = config.getint("Arena", "arena_size_width")
+arena_size_height = config.getint("Arena", "arena_size_height")
+tile_size = config.getint("Tiles", "tile_size")
+tile_amount = config.getint("Tiles", "tile_amount")
 
 
 class MovementTyp(Enum):
@@ -27,7 +36,9 @@ class BasicRobot:
         self.x = xPos
         self.y = yPos
         self.movementtype = movementtype
-        self.tiles = [[None for i in range(20)] for j in range(20)]
+        self.tiles = [
+            [None for i in range(tile_amount)] for j in range(tile_amount)
+        ]
         self.color = Qt.black
         self.turnAccel = 20
         self.acceleration = 10
@@ -42,14 +53,14 @@ class BasicRobot:
         self.weaponsCurrentlyShoot = False
 
         list_with_tiles = []
-        with open("walla.txt", "r") as file:  # Opens the textfile
+        with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
             print(list_with_tiles)
-        for y in range(0, 20):  # Iterates through every possible tile
-            for x in range(0, 20):
+        for y in range(0, tile_amount):  # Iterates through every possible tile
+            for x in range(0, tile_amount):
                 next_tile = list_with_tiles.pop(
                     0
                 )  # first element is deleted and returned from the list
@@ -79,7 +90,9 @@ class BasicRobot:
         self.move(moveInputVec, deltaTime)
 
     def tileLogic(self):
-        currTile = self.tiles[round(self.x / 50)][round(self.y / 50)]
+        currTile = self.tiles[round(self.x / tile_size)][
+            round(self.y / tile_size)
+        ]
 
         self.moveMultiplier = 1
         damage = 0

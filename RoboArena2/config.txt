@@ -1,4 +1,17 @@
 [Settings]
-music = 81
+music = 40
 game_sounds = 50
 
+[Class]
+selected_class = Destroyer
+
+[Map]
+selected_map = C:/Users/Nico/Desktop/roboarena/roboarena/Roboarena2023Team3/RoboArena2/spikes.txt
+
+[Arena]
+arena_size_width = 1000
+arena_size_height = 1000
+
+[Tiles]
+tile_size = 50
+tile_amount = 20

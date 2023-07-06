@@ -1,3 +1,4 @@
+import configparser
 import math
 import sys
 
@@ -8,6 +9,14 @@ from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
+
+config = configparser.ConfigParser()
+config.read("config.txt")
+selected_map = config.get("Map", "selected_map")
+arena_size_width = config.getint("Arena", "arena_size_width")
+arena_size_height = config.getint("Arena", "arena_size_height")
+tile_size = config.getint("Tiles", "tile_size")
+tile_amount = config.getint("Tiles", "tile_amount")
 
 
 class Worker(QThread):
@@ -121,9 +130,11 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def __init__(self):
         super().__init__()
-        self.width = 1000
-        self.height = 1000
-        self.tiles = [[object() for i in range(20)] for j in range(20)]
+        self.width = arena_size_width
+        self.height = arena_size_height
+        self.tiles = [
+            [object() for i in range(tile_amount)] for j in range(tile_amount)
+        ]
         self.robots = []
         self.title = "RoboArena"
         self.top = 0
@@ -133,15 +144,14 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.timer.start(100)
 
         list_with_tiles = []
-        with open("walla.txt", "r") as file:  # Opens the textfile
+
+        with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
-            print("letter", letter)
             list_with_tiles.append(letter)
-        print("len", len(list_with_tiles))
-        for y in range(0, 20):  # Iterates through every possible tile
-            for x in range(0, 20):
+        for y in range(0, tile_amount):  # Iterates through every possible tile
+            for x in range(0, tile_amount):
                 next_tile = list_with_tiles.pop(
                     0
                 )  # first element is deleted and returned from the list
@@ -163,7 +173,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         # Draw arena
         self.arena_drawn = 0
-        self.arena_pixmap = QPixmap(1000, 1000)
+        self.arena_pixmap = QPixmap(arena_size_width, arena_size_height)
         self.arena_pixmap.fill(Qt.transparent)
         self.render_arena()
 
@@ -171,12 +181,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         painter = QPainter(self.arena_pixmap)
         painter.setRenderHint(QPainter.Antialiasing)
 
-        for y in range(0, 20):  # Iterates through every possible tile
-            for x in range(0, 20):
+        for y in range(0, tile_amount):  # Iterates through every possible tile
+            for x in range(0, tile_amount):
                 print(type(self.tiles[x][y]))
                 pix = QPixmap(self.tiles[x][y].imagePath)
-                pix = pix.scaledToWidth(50)
-                painter.drawPixmap(y * 50, x * 50, pix)
+                pix = pix.scaledToWidth(tile_size)
+                painter.drawPixmap(y * tile_size, x * tile_size, pix)
 
     def get_size(self):  # method to print actual size of the arena
         print(  # split the string in two lines due to max line length
@@ -370,7 +380,7 @@ testRobot3 = BasicRobot(
     yPos=yPosition,
     movementtype=MovementTyp.Player1Control,
 )
-
+print("asss")
 App = QApplication(sys.argv)
 testarena = Arena()
 # testarena.add_robot(testRobot)
