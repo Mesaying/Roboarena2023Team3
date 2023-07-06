@@ -1,4 +1,10 @@
 [Settings]
-music = 81
+music = 40
 game_sounds = 50
+
+[Class]
+selected_class = Destroyer
+
+[Map]
+selected_map = C:/Users/Nico/Desktop/roboarena/roboarena/Roboarena2023Team3/RoboArena2/spikes.txt
 

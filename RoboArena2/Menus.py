@@ -2,6 +2,7 @@ import configparser
 import importlib
 import os
 import sys
+import subprocess
 
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
@@ -9,7 +10,10 @@ from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
                              QMessageBox)
 from PyQt5.uic import loadUi
+from Globals import gl_selected_arena, gl_selected_robot
+import subprocess
 
+config = configparser.ConfigParser()
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -157,7 +161,6 @@ class SettingsMenu(MainMenu):
         self.SoundSlider.valueChanged.connect(self.sliderValueChanged)
 
         # Get music volume from config file
-        config = configparser.ConfigParser()
         config.read("config.txt")  # Path to config file
         music = config.getint("Settings", "music")
 
@@ -282,11 +285,24 @@ class SoloMenu(MainMenu):
         elif self.ArenaButton.text() == "Arena":
             error_message = "No Arena selected"
             QMessageBox.critical(self, "Error", error_message)
+        else:
+            # Specify the path to the Python file you want to start
+            print("gl1", gl_selected_arena)
+            file_path = 'Arena.py'
+            # Start the Python file using the subprocess module
+            subprocess.Popen(['python', file_path])
+            print("gl2", gl_selected_arena)
+            #sys.exit()
 
     def RobotClicked(self):
         robot_class = self.robot_class_list.pop(0)
         self.robot_class_list.append(robot_class)
         self.RobotButton.setText(robot_class)
+        config.read("config.txt")  # Path to config file
+        config.set("Class", "selected_class", robot_class)
+        # Overwrite config file
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
 
     def ArenaClicked(self):
         file_path, _ = QFileDialog.getOpenFileName(
@@ -294,9 +310,12 @@ class SoloMenu(MainMenu):
         )
 
         if file_path:
-            arena_name = os.path.basename(file_path)
-            print("Selected arena:", arena_name)
-            self.ArenaButton.setText(arena_name)
+            self.ArenaButton.setText(file_path)
+            config.read("config.txt")  # Path to config file
+            config.set("Map", "selected_map", file_path)
+            # Overwrite config file
+            with open("config.txt", "w") as config_file:
+                config.write(config_file)
 
     def BackClicked(self):
         position = self.getWindowPos()
@@ -337,7 +356,6 @@ class MusicPlayer:
 
     def update_music(self):
         # Get Volume from config file
-        config = configparser.ConfigParser()
         config.read("config.txt")  # Path to config file
         self.music = config.getint("Settings", "music")
 

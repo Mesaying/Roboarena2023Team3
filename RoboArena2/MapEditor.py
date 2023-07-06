@@ -52,8 +52,12 @@ class MapEditor(QMainWindow):
         self.undo_button.clicked.connect(lambda: self.undo())
         self.new_button.clicked.connect(lambda: self.clear_grid())
         self.save_button.clicked.connect(lambda: self.save_to_text_file())
-
+        self.load_button.clicked.connect(lambda: self.load())
         self.back_button.clicked.connect(lambda: self.back())
+
+        self.player_1_button.clicked.connect()
+        self.player_2_button.clicked.connect()
+
         # Initialize draw mode to None
         self.draw_mode = None
 
@@ -147,6 +151,58 @@ class MapEditor(QMainWindow):
     def getWindowPos(self):
         window_pos = self.pos()
         return window_pos
+
+    def load(self):
+        # Opens dialog to select a file
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Load Map", "", "Text Files (*.txt)"
+        )
+
+        if file_path:
+            with open(file_path, "r") as file:
+                content = file.read().strip()  # Read the content of the file
+
+
+            # Check if the file has the expected length of 400
+            expected_length = GRID_SIZE * GRID_SIZE
+            if len(content) != expected_length:
+                raise ValueError("Invalid map file. The File is expected to contain:", expected_length, "letters.")
+
+
+            # Clear the grid and tile array
+            self.clear_grid()
+            self.tile_array = [["n"] * GRID_SIZE for _ in range(GRID_SIZE)]
+
+            # Iterate over each character in the file and update the grid and tile array
+            index = 0
+
+            for letter in content:
+                row, col = divmod(index, GRID_SIZE)
+                print("row", row)
+                print("col", col)
+                index = index + 1
+                label = self.grid[row][col]
+                image_path = ""
+
+                if letter == "a":
+                    image_path = "TileImages\\Water_tile.png"
+                elif letter == "f":
+                    image_path = "TileImages\\Fire_tile.png"
+                elif letter == "w":
+                    image_path = "TileImages\\Wall_tile.png"
+                elif letter == "b":
+                    image_path = "TileImages\\Boost_tile.png"
+                elif letter == "s":
+                    image_path = "TileImages\\Spike_tile.png"
+                elif letter == "n":
+                    image_path = "TileImages\\Normal_tile.png"
+                else:
+                    raise ValueError(letter, " is not a valid letter")
+
+                pixmap = QPixmap(image_path)
+                label.setPixmap(pixmap.scaled(GRID_CELL_SIZE, GRID_CELL_SIZE))
+                self.tile_array[row][col] = letter
+                self.tiles_drawn.append([row, col])
 
 
 if __name__ == "__main__":
