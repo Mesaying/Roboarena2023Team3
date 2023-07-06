@@ -184,8 +184,8 @@ class MapEditor(QMainWindow):
             self.clear_grid()
             self.tile_array = [["n"] * tile_amount for _ in range(tile_amount)]
 
-            # Iterate over each character in the file and update 
-            #the grid and tile array
+            # Iterate over each character in the file and update
+            # the grid and tile array
             index = 0
 
             for letter in content:
