@@ -380,6 +380,12 @@ testRobot3 = BasicRobot(
     yPos=yPosition,
     movementtype=MovementTyp.Player1Control,
 )
+
+testRobot4 = BasicRobot(
+    xPos=xPosition + 300,
+    yPos=yPosition + 300,
+    movementtype=MovementTyp.Player2Control,
+)
 print("asss")
 App = QApplication(sys.argv)
 testarena = Arena()
@@ -387,6 +393,7 @@ testarena = Arena()
 # testarena.add_robot(testRobot1)
 testarena.add_robot(testRobot2)
 testarena.add_robot(testRobot3)
+testarena.add_robot(testRobot4)
 testarena.runTask()
 testarena.InitWindow()
 

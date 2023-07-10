@@ -20,6 +20,7 @@ class MovementTyp(Enum):
     Circle = "Circle"
     Wave = "Wave"
     Player1Control = "Player1Control"
+    Player2Control = "Player2Control"
 
 
 class BasicRobot:

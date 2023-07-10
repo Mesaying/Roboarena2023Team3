@@ -25,8 +25,8 @@ class MovementManager_:
                 self.moveInWave()
             case MovementTyp.Player1Control:
                 self.handleInputPlayer1(keys)
-            case _:
-                print("MovementType not yet defined")
+            case MovementTyp.Player2Control:
+                self.handleInputPlayer2(keys)
 
     def moveInLine(self):
         self.robot.tick(1, 0, (1 / 30))
@@ -54,6 +54,56 @@ class MovementManager_:
         turnRight = Qt.Key.Key_D
         shootWeapon = Qt.Key.Key_F
         dashKey = Qt.Key.Key_Shift
+        PressedMoveForward = moveForward in keys and keys[moveForward]
+        PressedMoveBack = moveBack in keys and keys[moveBack]
+        PressedTurnLeft = turnLeft in keys and keys[turnLeft]
+        PressedTurnRight = turnRight in keys and keys[turnRight]
+        PressedShootWeapon = shootWeapon in keys and keys[shootWeapon]
+        PressedDash = dashKey in keys and keys[dashKey]
+        dashcooldownNotActive = self.dashcooldown < 1
+
+        moveVec = 0
+        rotVec = 0
+
+        if PressedMoveForward and not PressedMoveBack:
+            moveVec += 1
+
+        if PressedMoveBack and not PressedMoveForward:
+            moveVec -= 1
+
+        if PressedTurnLeft and not PressedTurnRight:
+            rotVec -= 1
+
+        if PressedTurnRight and not PressedTurnLeft:
+            rotVec += 1
+
+        self.robot.tick(moveVec, rotVec, 1 / 30)
+        if PressedShootWeapon and self.ticksToNextShoot < 1:
+            self.weaponsCurrentlyShoot = True
+            self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+        else:
+            self.weaponsCurrentlyShoot = False
+
+        self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
+        if PressedDash and dashcooldownNotActive:
+            if PressedMoveBack:
+                self.dashAbility(dashDistance, -1)
+                self.dashcooldown = dashcooldowntime
+            else:
+                self.dashAbility(dashDistance, 1)
+                self.dashcooldown = dashcooldowntime
+
+    def handleInputPlayer2(self, keys: dict):
+        dashDistance = 10
+        dashcooldowntime = 10
+        self.reduceTimerToShoot()
+        self.reduceAbilityCooldown()
+        moveForward = Qt.Key.Key_Up
+        moveBack = Qt.Key.Key_Down
+        turnLeft = Qt.Key.Key_Left
+        turnRight = Qt.Key.Key_Right
+        shootWeapon = Qt.Key.Key_Return
+        dashKey = Qt.Key.Key_Adiaeresis
         PressedMoveForward = moveForward in keys and keys[moveForward]
         PressedMoveBack = moveBack in keys and keys[moveBack]
         PressedTurnLeft = turnLeft in keys and keys[turnLeft]
