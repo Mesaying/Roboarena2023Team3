@@ -98,10 +98,10 @@ class MovementManager_:
         dashcooldowntime = 10
         self.reduceTimerToShoot()
         self.reduceAbilityCooldown()
-        moveForward = Qt.Key.Key_O
-        moveBack = Qt.Key.Key_L
-        turnLeft = Qt.Key.Key_K
-        turnRight = Qt.Key.Key_Odiaeresis
+        moveForward = Qt.Key.Key_Up
+        moveBack = Qt.Key.Key_Down
+        turnLeft = Qt.Key.Key_Left
+        turnRight = Qt.Key.Key_Right
         shootWeapon = Qt.Key.Key_Return
         dashKey = Qt.Key.Key_Adiaeresis
         PressedMoveForward = moveForward in keys and keys[moveForward]
