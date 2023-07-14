@@ -81,7 +81,7 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
-            match(self.robot.weapon.typ):
+            match (self.robot.weapon.typ):
                 case WeaponTyp.hitscan:
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
@@ -90,11 +90,13 @@ class MovementManager_:
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                     self.shootProjectile()
         else:
-            match(self.robot.weapon.typ):
+            match (self.robot.weapon.typ):
                 case WeaponTyp.hitscan:
                     self.weaponsCurrentlyShoot = False
                 case WeaponTyp.projectile:
-                    self.weaponsCurrentlyShoot = len(self.robot.weapon.listOfPositionForProjectils) > 0
+                    self.weaponsCurrentlyShoot = (
+                        len(self.robot.weapon.listOfPositionForProjectils) > 0
+                    )
 
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:

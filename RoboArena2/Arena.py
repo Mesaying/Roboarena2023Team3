@@ -37,7 +37,7 @@ class Worker(QThread):
         self.movementManager.handleInput(self.keys)
 
     def calculateDamage(self) -> None:
-        match(self.robot.weapon.typ):
+        match (self.robot.weapon.typ):
             case WeaponTyp.hitscan:
                 self.calculateDamageHitscan()
             case WeaponTyp.projectile:
@@ -48,7 +48,12 @@ class Worker(QThread):
             positionProjectileInList = []
             indexOfProjectile = 0
             for i in self.robot.weapon.listOfPositionForProjectils:
-                if(i[0] < 0 or i[1] < 0 or i[0] > arena_size_height or i[1] > arena_size_width):
+                if (
+                    i[0] < 0
+                    or i[1] < 0
+                    or i[0] > arena_size_height
+                    or i[1] > arena_size_width
+                ):
                     positionProjectileInList.append(indexOfProjectile)
                     indexOfProjectile += 1
 
@@ -56,11 +61,17 @@ class Worker(QThread):
                 indexOfProjectile = 0
                 for j in self.robot.weapon.listOfPositionForProjectils:
                     if not (i is self.robot):
-                        distance = self.distanceBetweenPonts(i.x, i.y, j[0], j[1])
+                        distance = self.distanceBetweenPonts(
+                            i.x, i.y, j[0], j[1]
+                        )
                         if distance <= i.radius:
                             i.takeDamage(self.robot.weapon.damage)
-                            if not(indexOfProjectile in positionProjectileInList):
-                                positionProjectileInList.append(indexOfProjectile)
+                            if not (
+                                indexOfProjectile in positionProjectileInList
+                            ):
+                                positionProjectileInList.append(
+                                    indexOfProjectile
+                                )
                     indexOfProjectile += 1
 
             for i in positionProjectileInList:
@@ -366,13 +377,17 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                         endPosY = self.calcYEndHitScan(i)
                         painter.drawLine(i.x, i.y, endPosX, endPosY)
                     case WeaponTyp.projectile:
-                        numberOfProjectiles = len(i.weapon.listOfPositionForProjectils)
+                        numberOfProjectiles = len(
+                            i.weapon.listOfPositionForProjectils
+                        )
                         for j in range(numberOfProjectiles):
                             painter.drawEllipse(
-                                i.weapon.listOfPositionForProjectils[j][0] - int(i.weapon.size / 2),
-                                i.weapon.listOfPositionForProjectils[j][1] - int(i.weapon.size / 2),
+                                i.weapon.listOfPositionForProjectils[j][0]
+                                - int(i.weapon.size / 2),
+                                i.weapon.listOfPositionForProjectils[j][1]
+                                - int(i.weapon.size / 2),
                                 i.weapon.size,
-                                i.weapon.size
+                                i.weapon.size,
                             )
 
     def calcxPositionHealthBar(self, robot: BasicRobot) -> int:
@@ -429,7 +444,7 @@ App = QApplication(sys.argv)
 testarena = Arena()
 # testarena.add_robot(testRobot)
 # testarena.add_robot(testRobot1)
-#testarena.add_robot(testRobot2)
+# testarena.add_robot(testRobot2)
 testarena.add_robot(testRobot3)
 testarena.add_robot(testRobot4)
 testarena.runTask()

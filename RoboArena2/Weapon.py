@@ -1,5 +1,5 @@
-from enum import Enum
 import math
+from enum import Enum
 
 
 class WeaponTyp(Enum):
@@ -32,51 +32,53 @@ class Weapon:
         self.listOfDirections = []
         self.getWeaponStats(name)
 
-    def addProjectilePosition(self, x : int, y : int) -> None:
+    def addProjectilePosition(self, x: int, y: int) -> None:
         self.listOfPositionForProjectils.append([x, y])
-    
-    def addProjectileVector(self, direction : int) -> None:
-        xVelocity = (
-            (math.cos(math.radians(direction)))
-            * self.projectileSpeed
-        )
+
+    def addProjectileVector(self, direction: int) -> None:
+        xVelocity = (math.cos(math.radians(direction))) * self.projectileSpeed
         xVelocity = int(xVelocity)
-        yVelocity = (
-            (math.sin(math.radians(direction)))
-            * self.projectileSpeed
-        )
+        yVelocity = (math.sin(math.radians(direction))) * self.projectileSpeed
         yVelocity = int(yVelocity)
         self.listOfVectorsForProjectils.append([xVelocity, yVelocity])
         self.listOfDirections.append(direction + self.extraTurnig)
 
-    def newXVelocity(self, posInList : int) -> int:
+    def newXVelocity(self, posInList: int) -> int:
         xVelocity = (
-            (math.cos(math.radians(self.listOfDirections[posInList])))
-            * self.projectileSpeed
-        )
+            math.cos(math.radians(self.listOfDirections[posInList]))
+        ) * self.projectileSpeed
         xVelocity = int(xVelocity)
         self.listOfDirections[posInList] += self.extraTurnig
         return xVelocity
-    
-    def newYVelocity(self, posInList : int) -> int:
+
+    def newYVelocity(self, posInList: int) -> int:
         yVelocity = (
-            (math.sin(math.radians(self.listOfDirections[posInList])))
-            * self.projectileSpeed
-        )
+            math.sin(math.radians(self.listOfDirections[posInList]))
+        ) * self.projectileSpeed
         yVelocity = int(yVelocity)
         self.listOfDirections[posInList] += self.extraTurnig
         return yVelocity
 
     def moveProjectils(self) -> None:
-        if(len(self.listOfPositionForProjectils) == len(self.listOfVectorsForProjectils)):
+        if len(self.listOfPositionForProjectils) == len(
+            self.listOfVectorsForProjectils
+        ):
             for i in range(len(self.listOfPositionForProjectils)):
-                self.listOfPositionForProjectils[i][0] += self.listOfVectorsForProjectils[i][0]
-                self.listOfPositionForProjectils[i][1] += self.listOfVectorsForProjectils[i][1]
-                if(self.extraTurnig > 0):
-                    self.listOfVectorsForProjectils[i][0] = self.newXVelocity(i)
-                    self.listOfVectorsForProjectils[i][1] = self.newYVelocity(i)
+                self.listOfPositionForProjectils[i][
+                    0
+                ] += self.listOfVectorsForProjectils[i][0]
+                self.listOfPositionForProjectils[i][
+                    1
+                ] += self.listOfVectorsForProjectils[i][1]
+                if self.extraTurnig > 0:
+                    self.listOfVectorsForProjectils[i][0] = self.newXVelocity(
+                        i
+                    )
+                    self.listOfVectorsForProjectils[i][1] = self.newYVelocity(
+                        i
+                    )
 
-    def deleatProjectile(self, PosInList : int) -> None:
+    def deleatProjectile(self, PosInList: int) -> None:
         try:
             del self.listOfPositionForProjectils[PosInList]
         except Exception:
