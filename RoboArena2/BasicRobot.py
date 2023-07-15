@@ -52,7 +52,7 @@ class BasicRobot:
         self.health = self.MAX_HEALTH
         self.weapon = Weapon(WeaponName.basicHitscan)
         self.weaponsCurrentlyShoot = False
-
+        self.type = "Basic"
         list_with_tiles = []
         with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
