@@ -180,9 +180,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.render_arena()
 
         #Generate Robot picture pixmaps
-        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerRobot.png")
-        self.TankPixmap = QPixmap("RobotArt/TankRobot.png")
-        self.VelocityPixmap = QPixmap("RobotArt/VelocityRobot.png")
+        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerPattern.png")
+        self.TankPixmap = QPixmap("RobotArt/TankPattern.png")
+        self.VelocityPixmap = QPixmap("RobotArt/VelocityPattern.png")
         print("pixmaps robot")
 
     def render_arena(self):
@@ -319,40 +319,23 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             endy = int(
                 self.robots[i].y + math.sin(radians) * self.robots[i].radius
             )
+
+            if self.robots[i].movementtype == MovementTyp.Player1Control:
+                col = QColor(0,0,255,255)
+            elif self.robots[i].movementtype == MovementTyp.Player2Control:
+                col = QColor(255,0,0,255)
+            else:
+                col = QColor(200,200,200,255)
             diameter = self.robots[i].radius * 2
             if(self.robots[i].type == "Destroyer"):
-                """""
                 pix = self.DestroyerPixmap
                 pix = pix.scaledToWidth(diameter)
-                transf = QTransform()
-                transf.rotate(self.robots[i].alpha + 90)
-                pix = pix.transformed(transf)
-                painter.drawPixmap(self.robots[i].x - self.robots[i].radius,
-                                   self.robots[i].y - self.robots[i].radius, pix)
-                """
-                col = QColor(0, 0, 255, 255)
             elif(self.robots[i].type == "Tank"):
-                """""
                 pix = self.TankPixmap
                 pix = pix.scaledToWidth(diameter)
-                transf = QTransform()
-                transf.rotate(self.robots[i].alpha + 90)
-                pix = pix.transformed(transf)
-                painter.drawPixmap(self.robots[i].x - self.robots[i].radius,
-                                   self.robots[i].y - self.robots[i].radius, pix)
-                """
-                col = QColor(255, 0, 0, 255)
             elif(self.robots[i].type == "Velocity"):
-                """"
                 pix = self.VelocityPixmap
                 pix = pix.scaledToWidth(diameter)
-                transf = QTransform()
-                transf.rotate(self.robots[i].alpha + 90)
-                pix = pix.transformed(transf)
-                painter.drawPixmap(self.robots[i].x - self.robots[i].radius,
-                                   self.robots[i].y - self.robots[i].radius, pix)
-                """
-                col = QColor(255,255,0,255)
             else:
                 painter.drawEllipse(
                      self.robots[i].x - self.robots[i].radius,
@@ -366,12 +349,15 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             b.setStyle(Qt.BrushStyle.SolidPattern)
             painter.setBrush(b)
             #painter.setPen(QColor(255,255,0,255))
+
             painter.drawEllipse(
                 self.robots[i].x - self.robots[i].radius,
                 self.robots[i].y - self.robots[i].radius,
                 diameter,
                 diameter,
             )
+            painter.drawPixmap(self.robots[i].x - self.robots[i].radius,
+                               self.robots[i].y - (int)(diameter * 1.66), pix)
 
             painter.setBrush(Qt.BrushStyle.CrossPattern)
             painter.drawLine(self.robots[i].x, self.robots[i].y, endx, endy)
