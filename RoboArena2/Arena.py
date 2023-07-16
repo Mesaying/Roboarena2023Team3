@@ -37,6 +37,47 @@ class Worker(QThread):
         self.movementManager.handleInput(self.keys)
 
     def calculateDamage(self) -> None:
+        match (self.robot.weapon.typ):
+            case WeaponTyp.hitscan:
+                self.calculateDamageHitscan()
+            case WeaponTyp.projectile:
+                self.calculateDamageProjectile()
+
+    def calculateDamageProjectile(self) -> None:
+        if self.robot.weaponsCurrentlyShoot:
+            positionProjectileInList = []
+            indexOfProjectile = 0
+            for i in self.robot.weapon.listOfPositionForProjectils:
+                if (
+                    i[0] < 0
+                    or i[1] < 0
+                    or i[0] > arena_size_height
+                    or i[1] > arena_size_width
+                ):
+                    positionProjectileInList.append(indexOfProjectile)
+                    indexOfProjectile += 1
+
+            for i in self.robots:
+                indexOfProjectile = 0
+                for j in self.robot.weapon.listOfPositionForProjectils:
+                    if not (i is self.robot):
+                        distance = self.distanceBetweenPonts(
+                            i.x, i.y, j[0], j[1]
+                        )
+                        if distance <= i.radius:
+                            i.takeDamage(self.robot.weapon.damage)
+                            if not (
+                                indexOfProjectile in positionProjectileInList
+                            ):
+                                positionProjectileInList.append(
+                                    indexOfProjectile
+                                )
+                    indexOfProjectile += 1
+
+            for i in positionProjectileInList:
+                self.robot.weapon.deleatProjectile(i)
+
+    def calculateDamageHitscan(self) -> None:
         if self.robot.weaponsCurrentlyShoot:
             xEndLine = self.getLineXEnd()
             yEndLine = self.getLineYEnd()
@@ -329,13 +370,25 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             painter.drawRect(xPos, yPos, i.health, barSize)
             if i.weaponsCurrentlyShoot:
                 painter.setPen(QPen(Qt.red, 2, Qt.SolidLine))
+                painter.setBrush(QBrush(Qt.red, Qt.SolidPattern))
                 match (i.weapon.typ):
                     case WeaponTyp.hitscan:
                         endPosX = self.calcXEndHitScan(i)
                         endPosY = self.calcYEndHitScan(i)
                         painter.drawLine(i.x, i.y, endPosX, endPosY)
-                    case _:
-                        pass
+                    case WeaponTyp.projectile:
+                        numberOfProjectiles = len(
+                            i.weapon.listOfPositionForProjectils
+                        )
+                        for j in range(numberOfProjectiles):
+                            painter.drawEllipse(
+                                i.weapon.listOfPositionForProjectils[j][0]
+                                - int(i.weapon.size / 2),
+                                i.weapon.listOfPositionForProjectils[j][1]
+                                - int(i.weapon.size / 2),
+                                i.weapon.size,
+                                i.weapon.size,
+                            )
 
     def calcxPositionHealthBar(self, robot: BasicRobot) -> int:
         xPos = robot.x - int(robot.health / 2)
@@ -391,7 +444,7 @@ App = QApplication(sys.argv)
 testarena = Arena()
 # testarena.add_robot(testRobot)
 # testarena.add_robot(testRobot1)
-testarena.add_robot(testRobot2)
+# testarena.add_robot(testRobot2)
 testarena.add_robot(testRobot3)
 testarena.add_robot(testRobot4)
 testarena.runTask()
