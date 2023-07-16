@@ -16,7 +16,7 @@
             text-align: center;
         }
 
-        /* Custom bullets for the list */
+        /* Custom bullets for the list - changed to diamonds */
         .visual-changes ul {
             list-style: none;
             padding-left: 20px;
@@ -31,12 +31,12 @@
         .visual-changes li::before {
             content: '';
             position: absolute;
-            top: 0px;
-            left: 0;
-            width: 12px;
-            height: 12px;
+            top: 4px;
+            left: -15px;
+            width: 10px;
+            height: 10px;
             background-color: #333; /* You can change the color */
-            border-radius: 50%; /* To create a circular blob */
+            transform: rotate(45deg); /* To create a diamond shape */
         }
     </style>
 </head>
@@ -54,8 +54,11 @@
             <li>Different Font.</li>
         </ul>
         <br><br>
+        <img src="Sprint7/menu">
+        <br><br>
         <b>The hover effect</b>
 
+        <img src="Sprint7/hover.gif" alt="GIF Image"> <br><br>
 
 
         <br><br>
@@ -69,3 +72,4 @@
     </div>
 </body>
 </html>
+
