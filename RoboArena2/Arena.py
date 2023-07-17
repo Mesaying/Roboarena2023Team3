@@ -5,7 +5,7 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import (QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap)
+from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water

@@ -1,7 +1,6 @@
 import configparser
 import importlib
 import os
-import subprocess
 import sys
 
 from Arena import *
@@ -9,13 +8,13 @@ from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
-                             QMessageBox, QStackedWidget, QWidget, QVBoxLayout, QPushButton)
+                             QMessageBox)
 from PyQt5.uic import loadUi
-
 
 # Set up config file
 config = configparser.ConfigParser()
 config.read("config.txt")
+
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -47,7 +46,6 @@ class MainMenu(QMainWindow):
         self.SettingsButton.clicked.connect(self.settingsClicked)
         self.QuitButton.clicked.connect(self.quitClicked)
         self.ExtrasButton.clicked.connect(self.extrasClicked)
-
 
     def update_position(self):
         position = self.getWindowPos()
@@ -92,6 +90,7 @@ class MainMenu(QMainWindow):
     def extrasClicked(self):
         self.setCentralWidget(ExtrasMenu())
 
+
 class PlayMenu(MainMenu):
     def __init__(self):
         super().__init__()
@@ -121,6 +120,7 @@ class PlayMenu(MainMenu):
 
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
+
 
 class SettingsMenu(MainMenu):
     def __init__(self):
@@ -180,6 +180,7 @@ class SettingsMenu(MainMenu):
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
 
+
 class ExtrasMenu(MainMenu):
     def __init__(self):
         super().__init__()
@@ -206,6 +207,7 @@ class ExtrasMenu(MainMenu):
 
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
+
 
 class SoloMenu(MainMenu):
     def __init__(self):
@@ -271,6 +273,7 @@ class SoloMenu(MainMenu):
 
     def BackClicked(self):
         self.setCentralWidget(PlayMenu())
+
 
 class MusicPlayer:
     def __init__(self):
