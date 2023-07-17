@@ -115,6 +115,60 @@
             <source src="Sprint6/selection_process.mp4" type="video/mp4">
         </video> <br><br>
     </div>
+
+    <div class="Collision-Experiment">
+            <p><strong><span style="font-size: larger;">Changing Collision</span></strong> <br><br>
+
+            We thought it would be a good idea to rework the way our collision system works. Currently whenever you hit a wall, you must turn away from it to be able to drive again. We planned on having the robots "drift" on the wall
+            whenever you drive into them in an angle. However with our current Robots, which can only drive forwards, this would recquire a major rework, for which we do not have the time this late in the project. Instead we decided on automatically
+            turning the robots automatically to simulate this behaviour:<br><br>
+
+                    
+        <video width="1000" height="720" controls>
+            <source src="Sprint7/WallCollisionTurn.mp4" type="video/mp4"> <br><br>
+        </video> <br><br>
+
+        Code for this behaviour:<br>
+        <img src = "Sprint7/dynmanicCollDect2.png"><br><br>
+
+        However when testing this in-game it did not feel good as it took control away from the player whenever they hit a wall. It did also not fit our more slow paced gameplay. Thus we decided to remove this again.
+     </div>
+
+     <div class="RobotArt">
+
+     <div class ="Robot class art">
+     <p><strong><span style="font-size: larger;">Drawing Robot classes and robot ownership</span></strong> <br><br>
+     Since we added different classes to our Game we need a way to distinguish them while playing.<br>
+     We drew these using Inkscape:<br>
+     <br> These will be mostly used in the menu for Class-Selction
+     Icon for the Destroyer Robot class:<br>
+     <img src="Sprint7/DestroyerRobot.png"><br>
+
+     Icon for the Tank Robot class:<br>
+     <img src="Sprint7/TankRobot.png"><br>
+
+     Icon for the Velocity Robot class:<br>
+     <img src="Sprint7/VelocityRobot.png"><br><br>
+     </div>
+
+     <div class="Drawing robots in game">
+     In-game players not only need to be able to tell apart different robot classes and also the robots from each Player 1 and Player 2.
+     To accomplish this we draw the Robot of Player 1 red and the Robot of Player 2 blue.
+
+     At first we tried to simply drew the circles for the robots as we had previously done using the appropriate Player Color and then draw the corresponding triangle pattern on top of it. However we also need to rotate it correctly for the player to be able to tell
+     which direction he is facing. This sadly did not work as the pivot point for the rotation of the Pattern seems to be off centered. We exported the pattern at different resolutions, tried with different images and tried moving
+     the pivot point however the rotation was always wobly and did not work.<br>
+
+     In order to circumvent this we now draw the Player ellipse and instead display the class icon above each robot. This ended up looking pretty clean in the end anyway so we stopped investigating solutions to our first approach.<br>
+     <img src="Sprint7/RobotsIconsAbove.png"><br><br>
+
+     And this is the code we use to draw it:<br>
+      <img src="Sprint7/RobotsIconsAboveCode.png"><br><br>
+
+
+     </div>
+
+     </div>
 </body>
 </html>
 
