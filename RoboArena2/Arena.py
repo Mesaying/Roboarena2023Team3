@@ -4,11 +4,13 @@ import sys
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
-from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
+from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal, QUrl
 from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer, QSoundEffect, QSound
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
+
 
 config = configparser.ConfigParser()
 config.read("config.txt")
@@ -17,6 +19,55 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
+
+class MusicPlayer:
+    def __init__(self):
+        self.media_player = QMediaPlayer()
+        media = QMediaContent(QUrl.fromLocalFile("Sounds\\DRIVE.mp3"))
+        self.media_player.setMedia(media)
+
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        self.music = config.getint("Settings", "music")
+
+        # Adjust volume
+        self.media_player.setVolume(self.music)
+
+        self.media_player.mediaStatusChanged.connect(self.restart_playback)
+
+        # Create a QTimer to update the volume regularly
+        self.music_timer = QTimer()
+        self.music_timer.timeout.connect(self.update_music)
+        self.music_timer.start(500)
+
+        # Initialize QMediaPlayer to play game sounds
+        self.game_sound_player = QMediaPlayer()
+        self.game_sound_media = QMediaContent(QUrl.fromLocalFile("Sounds\\Pistol.mp3"))
+
+        # Set the volume for the game sound effect
+        self.game_sound_player.setVolume(50)  # You can adjust the volume level (0 to 100)
+
+    def restart_playback(self, status):
+        if status == QMediaPlayer.EndOfMedia:
+            self.media_player.setPosition(0)
+            self.media_player.play()
+
+    def update_music(self):
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        self.music = config.getint("Settings", "music")
+
+        # Adjust volume
+        self.media_player.setVolume(self.music)
+
+    def play(self):
+        self.media_player.play()
+
+    def play_game_sound(self):
+        self.game_sound_player.setMedia(self.game_sound_media)
+        self.game_sound_player.play()
 
 
 class Worker(QThread):
@@ -328,6 +379,10 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     def keyPressEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = True
 
+        # Check if f key(weapon) is pressed
+        if event.key() == Qt.Key_F:
+            music_player.play_game_sound()
+
     def keyReleaseEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = False
 
@@ -440,6 +495,10 @@ testRobot4 = BasicRobot(
     movementtype=MovementTyp.Player2Control,
 )
 print("asss")
+# Create an instance of the MusicPlayer class
+music_player = MusicPlayer()
+# Run the music playback in the main thread
+music_player.play()
 App = QApplication(sys.argv)
 testarena = Arena()
 # testarena.add_robot(testRobot)
