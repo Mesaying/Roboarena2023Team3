@@ -3,7 +3,7 @@ import importlib
 import os
 import sys
 
-from Arena import *
+from Arena import Arena
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
