@@ -2,6 +2,7 @@ import itertools
 
 from BasicRobot import BasicRobot, MovementTyp
 from PyQt5.QtCore import Qt
+from Weapon import WeaponTyp
 
 
 class MovementManager_:
@@ -48,6 +49,7 @@ class MovementManager_:
         dashcooldowntime = 10
         self.reduceTimerToShoot()
         self.reduceAbilityCooldown()
+        self.robot.weapon.moveProjectils()
         moveForward = Qt.Key.Key_W
         moveBack = Qt.Key.Key_S
         turnLeft = Qt.Key.Key_A
@@ -79,10 +81,22 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
-            self.weaponsCurrentlyShoot = True
-            self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+            match (self.robot.weapon.typ):
+                case WeaponTyp.hitscan:
+                    self.weaponsCurrentlyShoot = True
+                    self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+                case WeaponTyp.projectile:
+                    self.weaponsCurrentlyShoot = True
+                    self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+                    self.shootProjectile()
         else:
-            self.weaponsCurrentlyShoot = False
+            match (self.robot.weapon.typ):
+                case WeaponTyp.hitscan:
+                    self.weaponsCurrentlyShoot = False
+                case WeaponTyp.projectile:
+                    self.weaponsCurrentlyShoot = (
+                        len(self.robot.weapon.listOfPositionForProjectils) > 0
+                    )
 
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
@@ -156,3 +170,7 @@ class MovementManager_:
     def reduceAbilityCooldown(self) -> None:
         if self.dashcooldown > 0:
             self.dashcooldown -= 1
+
+    def shootProjectile(self) -> None:
+        self.robot.weapon.addProjectilePosition(self.robot.x, self.robot.y)
+        self.robot.weapon.addProjectileVector(self.robot.alpha)

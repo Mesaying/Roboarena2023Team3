@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sprint 7</title>
+    <style>
+        body {
+            background-color: #D3D3D3;
+            font-family: Arial, sans-serif;
+        }
+
+        .sprint-heading {
+            font-size: 50px;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Custom bullets for the list - changed to diamonds */
+        .visual-changes ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .visual-changes li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .visual-changes li::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: -15px;
+            width: 10px;
+            height: 10px;
+            background-color: #333; /* You can change the color */
+            
+        }
+    </style>
+</head>
+<body>
+    <h2 class="sprint-heading">Sprint 7</h2>
+
+    <div class="visual-changes">
+        <p><strong><span style="font-size: larger;">Overhauling Menu (Nico) </span></strong> <br><br>
+
+        <b>Visual Changes:</b>
+        <ul>
+            <li>Buttons significantly bigger.</li>
+            <li>Buttons have rounded edges.</li>
+            <li>Hovering over a button changes the color.</li>
+            <li>Different Font.</li>
+        </ul>
+        <br><br>
+        <img src="Sprint7/menu">
+        <br><br>
+        <b>The hover effect</b> <br>
+
+        <img src="Sprint7/hover.gif" alt="GIF Image" width="300" height="200">
+
+
+        
+        <br><br>
+        <b>Stylesheet in Qt Designer</b>
+
+        <ul>
+            <li>The stylesheet influences the appearance and behaviour of the buttons.</li>
+            <li>The process of changing the buttons is much easier and more practical in Qt Designer compared to directly modifying the code of the buttons in our python files.</li>
+            <li>We wanted to use a custom font, but QT Designer doesn't enable adding custom fonts.</li>
+        </ul>
+        
+        <img src="Sprint7/stylesheet.JPG"><br><br>
+
+
+        <p><strong><span style="font-size: larger;">Extending the config file </span></strong> <br><br>
+
+
+    <ul>
+    <li>Added several variables.</li>
+    <li>The different python  files obtain their information from the config file.</li>
+    </ul>
+    <img src="Sprint7/config_file.JPG"><br><br>
+        
+    <b>Advantage:</b>
+    <li>We can change properties of the game just by changing variables in the config file and dont have to search for every instance in different py files.</li>
+
+    <b>Code to access config file</b>
+    <img src="Sprint7/config_code.JPG"><br><br>
+    <ul>
+    <li>An instance of the Configparser Class is created.</li>
+    <li>The config file is read.</li>
+    <li>Variables from different Sections are saved.</li>
+    </ul>
+
+    <b>Switching between menus(windows)</b>
+    <ul>
+    <li>Changed the way how we switch between windows.</li>
+    <li>Using the setCentralWidget function is more practical and prevents the small flickering we had previous when switching between menus.</li>
+    <li>We dont have to adjust the position everytime we open a new window.</li>
+    </ul>
+
+    <b>Starting the game from the menu</b>
+    <ul>
+    <li>The game is startable from the menu by setting the CentralWidget to the Arena class.</li>
+    <li>Currently the robots arent loaded.</li>
+    <li>Switching between the menu and the actual game window is without delay.</li>
+    </ul>
+
+    <img src="Sprint7/start_game.JPG"><br><br>
+    
+        
+        <video width="1000" height="720" controls>
+            <source src="Sprint6/selection_process.mp4" type="video/mp4">
+        </video> <br><br>
+    </div>
+</body>
+</html>
+

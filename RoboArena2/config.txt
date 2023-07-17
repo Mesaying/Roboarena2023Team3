@@ -1,5 +1,5 @@
 [Settings]
-music = 40
+music = 70
 game_sounds = 50
 
 [Class]
@@ -15,3 +15,8 @@ arena_size_height = 1000
 [Tiles]
 tile_size = 50
 tile_amount = 20
+
+[Position]
+x = 0
+y = 0
+

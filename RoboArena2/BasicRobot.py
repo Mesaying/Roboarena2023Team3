@@ -50,7 +50,7 @@ class BasicRobot:
         self.robots = []
         self.moveMultiplier = 1
         self.health = self.MAX_HEALTH
-        self.weapon = Weapon(WeaponName.basicHitscan)
+        self.weapon = Weapon(WeaponName.minigun)
         self.weaponsCurrentlyShoot = False
         self.type = "Basic"
         list_with_tiles = []
