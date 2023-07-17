@@ -5,8 +5,9 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap
+from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
 
@@ -218,6 +219,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.arena_pixmap.fill(Qt.transparent)
         self.render_arena()
 
+        # Generate Robot picture pixmaps
+        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerPattern.png")
+        self.TankPixmap = QPixmap("RobotArt/TankPattern.png")
+        self.VelocityPixmap = QPixmap("RobotArt/VelocityPattern.png")
+        print("pixmaps robot")
+
     def render_arena(self):
         painter = QPainter(self.arena_pixmap)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -352,14 +359,51 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             endy = int(
                 self.robots[i].y + math.sin(radians) * self.robots[i].radius
             )
+
+            if self.robots[i].movementtype == MovementTyp.Player1Control:
+                col = QColor(0, 0, 255, 255)
+            elif self.robots[i].movementtype == MovementTyp.Player2Control:
+                col = QColor(255, 0, 0, 255)
+            else:
+                col = QColor(200, 200, 200, 255)
             diameter = self.robots[i].radius * 2
-            painter.drawLine(self.robots[i].x, self.robots[i].y, endx, endy)
+            if self.robots[i].type == "Destroyer":
+                pix = self.DestroyerPixmap
+                pix = pix.scaledToWidth(diameter)
+            elif self.robots[i].type == "Tank":
+                pix = self.TankPixmap
+                pix = pix.scaledToWidth(diameter)
+            elif self.robots[i].type == "Velocity":
+                pix = self.VelocityPixmap
+                pix = pix.scaledToWidth(diameter)
+            else:
+                painter.drawEllipse(
+                    self.robots[i].x - self.robots[i].radius,
+                    self.robots[i].y - self.robots[i].radius,
+                    diameter,
+                    diameter,
+                )
+
+            b = QBrush()
+            b.setColor(col)
+            b.setStyle(Qt.BrushStyle.SolidPattern)
+            painter.setBrush(b)
+            # painter.setPen(QColor(255,255,0,255))
+
             painter.drawEllipse(
                 self.robots[i].x - self.robots[i].radius,
                 self.robots[i].y - self.robots[i].radius,
                 diameter,
                 diameter,
             )
+            painter.drawPixmap(
+                self.robots[i].x - self.robots[i].radius,
+                self.robots[i].y - (int)(diameter * 1.66),
+                pix,
+            )
+
+            painter.setBrush(Qt.BrushStyle.CrossPattern)
+            painter.drawLine(self.robots[i].x, self.robots[i].y, endx, endy)
 
         for i in self.robots:
             barSize = 10
@@ -416,25 +460,25 @@ testRobot = BasicRobot(
     yPos=yPosition,
     movementtype=MovementTyp.Line,
 )
-testRobot1 = BasicRobot(
+testRobot1 = Velocity(
     xPos=xPosition - 100,
     yPos=yPosition,
     movementtype=MovementTyp.Wave,
 )
 
-testRobot2 = BasicRobot(
+testRobot2 = Velocity(
     xPos=xPosition + 100,
     yPos=yPosition,
     movementtype=MovementTyp.Circle,
 )
 
-testRobot3 = BasicRobot(
+testRobot3 = Tank(
     xPos=xPosition + 300,
     yPos=yPosition,
     movementtype=MovementTyp.Player1Control,
 )
 
-testRobot4 = BasicRobot(
+testRobot4 = Destroyer(
     xPos=xPosition + 300,
     yPos=yPosition + 300,
     movementtype=MovementTyp.Player2Control,
