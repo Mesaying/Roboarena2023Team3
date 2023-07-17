@@ -1,12 +1,12 @@
 [Settings]
-music = 40
+music = 70
 game_sounds = 50
 
 [Class]
 selected_class = Destroyer
 
 [Map]
-selected_map = C:/Users/Nico/Desktop/roboarena/roboarena/Roboarena2023Team3/RoboArena2/spikes.txt
+selected_map = C:/Users/Nico/Desktop/roboarena/roboarena/Roboarena2023Team3/RoboArena2/Maps/Race.txt
 
 [Arena]
 arena_size_width = 1000
@@ -15,3 +15,8 @@ arena_size_height = 1000
 [Tiles]
 tile_size = 50
 tile_amount = 20
+
+[Position]
+x = 0
+y = 0
+

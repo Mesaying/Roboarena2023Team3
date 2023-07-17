@@ -4,16 +4,18 @@ import os
 import subprocess
 import sys
 
+from Arena import *
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
-                             QMessageBox)
+                             QMessageBox, QStackedWidget, QWidget, QVBoxLayout, QPushButton)
 from PyQt5.uic import loadUi
 
+
+# Set up config file
 config = configparser.ConfigParser()
 config.read("config.txt")
-
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -46,6 +48,20 @@ class MainMenu(QMainWindow):
         self.QuitButton.clicked.connect(self.quitClicked)
         self.ExtrasButton.clicked.connect(self.extrasClicked)
 
+
+    def update_position(self):
+        position = self.getWindowPos()
+        x_coord = position.x()
+        y_coord = position.y()
+
+        config.read("config.txt")  # Path to config file
+        config.set("Position", "x", str(x_coord))
+        config.set("Position", "y", str(y_coord))
+
+        # Overwrite config file
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
+
     def loadImage(self, path):
         # Path to the image (use the absolute path)
         image_path = os.path.abspath(path)
@@ -64,50 +80,23 @@ class MainMenu(QMainWindow):
         image_label.setGeometry(0, 0, self.width, self.height)
 
     def playClicked(self):
-        position = self.getWindowPos()
-        x_coord = position.x()
-        y_coord = position.y()
-        self.play_menu = PlayMenu(x_coord, y_coord)
-        self.play_menu.show()
-        self.close()
+        self.setCentralWidget(PlayMenu())
 
     def settingsClicked(self):
-        position = self.getWindowPos()
-        x_coord = position.x()
-        y_coord = position.y()
-        self.settings_menu = SettingsMenu(x_coord, y_coord)
-        self.settings_menu.show()
-        self.close()
+        self.setCentralWidget(SettingsMenu())
 
     def quitClicked(self):
         self.close()
+        sys.exit()
 
     def extrasClicked(self):
-        position = self.getWindowPos()
-        x_coord = position.x()
-        y_coord = position.y()
-        self.extra_menu = ExtrasMenu(x_coord, y_coord)
-        self.extra_menu.show()
-        self.close()
-
-    def getWindowPos(self):
-        window_pos = self.pos()
-        return window_pos
-
-    def moveWindowPos(self):
-        self.move(self.x_position, self.y_position)
-
+        self.setCentralWidget(ExtrasMenu())
 
 class PlayMenu(MainMenu):
-    def __init__(self, x_position, y_position):
+    def __init__(self):
         super().__init__()
 
-        self.x_position = x_position
-        self.y_position = y_position
-
         self.loadImage(r"MenuAssets\\brobot.png")
-
-        self.moveWindowPos()
 
         loadUi("MenuAssets\\PlayMenu.ui", self)
 
@@ -125,32 +114,19 @@ class PlayMenu(MainMenu):
         self.headline.setFont(font)
 
     def SoloClicked(self):
-        position = self.getWindowPos()
-        x_coord = position.x()
-        y_coord = position.y()
-        self.solo_menu = SoloMenu(x_coord, y_coord)
-        self.solo_menu.show()
-        self.close()
+        self.setCentralWidget(SoloMenu())
 
     def MultiplayerClicked(self):
         print("g")
 
     def BackClicked(self):
-        self.main_menu = MainMenu()  # Pass the current main menu as parent
-        self.main_menu.show()
-        self.close()
-
+        self.setCentralWidget(MainMenu())
 
 class SettingsMenu(MainMenu):
-    def __init__(self, x_position, y_position):
+    def __init__(self):
         super().__init__()
 
-        self.x_position = x_position
-        self.y_position = y_position
-
         self.loadImage(r"MenuAssets\\robotc.png")
-
-        self.moveWindowPos()
 
         loadUi("MenuAssets\\SettingsMenu.ui", self)
 
@@ -202,21 +178,13 @@ class SettingsMenu(MainMenu):
         print("g")
 
     def BackClicked(self):
-        self.main_menu = MainMenu()  # Pass the current main menu as parent
-        self.main_menu.show()
-        self.close()
-
+        self.setCentralWidget(MainMenu())
 
 class ExtrasMenu(MainMenu):
-    def __init__(self, x_position, y_position):
+    def __init__(self):
         super().__init__()
 
-        self.x_position = x_position
-        self.y_position = y_position
-
         self.loadImage(r"MenuAssets\\scaryrobot.png")
-
-        self.moveWindowPos()
 
         loadUi("MenuAssets\\ExtrasMenu.ui", self)
 
@@ -234,26 +202,16 @@ class ExtrasMenu(MainMenu):
 
     def MapEditorClicked(self):
         MapEditor = importlib.import_module("MapEditor").MapEditor
-        self.map_editor = MapEditor()
-        self.map_editor.show()
-        self.close()
+        self.setCentralWidget(MapEditor())
 
     def BackClicked(self):
-        self.main_menu = MainMenu()
-        self.main_menu.show()
-        self.close()
-
+        self.setCentralWidget(MainMenu())
 
 class SoloMenu(MainMenu):
-    def __init__(self, x_position, y_position):
+    def __init__(self):
         super().__init__()
 
-        self.x_position = x_position
-        self.y_position = y_position
-
         self.loadImage(r"MenuAssets\\robotc.png")
-
-        self.moveWindowPos()
 
         loadUi("MenuAssets\\SoloMenu.ui", self)
 
@@ -286,9 +244,7 @@ class SoloMenu(MainMenu):
             error_message = "No Arena selected"
             QMessageBox.critical(self, "Error", error_message)
         else:
-            file_path = "Arena.py"
-            subprocess.Popen(["python", file_path])
-            # sys.exit()
+            self.setCentralWidget(Arena())
 
     def RobotClicked(self):
         robot_class = self.robot_class_list.pop(0)
@@ -314,15 +270,7 @@ class SoloMenu(MainMenu):
                 config.write(config_file)
 
     def BackClicked(self):
-        position = self.getWindowPos()
-        x_coord = position.x()
-        y_coord = position.y()
-        self.play_menu = PlayMenu(
-            x_coord, y_coord
-        )  # Pass the current main menu as parent
-        self.play_menu.show()
-        self.close()
-
+        self.setCentralWidget(PlayMenu())
 
 class MusicPlayer:
     def __init__(self):
@@ -374,5 +322,6 @@ if __name__ == "__main__":
 
     # Continue with the main program execution
     window = MainMenu()
+    window.move(config.getint("Position", "x"), config.getint("Position", "y"))
     window.show()
     sys.exit(app.exec_())
