@@ -6,7 +6,7 @@ game_sounds = 50
 selected_class = Destroyer
 
 [Map]
-selected_map = C:/Users/Nico/Desktop/roboarena/roboarena/Roboarena2023Team3/RoboArena2/Maps/Race.txt
+selected_map = walla.txt
 
 [Arena]
 arena_size_width = 1000
