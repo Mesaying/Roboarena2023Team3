@@ -4,11 +4,11 @@ import sys
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
-from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal, QUrl
-from PyQt5.QtGui import QBrush, QKeyEvent, QPainter, QPen, QPixmap, QColor
+from PyQt5.QtCore import Qt, QThread, QTimer, QUrl, pyqtSignal
+from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
+from PyQt5.QtMultimedia import (QMediaContent, QMediaPlayer)
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer, QSoundEffect, QSound
-from RobotClasses import Velocity,Destroyer,Tank
+from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
 
@@ -19,6 +19,7 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
+
 
 class MusicPlayer:
     def __init__(self):
@@ -43,10 +44,14 @@ class MusicPlayer:
 
         # Initialize QMediaPlayer to play game sounds
         self.game_sound_player = QMediaPlayer()
-        self.game_sound_media = QMediaContent(QUrl.fromLocalFile("Sounds\\Pistol.mp3"))
+        self.game_sound_media = QMediaContent(
+            QUrl.fromLocalFile("Sounds\\Pistol.mp3")
+        )
 
         # Set the volume for the game sound effect
-        self.game_sound_player.setVolume(50)  # You can adjust the volume level (0 to 100)
+        self.game_sound_player.setVolume(
+            50
+        )  # You can adjust the volume level (0 to 100)
 
     def restart_playback(self, status):
         if status == QMediaPlayer.EndOfMedia:
@@ -68,6 +73,7 @@ class MusicPlayer:
     def play_game_sound(self):
         self.game_sound_player.setMedia(self.game_sound_media)
         self.game_sound_player.play()
+
 
 class Worker(QThread):
     def __init__(
@@ -553,4 +559,3 @@ testarena.InitWindow()
 
 
 sys.exit(App.exec())
-
