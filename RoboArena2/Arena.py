@@ -1,18 +1,17 @@
 import configparser
 import math
 import sys
-import os
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, QUrl, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
-from PyQt5.QtMultimedia import (QMediaContent, QMediaPlayer)
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.uic import loadUi
 from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
-from PyQt5.uic import loadUi
 
 config = configparser.ConfigParser()
 config.read("config.txt")
@@ -21,7 +20,8 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
-selected_class = config.get("Class" , "selected_class")
+selected_class = config.get("Class", "selected_class")
+
 
 class winscreen(QMainWindow):
     def __init__(self):
@@ -45,9 +45,6 @@ class winscreen(QMainWindow):
 
     def QuitClicked(self):
         self.close()
-
-
-
 
 
 class MusicPlayer:
@@ -367,7 +364,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             self.removeRobotFromList(RobotToKill)
             self.setCentralWidget(winscreen())
 
-
     def killThread(self, thread: Worker) -> None:
         thread.exec_
         try:
@@ -540,6 +536,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         radians = robot.alpha / 180.0 * pi  # convert degrees to radians
         return int(robot.y + math.sin(radians) * robot.weapon.size)
 
+
 """
 xPosition = 500
 yPosition = 250
@@ -589,6 +586,8 @@ testarena.InitWindow()
 
 sys.exit(App.exec())
 """
+
+
 def play():
     xPosition = 500
     yPosition = 250
@@ -636,6 +635,7 @@ def play():
     testarena.InitWindow()
 
     sys.exit(App.exec())
+
 
 if __name__ == "__main__":
     xPosition = 500
