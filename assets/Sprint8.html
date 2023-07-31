@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sprint 7</title>
+    <style>
+        body {
+            background-color: #D3D3D3;
+            font-family: Arial, sans-serif;
+        }
+
+        .sprint-heading {
+            font-size: 50px;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Custom bullets for the list - changed to diamonds */
+        .visual-changes ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .visual-changes li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .visual-changes li::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: -15px;
+            width: 10px;
+            height: 10px;
+            background-color: #333; /* You can change the color */
+            
+        }
+    </style>
+</head>
+<body>
+    <h2 class="sprint-heading">Sprint 7</h2>
+
+    <div class="visual-changes">
+        <p><strong><span style="font-size: larger;">Including Win Screen (Nico) </span></strong> <br><br>
+
+        If one of the players health drops to 0, a win screen appears.
+
+        Player 1 wins: <br>
+        <img src="Sprint8/p1_win.JPG"><br><br>
+        Player 2 wins: <br>
+        <img src="Sprint8/p2_win.JPG"><br><br>
+
+
+        <b>The class winscreen:</b> <br>
+
+        <ul>
+            <li>If the wincondition is fullfilled, the win screen will appear on screen. </li>
+            <li>Clicking the "Play again" button should start an instant rematch.</li>
+            <li>The "Quit" button should lead back to the main menu.</li>
+        </ul>
+          
+          
+        
+
+
+     </div>
+
+     </div>
+</body>
+</html>
