@@ -1,16 +1,18 @@
 import configparser
 import math
 import sys
+import os
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, QUrl, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtMultimedia import (QMediaContent, QMediaPlayer)
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
+from PyQt5.uic import loadUi
 
 config = configparser.ConfigParser()
 config.read("config.txt")
@@ -19,6 +21,33 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
+selected_class = config.get("Class" , "selected_class")
+
+class winscreen(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.width = 1000
+        self.height = 1000
+
+        # Load the UI file
+        loadUi("MenuAssets\\P2_win.ui", self)
+
+        """
+        self.PlayAgainButton.clicked.connect(self.PlayAgainClicked)
+        self.QuitButton.clicked.connect(self.QuitClicked)
+        """
+
+        # Make the window non-resizable
+        self.setFixedSize(self.size())
+
+    def PlayAgainClicked(self):
+        self.close()
+
+    def QuitClicked(self):
+        self.close()
+
+
+
 
 
 class MusicPlayer:
@@ -278,7 +307,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.DestroyerPixmap = QPixmap("RobotArt/DestroyerPattern.png")
         self.TankPixmap = QPixmap("RobotArt/TankPattern.png")
         self.VelocityPixmap = QPixmap("RobotArt/VelocityPattern.png")
-        print("pixmaps robot")
 
     def render_arena(self):
         painter = QPainter(self.arena_pixmap)
@@ -286,7 +314,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         for y in range(0, tile_amount):  # Iterates through every possible tile
             for x in range(0, tile_amount):
-                print(type(self.tiles[x][y]))
                 pix = QPixmap(self.tiles[x][y].imagePath)
                 pix = pix.scaledToWidth(tile_size)
                 painter.drawPixmap(y * tile_size, x * tile_size, pix)
@@ -338,6 +365,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         if foundDeadrobot:
             self.removeThreadFromDictionary(RobotToKill)
             self.removeRobotFromList(RobotToKill)
+            self.setCentralWidget(winscreen())
+
 
     def killThread(self, thread: Worker) -> None:
         thread.exec_
@@ -511,7 +540,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         radians = robot.alpha / 180.0 * pi  # convert degrees to radians
         return int(robot.y + math.sin(radians) * robot.weapon.size)
 
-
+"""
 xPosition = 500
 yPosition = 250
 testRobot = BasicRobot(
@@ -559,3 +588,99 @@ testarena.InitWindow()
 
 
 sys.exit(App.exec())
+"""
+def play():
+    xPosition = 500
+    yPosition = 250
+    testRobot = BasicRobot(
+        xPos=xPosition,
+        yPos=yPosition,
+        movementtype=MovementTyp.Line,
+    )
+    testRobot1 = Velocity(
+        xPos=xPosition - 100,
+        yPos=yPosition,
+        movementtype=MovementTyp.Wave,
+    )
+
+    testRobot2 = Velocity(
+        xPos=xPosition + 100,
+        yPos=yPosition,
+        movementtype=MovementTyp.Circle,
+    )
+
+    testRobot3 = Tank(
+        xPos=xPosition + 300,
+        yPos=yPosition,
+        movementtype=MovementTyp.Player1Control,
+    )
+
+    testRobot4 = Destroyer(
+        xPos=xPosition + 300,
+        yPos=yPosition + 300,
+        movementtype=MovementTyp.Player2Control,
+    )
+    print("asss")
+    App = QApplication(sys.argv)
+    # Create an instance of the MusicPlayer class
+    music_player = MusicPlayer()
+    # Run the music playback in the main thread
+    music_player.play()
+    testarena = Arena()
+    # testarena.add_robot(testRobot)
+    # testarena.add_robot(testRobot1)
+    # testarena.add_robot(testRobot2)
+    testarena.add_robot(testRobot3)
+    testarena.add_robot(testRobot4)
+    testarena.runTask()
+    testarena.InitWindow()
+
+    sys.exit(App.exec())
+
+if __name__ == "__main__":
+    xPosition = 500
+    yPosition = 250
+    testRobot = BasicRobot(
+        xPos=xPosition,
+        yPos=yPosition,
+        movementtype=MovementTyp.Line,
+    )
+    testRobot1 = Velocity(
+        xPos=xPosition - 100,
+        yPos=yPosition,
+        movementtype=MovementTyp.Wave,
+    )
+
+    testRobot2 = Velocity(
+        xPos=xPosition + 100,
+        yPos=yPosition,
+        movementtype=MovementTyp.Circle,
+    )
+
+    testRobot3 = Tank(
+        xPos=xPosition + 300,
+        yPos=yPosition,
+        movementtype=MovementTyp.Player1Control,
+    )
+
+    testRobot4 = Destroyer(
+        xPos=xPosition + 300,
+        yPos=yPosition + 300,
+        movementtype=MovementTyp.Player2Control,
+    )
+    print("asss")
+    App = QApplication(sys.argv)
+    # Create an instance of the MusicPlayer class
+    music_player = MusicPlayer()
+    # Run the music playback in the main thread
+    music_player.play()
+    testarena = Arena()
+    # testarena.add_robot(testRobot)
+    # testarena.add_robot(testRobot1)
+    # testarena.add_robot(testRobot2)
+    testarena.add_robot(testRobot3)
+    testarena.add_robot(testRobot4)
+    testarena.runTask()
+    testarena.InitWindow()
+
+    sys.exit(App.exec())
