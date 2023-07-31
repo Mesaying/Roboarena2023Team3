@@ -91,8 +91,8 @@ class BasicRobot:
         self.move(moveInputVec, deltaTime)
 
     def tileLogic(self):
-        currTile = self.tiles[round(self.x / tile_size)][
-            round(self.y / tile_size)
+        currTile = self.tiles[round(self.y / tile_size)][
+            round(self.x / tile_size)
         ]
 
         self.moveMultiplier = 1
