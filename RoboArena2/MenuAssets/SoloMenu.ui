@@ -17,11 +17,28 @@
    <widget class="QPushButton" name="RobotButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>400</x>
       <y>450</y>
-      <width>91</width>
-      <height>41</height>
+      <width>200</width>
+      <height>50</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+        min-width: 200px; /* Set the minimum width */
+        min-height: 50px; /* Set the minimum height */
+		position: absolute;
+   		 left: 100px;
+   		 top: 200px;
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Robot</string>
@@ -30,11 +47,28 @@
    <widget class="QPushButton" name="BackButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>400</x>
       <y>750</y>
-      <width>91</width>
-      <height>41</height>
+      <width>200</width>
+      <height>50</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+        min-width: 200px; /* Set the minimum width */
+        min-height: 50px; /* Set the minimum height */
+		position: absolute;
+   		 left: 100px;
+   		 top: 200px;
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Back</string>
@@ -43,11 +77,28 @@
    <widget class="QPushButton" name="ArenaButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>400</x>
       <y>600</y>
-      <width>91</width>
-      <height>41</height>
+      <width>200</width>
+      <height>50</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+        min-width: 200px; /* Set the minimum width */
+        min-height: 50px; /* Set the minimum height */
+		position: absolute;
+   		 left: 100px;
+   		 top: 200px;
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Arena</string>
@@ -56,11 +107,28 @@
    <widget class="QPushButton" name="PlayButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>400</x>
       <y>300</y>
-      <width>91</width>
-      <height>41</height>
+      <width>200</width>
+      <height>50</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+        min-width: 200px; /* Set the minimum width */
+        min-height: 50px; /* Set the minimum height */
+		position: absolute;
+   		 left: 100px;
+   		 top: 200px;
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Play</string>

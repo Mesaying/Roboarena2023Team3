@@ -23,6 +23,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>Water</string>
     </property>
@@ -35,6 +48,19 @@
       <width>100</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Fire</string>
@@ -49,6 +75,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>Boost</string>
     </property>
@@ -61,6 +100,19 @@
       <width>100</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Spikes</string>
@@ -75,6 +127,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>Wall</string>
     </property>
@@ -87,6 +152,19 @@
       <width>100</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Save</string>
@@ -101,6 +179,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>New</string>
     </property>
@@ -113,6 +204,19 @@
       <width>100</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Undo</string>
@@ -146,6 +250,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>Load</string>
     </property>
@@ -158,6 +275,19 @@
       <width>100</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Back</string>
@@ -172,6 +302,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>Normal</string>
     </property>
@@ -185,6 +328,19 @@
       <height>60</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>P1</string>
     </property>
@@ -197,6 +353,19 @@
       <width>100</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+ 
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>P2</string>
