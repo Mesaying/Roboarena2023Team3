@@ -1,0 +1,9 @@
+Modell Roboter
+Game starten from menu
+Volume Sound changeable
+Description game github
+Winscreen different player1/2 won
+damage spikes/fire to high
+Sprints
+cooldown weapons(sound scuffed right now)
+Class symbol roboter smaller
