@@ -10,3 +10,4 @@ Class symbol roboter smaller
 startpoint players maps(robots span in walls)
 shoots go through walls
 pressing shoot button lightly doesnt shot a projectile 
+Additional maps
