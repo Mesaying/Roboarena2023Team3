@@ -93,7 +93,7 @@ class Weapon:
             case WeaponName.basicHitscan:
                 self.damage = 10
                 self.size = 1000
-                self.ticksToNextShoot = 4
+                self.ticksToNextShoot = 8
                 self.typ = WeaponTyp.hitscan
             case WeaponName.basicLaser:
                 self.damage = 3
@@ -108,30 +108,30 @@ class Weapon:
             case WeaponName.sniper:
                 self.damage = 50
                 self.size = 2000
-                self.ticksToNextShoot = 15
+                self.ticksToNextShoot = 20
                 self.typ = WeaponTyp.hitscan
             case WeaponName.basicProjectile:
                 self.damage = 10
                 self.size = 5
-                self.ticksToNextShoot = 1
+                self.ticksToNextShoot = 4
                 self.projectileSpeed = 40
                 self.typ = WeaponTyp.projectile
             case WeaponName.minigun:
                 self.damage = 7
                 self.size = 5
-                self.ticksToNextShoot = 0
+                self.ticksToNextShoot = 1
                 self.projectileSpeed = 40
                 self.typ = WeaponTyp.projectile
             case WeaponName.bigBullet:
                 self.damage = 20
                 self.size = 40
-                self.ticksToNextShoot = 7
+                self.ticksToNextShoot = 14
                 self.projectileSpeed = 30
                 self.typ = WeaponTyp.projectile
             case WeaponName.curveBall:
                 self.damage = 40
                 self.size = 20
-                self.ticksToNextShoot = 5
+                self.ticksToNextShoot = 10
                 self.projectileSpeed = 30
                 self.extraTurnig = 10
                 self.typ = WeaponTyp.projectile
