@@ -352,7 +352,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
     # killing the robot
     def reoveOnDeath(self) -> None:
         foundDeadrobot = False
-        if(len(self.robots) > 0):
+        if len(self.robots) > 0:
             RobotToKill = self.robots[0]
         for key in self.listOfThreads:
             if key.health <= 0:
