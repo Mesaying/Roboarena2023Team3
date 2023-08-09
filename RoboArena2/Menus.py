@@ -249,6 +249,8 @@ class SoloMenu(MainMenu):
             QMessageBox.critical(self, "Error", error_message)
         else:
             arena = Arena()
+            arena.listOfThreads.clear()
+            arena.robots.clear()
             self.setCentralWidget(arena)
             arena.setFocusPolicy(Qt.StrongFocus)
             print(arena.isActiveWindow())

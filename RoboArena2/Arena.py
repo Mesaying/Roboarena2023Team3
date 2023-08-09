@@ -43,12 +43,14 @@ class winscreen(QMainWindow):
 
     def PlayAgainClicked(self):
         arena = Arena()
+        arena.listOfThreads.clear()
+        arena.robots.clear()
         self.setCentralWidget(arena)
         arena.setFocusPolicy(Qt.StrongFocus)
         print(arena.isActiveWindow())
         arena.start_game()
         arena.runTask()
-        self.close()
+
 
     def QuitClicked(self):
         SoloMenuClass = importlib.import_module("Menus").SoloMenu
@@ -417,6 +419,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
+            print(self.robots)
+            print(i)
             robotOfThread = self.robots[i]
             self.robotSignal.connect(
                 self.listOfThreads[robotOfThread].moveRobot
