@@ -1,6 +1,7 @@
 import configparser
 import math
 import sys
+import importlib
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
@@ -32,19 +33,28 @@ class winscreen(QMainWindow):
         # Load the UI file
         loadUi("MenuAssets\\P2_win.ui", self)
 
-        """
+
         self.PlayAgainButton.clicked.connect(self.PlayAgainClicked)
         self.QuitButton.clicked.connect(self.QuitClicked)
-        """
+
 
         # Make the window non-resizable
         self.setFixedSize(self.size())
 
     def PlayAgainClicked(self):
+        arena = Arena()
+        self.setCentralWidget(arena)
+        arena.setFocusPolicy(Qt.StrongFocus)
+        print(arena.isActiveWindow())
+        arena.start_game()
+        arena.runTask()
         self.close()
 
     def QuitClicked(self):
-        self.close()
+        SoloMenuClass = importlib.import_module("Menus").SoloMenu
+        SoloMenu = SoloMenuClass()
+        self.setCentralWidget(SoloMenu)
+
 
 
 class MusicPlayer:
@@ -253,6 +263,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def __init__(self):
         super().__init__()
+        self.setFocusPolicy(Qt.StrongFocus)
         self.width = arena_size_width
         self.height = arena_size_height
         self.tiles = [
@@ -268,6 +279,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         list_with_tiles = []
 
+        config.read("config.txt")
+        selected_map = config.get("Map", "selected_map")
         with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
@@ -414,7 +427,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             self.listOfThreads[robotOfThread].start()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
-        print("yaa")
         self.keysPressed[event.key()] = True
 
         # Check if f key(weapon) is pressed
@@ -539,6 +551,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         return int(robot.y + math.sin(radians) * robot.weapon.size)
 
     def start_game(self):
+        config.read("config.txt")
+        selected_class_p1 = config.get("Class", "selected_class_p1")
+        selected_class_p2 = config.get("Class", "selected_class_p2")
 
         robot_p1 = globals().get(selected_class_p1)(
                 xPos=800,

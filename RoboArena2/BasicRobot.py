@@ -54,6 +54,8 @@ class BasicRobot:
         self.weaponsCurrentlyShoot = False
         self.type = "Basic"
         list_with_tiles = []
+        config.read("config.txt")
+        selected_map = config.get("Map", "selected_map")
         with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")

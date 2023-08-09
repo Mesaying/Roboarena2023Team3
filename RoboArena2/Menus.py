@@ -3,6 +3,8 @@ import importlib
 import os
 import sys
 from PyQt5.QtCore import Qt
+from PyQt5.uic.properties import QtCore
+
 from Arena import Arena
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
@@ -10,6 +12,7 @@ from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
                              QMessageBox)
 from PyQt5.uic import loadUi
+from PyQt5.QtTest import QTest
 
 # Set up config file
 config = configparser.ConfigParser()
@@ -20,6 +23,7 @@ config.read("config.txt")
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setFocus()
         self.width = 1000
         self.height = 1000
 
@@ -31,16 +35,9 @@ class MainMenu(QMainWindow):
 
         # Set the window title and add a headline
         self.setWindowTitle("Main Menu")
-        self.headline = QLabel("RoboArena", self)
-        self.headline.setGeometry(350, 100, 800, 100)
-        font = self.headline.font()
-        font.setPointSize(48)
-        font.setBold(True)
-        self.headline.setFont(font)
 
         # Make the window non-resizable
         self.setFixedSize(self.size())
-
 
         # Access the elements defined in the UI here
         # self.button.clicked.connect(self.buttonClicked)
@@ -104,17 +101,10 @@ class PlayMenu(MainMenu):
         loadUi("MenuAssets\\PlayMenu.ui", self)
 
         self.SoloButton.clicked.connect(self.SoloClicked)
-        self.MultiplayerButton.clicked.connect(self.MultiplayerClicked)
         self.BackButton.clicked.connect(self.BackClicked)
 
         # Set the window title and add a headline
         self.setWindowTitle("Play Menu")
-        self.headline = QLabel("Play", self)
-        self.headline.setGeometry(450, 100, 800, 100)
-        font = self.headline.font()
-        font.setPointSize(48)
-        font.setBold(True)
-        self.headline.setFont(font)
 
     def SoloClicked(self):
         self.setCentralWidget(SoloMenu())
@@ -165,12 +155,6 @@ class SettingsMenu(MainMenu):
 
         # Set the window title and add a headline
         self.setWindowTitle("Settings Menu")
-        self.headline = QLabel("Settings", self)
-        self.headline.setGeometry(400, 100, 800, 100)
-        font = self.headline.font()
-        font.setPointSize(48)
-        font.setBold(True)
-        self.headline.setFont(font)
 
     def sliderValueChanged(self, value):
         # Update the configuration file with the new volume value
@@ -216,13 +200,6 @@ class ExtrasMenu(MainMenu):
 
         # Set the window title and add a headline
         self.setWindowTitle("Extras")
-        self.headline = QLabel("Extras", self)
-        self.headline.setGeometry(400, 100, 800, 100)
-        font = self.headline.font()
-        font.setPointSize(48)
-        font.setBold(True)
-        self.headline.setFont(font)
-
 
     def MapEditorClicked(self):
         MapEditor = importlib.import_module("MapEditor").MapEditor
@@ -256,13 +233,7 @@ class SoloMenu(MainMenu):
         self.BackButton.clicked.connect(self.BackClicked)
 
         # Set the window title and add a headline
-        self.setWindowTitle("Solo")
-        self.headline = QLabel("Solo", self)
-        self.headline.setGeometry(400, 100, 800, 100)
-        font = self.headline.font()
-        font.setPointSize(48)
-        font.setBold(True)
-        self.headline.setFont(font)
+        self.setWindowTitle("Local")
 
         # To select Robot class
         self.robot_class_list_P1 = ["Destroyer", "Tank", "Velocity"]
@@ -280,10 +251,9 @@ class SoloMenu(MainMenu):
             arena = Arena()
             self.setCentralWidget(arena)
             arena.setFocusPolicy(Qt.StrongFocus)
-            arena.setFocus()
+            print(arena.isActiveWindow())
             arena.start_game()
             arena.runTask()
-
 
     def RobotClickedP1(self):
         robot_class = self.robot_class_list_P1.pop(0)
@@ -374,5 +344,6 @@ if __name__ == "__main__":
     window = MainMenu()
     window.move(config.getint("Position", "x"), config.getint("Position", "y"))
     window.show()
+    window.setFocus()
 
     sys.exit(app.exec_())
