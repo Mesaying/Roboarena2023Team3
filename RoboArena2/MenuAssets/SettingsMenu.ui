@@ -17,36 +17,6 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="GraphicsButton">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>200</y>
-      <width>200</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-        background-color: lightgray;
-        font-family: Verdana;
-        font-size: 24px;
-        border-radius: 20px;
-        min-width: 200px; /* Set the minimum width */
-        min-height: 50px; /* Set the minimum height */
-		position: absolute;
-   		 left: 100px;
-   		 top: 200px;
-    }
-
-    QPushButton:hover {
-        background-color: rgb(203, 255, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Graphics</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="BackButton">
     <property name="geometry">
      <rect>
