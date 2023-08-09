@@ -20,8 +20,8 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
-selected_class = config.get("Class", "selected_class")
-
+selected_class_p1 = config.get("Class", "selected_class_p1")
+selected_class_p2 = config.get("Class", "selected_class_p2")
 
 class winscreen(QMainWindow):
     def __init__(self):
@@ -414,6 +414,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             self.listOfThreads[robotOfThread].start()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
+        print("yaa")
         self.keysPressed[event.key()] = True
 
         # Check if f key(weapon) is pressed
@@ -537,6 +538,25 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         radians = robot.alpha / 180.0 * pi  # convert degrees to radians
         return int(robot.y + math.sin(radians) * robot.weapon.size)
 
+    def start_game(self):
+
+        robot_p1 = globals().get(selected_class_p1)(
+                xPos=800,
+                yPos=100,
+                movementtype=MovementTyp.Player1Control,
+            )
+
+        robot_p2 = globals().get(selected_class_p2)(
+                xPos=500,
+                yPos=900,
+                movementtype=MovementTyp.Player2Control,
+            )
+
+        self.add_robot(robot_p1)
+        self.add_robot(robot_p2)
+
+
+
 
 """
 xPosition = 500
@@ -584,8 +604,9 @@ testarena.add_robot(testRobot4)
 testarena.runTask()
 testarena.InitWindow()
 """
-
+"""
 if __name__ == "__main__":
+    
     xPosition = 500
     yPosition = 250
     testRobot = BasicRobot(
@@ -631,4 +652,11 @@ if __name__ == "__main__":
     testarena.runTask()
     testarena.InitWindow()
 
+    sys.exit(App.exec())
+    """
+
+if __name__ == "__main__":
+    App = QApplication(sys.argv)
+    arena = Arena()
+    arena.start_game()
     sys.exit(App.exec())

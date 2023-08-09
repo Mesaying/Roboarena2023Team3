@@ -2,7 +2,7 @@ import configparser
 import importlib
 import os
 import sys
-
+from PyQt5.QtCore import Qt
 from Arena import Arena
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtGui import QFont, QPixmap
@@ -14,6 +14,7 @@ from PyQt5.uic import loadUi
 # Set up config file
 config = configparser.ConfigParser()
 config.read("config.txt")
+
 
 
 class MainMenu(QMainWindow):
@@ -40,12 +41,15 @@ class MainMenu(QMainWindow):
         # Make the window non-resizable
         self.setFixedSize(self.size())
 
+
         # Access the elements defined in the UI here
         # self.button.clicked.connect(self.buttonClicked)
         self.PlayButton.clicked.connect(self.playClicked)
         self.SettingsButton.clicked.connect(self.settingsClicked)
         self.QuitButton.clicked.connect(self.quitClicked)
         self.ExtrasButton.clicked.connect(self.extrasClicked)
+
+
 
     def update_position(self):
         position = self.getWindowPos()
@@ -130,26 +134,34 @@ class SettingsMenu(MainMenu):
 
         loadUi("MenuAssets\\SettingsMenu.ui", self)
 
-        self.GraphicsButton.clicked.connect(self.GraphicsClicked)
+
         self.BackButton.clicked.connect(self.BackClicked)
 
         # Connect the slider valueChanged signal to a function
         self.SoundSlider.valueChanged.connect(self.sliderValueChanged)
+        self.SoundSlider_2.valueChanged.connect(self.sliderValueChanged2)
 
-        # Get music volume from config file
+        # Get music and game_sound volume from config file
         config.read("config.txt")  # Path to config file
         music = config.getint("Settings", "music")
+        game_sounds = config.getint("Settings", "game_sounds")
 
-        # QLabel for displaying volume text
+        # QLabel for displaying volume text music
         self.musicLabel = QLabel(self)
         self.musicLabel.setGeometry(600, 370, 181, 121)
 
-        # Display Volume Label and chane font
+        # QLabel for displaying volume text game sounds
+        self.game_sound_Label = QLabel(self)
+        self.game_sound_Label.setGeometry(600, 570, 181, 121)
+
+        # Display Volume Label and change font
         font = QFont()
         font.setPointSize(14)  # Set the desired font size
         font.setBold(True)  # Optionally, set the font weight to bold
         self.musicLabel.setFont(font)
         self.musicLabel.setText(f"Volume: {music}")
+        self.game_sound_Label.setFont(font)
+        self.game_sound_Label.setText(f"Volume: {game_sounds}")
 
         # Set the window title and add a headline
         self.setWindowTitle("Settings Menu")
@@ -162,7 +174,7 @@ class SettingsMenu(MainMenu):
 
     def sliderValueChanged(self, value):
         # Update the configuration file with the new volume value
-        config = configparser.ConfigParser()
+
         config.read("config.txt")  # Path to config file
         config.set("Settings", "music", str(value))
 
@@ -172,7 +184,17 @@ class SettingsMenu(MainMenu):
 
         self.musicLabel.setText(f"Volume: {value}")
 
-        print("Slider value changed:", value)
+    def sliderValueChanged2(self, value):
+        # Update the configuration file with the new volume value
+
+        config.read("config.txt")  # Path to config file
+        config.set("Settings", "game_sounds", str(value))
+
+        # Overwrite config file
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
+
+        self.game_sound_Label.setText(f"Volume: {value}")
 
     def GraphicsClicked(self):
         print("g")
@@ -201,9 +223,15 @@ class ExtrasMenu(MainMenu):
         font.setBold(True)
         self.headline.setFont(font)
 
+
     def MapEditorClicked(self):
         MapEditor = importlib.import_module("MapEditor").MapEditor
-        self.setCentralWidget(MapEditor())
+        map_editor_window = MapEditor()
+        map_editor_window.show()
+        self.setCentralWidget(None)
+        self.close()
+        self.setCentralWidget(None)
+        window.close()
 
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
@@ -222,7 +250,8 @@ class SoloMenu(MainMenu):
         self.arena_selected = False
 
         self.PlayButton.clicked.connect(self.PlayClicked)
-        self.RobotButton.clicked.connect(self.RobotClicked)
+        self.RobotButtonP1.clicked.connect(self.RobotClickedP1)
+        self.RobotButtonP2.clicked.connect(self.RobotClickedP2)
         self.ArenaButton.clicked.connect(self.ArenaClicked)
         self.BackButton.clicked.connect(self.BackClicked)
 
@@ -236,24 +265,42 @@ class SoloMenu(MainMenu):
         self.headline.setFont(font)
 
         # To select Robot class
-        self.robot_class_list = ["Destroyer", "Tank", "Velocity"]
+        self.robot_class_list_P1 = ["Destroyer", "Tank", "Velocity"]
+        self.robot_class_list_P2 = ["Destroyer", "Tank", "Velocity"]
 
     def PlayClicked(self):
-        if self.RobotButton.text() == "Robot":
+        if self.RobotButtonP1.text() == "Robot Player1" or \
+                self.RobotButtonP2.text() == "Robot Player2":
             error_message = "No Robot selected"
             QMessageBox.critical(self, "Error", error_message)
         elif self.ArenaButton.text() == "Arena":
             error_message = "No Arena selected"
             QMessageBox.critical(self, "Error", error_message)
         else:
-            self.setCentralWidget(Arena())
+            arena = Arena()
+            self.setCentralWidget(arena)
+            arena.setFocusPolicy(Qt.StrongFocus)
+            arena.setFocus()
+            arena.start_game()
+            arena.runTask()
 
-    def RobotClicked(self):
-        robot_class = self.robot_class_list.pop(0)
-        self.robot_class_list.append(robot_class)
-        self.RobotButton.setText(robot_class)
+
+    def RobotClickedP1(self):
+        robot_class = self.robot_class_list_P1.pop(0)
+        self.robot_class_list_P1.append(robot_class)
+        self.RobotButtonP1.setText(robot_class)
         config.read("config.txt")  # Path to config file
-        config.set("Class", "selected_class", robot_class)
+        config.set("Class", "selected_class_p1", robot_class)
+        # Overwrite config file
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
+
+    def RobotClickedP2(self):
+        robot_class = self.robot_class_list_P2.pop(0)
+        self.robot_class_list_P2.append(robot_class)
+        self.RobotButtonP2.setText(robot_class)
+        config.read("config.txt")  # Path to config file
+        config.set("Class", "selected_class_p2", robot_class)
         # Overwrite config file
         with open("config.txt", "w") as config_file:
             config.write(config_file)
@@ -264,7 +311,7 @@ class SoloMenu(MainMenu):
         )
 
         if file_path:
-            self.ArenaButton.setText(file_path)
+            self.ArenaButton.setText(os.path.basename(file_path))
             config.read("config.txt")  # Path to config file
             config.set("Map", "selected_map", file_path)
             # Overwrite config file
@@ -327,4 +374,5 @@ if __name__ == "__main__":
     window = MainMenu()
     window.move(config.getint("Position", "x"), config.getint("Position", "y"))
     window.show()
+
     sys.exit(app.exec_())
