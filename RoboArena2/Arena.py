@@ -521,6 +521,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.add_robot(robot_p1)
         self.add_robot(robot_p2)
 
+
 if __name__ == "__main__":
     App = QApplication(sys.argv)
     arena = Arena()
