@@ -112,6 +112,7 @@ class MovementManager_:
         dashcooldowntime = 10
         self.reduceTimerToShoot()
         self.reduceAbilityCooldown()
+        self.robot.weapon.moveProjectils()
         moveForward = Qt.Key.Key_Up
         moveBack = Qt.Key.Key_Down
         turnLeft = Qt.Key.Key_Left
@@ -143,10 +144,22 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
-            self.weaponsCurrentlyShoot = True
-            self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+            match (self.robot.weapon.typ):
+                case WeaponTyp.hitscan:
+                    self.weaponsCurrentlyShoot = True
+                    self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+                case WeaponTyp.projectile:
+                    self.weaponsCurrentlyShoot = True
+                    self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
+                    self.shootProjectile()
         else:
-            self.weaponsCurrentlyShoot = False
+            match (self.robot.weapon.typ):
+                case WeaponTyp.hitscan:
+                    self.weaponsCurrentlyShoot = False
+                case WeaponTyp.projectile:
+                    self.weaponsCurrentlyShoot = (
+                        len(self.robot.weapon.listOfPositionForProjectils) > 0
+                    )
 
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
