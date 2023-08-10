@@ -14,6 +14,7 @@ from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
 
+
 config = configparser.ConfigParser()
 config.read("config.txt")
 selected_map = config.get("Map", "selected_map")
@@ -25,14 +26,16 @@ selected_class_p1 = config.get("Class", "selected_class_p1")
 selected_class_p2 = config.get("Class", "selected_class_p2")
 
 class winscreen(QMainWindow):
-    def __init__(self):
+    def __init__(self, winner):
         super().__init__()
         self.width = 1000
         self.height = 1000
 
         # Load the UI file
-        loadUi("MenuAssets\\P2_win.ui", self)
-
+        if winner == "p1":
+            loadUi("MenuAssets\\P1_win.ui", self)
+        elif winner == "p2":
+            loadUi("MenuAssets\\P2_win.ui", self)
 
         self.PlayAgainButton.clicked.connect(self.PlayAgainClicked)
         self.QuitButton.clicked.connect(self.QuitClicked)
@@ -53,64 +56,13 @@ class winscreen(QMainWindow):
 
 
     def QuitClicked(self):
+        config.read("config.txt")  # Path to config file
+        config.set("Settings", "soundtrack", "Sounds\\nicebassiguess.mp3")
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
         SoloMenuClass = importlib.import_module("Menus").SoloMenu
         SoloMenu = SoloMenuClass()
         self.setCentralWidget(SoloMenu)
-
-
-
-class MusicPlayer:
-    def __init__(self):
-        self.media_player = QMediaPlayer()
-        media = QMediaContent(QUrl.fromLocalFile("Sounds\\DRIVE.mp3"))
-        self.media_player.setMedia(media)
-
-        # Get Volume from config file
-        config = configparser.ConfigParser()
-        config.read("config.txt")  # Path to config file
-        self.music = config.getint("Settings", "music")
-
-        # Adjust volume
-        self.media_player.setVolume(self.music)
-
-        self.media_player.mediaStatusChanged.connect(self.restart_playback)
-
-        # Create a QTimer to update the volume regularly
-        self.music_timer = QTimer()
-        self.music_timer.timeout.connect(self.update_music)
-        self.music_timer.start(500)
-
-        # Initialize QMediaPlayer to play game sounds
-        self.game_sound_player = QMediaPlayer()
-        self.game_sound_media = QMediaContent(
-            QUrl.fromLocalFile("Sounds\\Pistol.mp3")
-        )
-
-        # Set the volume for the game sound effect
-        self.game_sound_player.setVolume(
-            50
-        )  # You can adjust the volume level (0 to 100)
-
-    def restart_playback(self, status):
-        if status == QMediaPlayer.EndOfMedia:
-            self.media_player.setPosition(0)
-            self.media_player.play()
-
-    def update_music(self):
-        # Get Volume from config file
-        config = configparser.ConfigParser()
-        config.read("config.txt")  # Path to config file
-        self.music = config.getint("Settings", "music")
-
-        # Adjust volume
-        self.media_player.setVolume(self.music)
-
-    def play(self):
-        self.media_player.play()
-
-    def play_game_sound(self):
-        self.game_sound_player.setMedia(self.game_sound_media)
-        self.game_sound_player.play()
 
 
 class Worker(QThread):
@@ -378,7 +330,11 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         if foundDeadrobot:
             self.removeThreadFromDictionary(RobotToKill)
             self.removeRobotFromList(RobotToKill)
-            self.setCentralWidget(winscreen())
+            if RobotToKill.movementtype == MovementTyp.Player1Control:
+                self.setCentralWidget(winscreen("p2"))
+            elif RobotToKill.movementtype == MovementTyp.Player2Control:
+                self.setCentralWidget(winscreen("p1"))
+
 
     def killThread(self, thread: Worker) -> None:
         thread.exec_
@@ -432,10 +388,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = True
-
-        # Check if f key(weapon) is pressed
-        if event.key() == Qt.Key_F:
-            music_player.play_game_sound()
 
     def keyReleaseEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = False

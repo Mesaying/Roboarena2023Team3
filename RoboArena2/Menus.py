@@ -3,16 +3,16 @@ import importlib
 import os
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.uic.properties import QtCore
+
 
 from Arena import Arena
-from PyQt5.QtCore import QTimer, QUrl
-from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtCore import QTimer, QUrl, QEvent, QCoreApplication
+from PyQt5.QtGui import QFont, QPixmap, QKeyEvent
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
                              QMessageBox)
 from PyQt5.uic import loadUi
-from PyQt5.QtTest import QTest
+
 
 # Set up config file
 config = configparser.ConfigParser()
@@ -248,14 +248,20 @@ class SoloMenu(MainMenu):
             error_message = "No Arena selected"
             QMessageBox.critical(self, "Error", error_message)
         else:
+            config.read("config.txt")  # Path to config file
+            config.set("Settings", "soundtrack", "Sounds\\Drive.mp3")
+            with open("config.txt", "w") as config_file:
+                config.write(config_file)
             arena = Arena()
             arena.listOfThreads.clear()
             arena.robots.clear()
             self.setCentralWidget(arena)
             arena.setFocusPolicy(Qt.StrongFocus)
-            print(arena.isActiveWindow())
+            key_event = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
+            QCoreApplication.postEvent(arena, key_event)
             arena.start_game()
             arena.runTask()
+
 
     def RobotClickedP1(self):
         robot_class = self.robot_class_list_P1.pop(0)
@@ -293,26 +299,28 @@ class SoloMenu(MainMenu):
     def BackClicked(self):
         self.setCentralWidget(PlayMenu())
 
-
 class MusicPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
-        media = QMediaContent(QUrl.fromLocalFile("Sounds\\nicebassiguess.mp3"))
-        self.media_player.setMedia(media)
+        self.tracks = [0,1]
+        self.tracks[0] = QMediaContent(QUrl.fromLocalFile("Sounds\\nicebassiguess.mp3"))
+        self.tracks[1] = QMediaContent(QUrl.fromLocalFile("Sounds\\DRIVE.mp3"))
+
 
         # Get Volume from config file
         config = configparser.ConfigParser()
         config.read("config.txt")  # Path to config file
         self.music = config.getint("Settings", "music")
+        self.current_track = config.get("Settings", "soundtrack")
 
         # Adjust volume
         self.media_player.setVolume(self.music)
-
         self.media_player.mediaStatusChanged.connect(self.restart_playback)
 
         # Create a QTimer to update the volume regularly
         self.music_timer = QTimer()
         self.music_timer.timeout.connect(self.update_music)
+        self.music_timer.timeout.connect(self.change_track)
         self.music_timer.start(500)
 
     def restart_playback(self, status):
@@ -328,20 +336,41 @@ class MusicPlayer:
         # Adjust volume
         self.media_player.setVolume(self.music)
 
-    def play(self):
+    def change_track(self):
+        config.read("config.txt")  # Path to config file
+        soundtrack = config.get("Settings", "soundtrack")
+        soundtrack = str(soundtrack)
+        print("soundtrack", soundtrack)
+        if self.current_track != soundtrack:
+            self.current_track = soundtrack
+            self.media_player.stop()
+            self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(self.current_track)))
+            self.media_player.play()
+
+    def stop(self):
+        self.media_player.stop()
+
+    def play(self, index):
+        self.media_player.stop()
+        self.media_player.setMedia(self.tracks[index])
         self.media_player.play()
 
 
+
+
+
 if __name__ == "__main__":
+    # Set correct Menu Window
+    config.read("config.txt")
+    config.set("Settings", "soundtrack", "Sounds\\nicebassiguess.mp3")
+    with open("config.txt", "w") as config_file:
+        config.write(config_file)
+
     # Create the QApplication instance in the main thread
     app = QApplication(sys.argv)
 
-    # Create an instance of the MusicPlayer class
     music_player = MusicPlayer()
-
-    # Run the music playback in the main thread
-    music_player.play()
-
+    music_player.play(0)
     # Continue with the main program execution
     window = MainMenu()
     window.move(config.getint("Position", "x"), config.getint("Position", "y"))
