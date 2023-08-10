@@ -1,9 +1,38 @@
 import itertools
+import configparser
 
 from BasicRobot import BasicRobot, MovementTyp
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QUrl
 from Weapon import WeaponTyp
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 
+class SoundPlayer:
+    def __init__(self):
+        self.media_player = QMediaPlayer()
+        self.sounds = [0, 1]
+        self.sounds[0] = QMediaContent(QUrl.fromLocalFile("Sounds\\Pistol.mp3"))
+
+        # Get Volume from config file
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        self.sound_volume = config.getint("Settings", "game_sounds")
+
+        # Adjust volume
+        self.media_player.setVolume(self.sound_volume)
+
+    def play_sound(self, index):
+        self.media_player.stop()
+        self.media_player.setMedia(self.sounds[index])
+        self.media_player.play()
+
+    def stop(self):
+        self.media_player.stop()
+
+    def update_sound_volume(self):
+        config = configparser.ConfigParser()
+        config.read("config.txt")  # Path to config file
+        self.sound_volume = config.getint("Settings", "game_sounds")
+        self.media_player.setVolume(self.sound_volume)
 
 class MovementManager_:
     waveConter = 0
@@ -13,6 +42,7 @@ class MovementManager_:
 
     def __init__(self, robot: BasicRobot):
         self.robot = robot
+        self.sound_player = SoundPlayer()
 
     def handleInput(self, keys: dict):
         Movementtyp_ = self.robot.getMovementType()
@@ -81,11 +111,14 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
+
             match (self.robot.weapon.typ):
                 case WeaponTyp.hitscan:
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                 case WeaponTyp.projectile:
+                    print("fff")
+                    self.sound_player.play_sound(0)
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                     self.shootProjectile()
