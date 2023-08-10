@@ -24,13 +24,16 @@ selected_class = config.get("Class", "selected_class")
 
 
 class winscreen(QMainWindow):
-    def __init__(self):
+    def __init__(self, player1):
         super().__init__()
         self.width = 1000
         self.height = 1000
 
-        # Load the UI file
-        loadUi("MenuAssets\\P2_win.ui", self)
+        if player1:
+            loadUi("MenuAssets\\MenuAssets\\P1_win.ui", self)
+        else:
+            # Load the UI file
+            loadUi("MenuAssets\\MenuAssets\\P2_win.ui", self)
 
         """
         self.PlayAgainButton.clicked.connect(self.PlayAgainClicked)
@@ -363,7 +366,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         if foundDeadrobot:
             self.removeThreadFromDictionary(RobotToKill)
             self.removeRobotFromList(RobotToKill)
-            self.setCentralWidget(winscreen())
+            p1 = RobotToKill.movementtype == MovementTyp.Player1Control
+            self.setCentralWidget(winscreen(p1))
 
     def killThread(self, thread: Worker) -> None:
         thread.exec_
