@@ -569,8 +569,7 @@ testarena.runTask()
 testarena.InitWindow()
 """
 """
-if __name__ == "__main__":
-    
+if __name__ == "__main__":   
     xPosition = 500
     yPosition = 250
     testRobot = BasicRobot(
