@@ -2,22 +2,18 @@ import configparser
 import importlib
 import os
 import sys
-from PyQt5.QtCore import Qt
-
 
 from Arena import Arena
-from PyQt5.QtCore import QTimer, QUrl, QEvent, QCoreApplication
-from PyQt5.QtGui import QFont, QPixmap, QKeyEvent
+from PyQt5.QtCore import QCoreApplication, QEvent, Qt, QTimer, QUrl
+from PyQt5.QtGui import QFont, QKeyEvent, QPixmap
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (QApplication, QFileDialog, QLabel, QMainWindow,
                              QMessageBox)
 from PyQt5.uic import loadUi
 
-
 # Set up config file
 config = configparser.ConfigParser()
 config.read("config.txt")
-
 
 
 class MainMenu(QMainWindow):
@@ -45,8 +41,6 @@ class MainMenu(QMainWindow):
         self.SettingsButton.clicked.connect(self.settingsClicked)
         self.QuitButton.clicked.connect(self.quitClicked)
         self.ExtrasButton.clicked.connect(self.extrasClicked)
-
-
 
     def update_position(self):
         position = self.getWindowPos()
@@ -123,7 +117,6 @@ class SettingsMenu(MainMenu):
         self.loadImage(r"MenuAssets\\robotc.png")
 
         loadUi("MenuAssets\\SettingsMenu.ui", self)
-
 
         self.BackButton.clicked.connect(self.BackClicked)
 
@@ -240,8 +233,10 @@ class SoloMenu(MainMenu):
         self.robot_class_list_P2 = ["Destroyer", "Tank", "Velocity"]
 
     def PlayClicked(self):
-        if self.RobotButtonP1.text() == "Robot Player1" or \
-                self.RobotButtonP2.text() == "Robot Player2":
+        if (
+            self.RobotButtonP1.text() == "Robot Player1"
+            or self.RobotButtonP2.text() == "Robot Player2"
+        ):
             error_message = "No Robot selected"
             QMessageBox.critical(self, "Error", error_message)
         elif self.ArenaButton.text() == "Arena":
@@ -261,7 +256,6 @@ class SoloMenu(MainMenu):
             QCoreApplication.postEvent(arena, key_event)
             arena.start_game()
             arena.runTask()
-
 
     def RobotClickedP1(self):
         robot_class = self.robot_class_list_P1.pop(0)
@@ -299,13 +293,15 @@ class SoloMenu(MainMenu):
     def BackClicked(self):
         self.setCentralWidget(PlayMenu())
 
+
 class MusicPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
-        self.tracks = [0,1]
-        self.tracks[0] = QMediaContent(QUrl.fromLocalFile("Sounds\\nicebassiguess.mp3"))
+        self.tracks = [0, 1]
+        self.tracks[0] = QMediaContent(
+            QUrl.fromLocalFile("Sounds\\nicebassiguess.mp3")
+        )
         self.tracks[1] = QMediaContent(QUrl.fromLocalFile("Sounds\\DRIVE.mp3"))
-
 
         # Get Volume from config file
         config = configparser.ConfigParser()
@@ -344,7 +340,9 @@ class MusicPlayer:
         if self.current_track != soundtrack:
             self.current_track = soundtrack
             self.media_player.stop()
-            self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(self.current_track)))
+            self.media_player.setMedia(
+                QMediaContent(QUrl.fromLocalFile(self.current_track))
+            )
             self.media_player.play()
 
     def stop(self):
@@ -354,9 +352,6 @@ class MusicPlayer:
         self.media_player.stop()
         self.media_player.setMedia(self.tracks[index])
         self.media_player.play()
-
-
-
 
 
 if __name__ == "__main__":

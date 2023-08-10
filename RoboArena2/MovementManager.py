@@ -1,16 +1,19 @@
-import itertools
 import configparser
+import itertools
 
 from BasicRobot import BasicRobot, MovementTyp
 from PyQt5.QtCore import Qt, QUrl
-from Weapon import WeaponTyp
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+from Weapon import WeaponTyp
+
 
 class SoundPlayer:
     def __init__(self):
         self.media_player = QMediaPlayer()
         self.sounds = [0, 1]
-        self.sounds[0] = QMediaContent(QUrl.fromLocalFile("Sounds\\Pistol.mp3"))
+        self.sounds[0] = QMediaContent(
+            QUrl.fromLocalFile("Sounds\\Pistol.mp3")
+        )
 
         # Get Volume from config file
         config = configparser.ConfigParser()
@@ -33,6 +36,7 @@ class SoundPlayer:
         config.read("config.txt")  # Path to config file
         self.sound_volume = config.getint("Settings", "game_sounds")
         self.media_player.setVolume(self.sound_volume)
+
 
 class MovementManager_:
     waveConter = 0
@@ -111,7 +115,6 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
-
             match (self.robot.weapon.typ):
                 case WeaponTyp.hitscan:
                     self.weaponsCurrentlyShoot = True
