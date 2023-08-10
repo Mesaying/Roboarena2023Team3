@@ -366,7 +366,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         if foundDeadrobot:
             self.removeThreadFromDictionary(RobotToKill)
             self.removeRobotFromList(RobotToKill)
-            p1 = RobotToKill.movementtype == MovementTyp.Player1Control
+            p1 = not (RobotToKill.movementtype == MovementTyp.Player1Control)
             self.setCentralWidget(winscreen(p1))
 
     def killThread(self, thread: Worker) -> None:

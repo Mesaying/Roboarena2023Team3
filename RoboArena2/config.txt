@@ -6,7 +6,7 @@ game_sounds = 50
 selected_class = Destroyer
 
 [Map]
-selected_map = trffff.txt
+selected_map = Maps\\Crossover.txt
 
 [Arena]
 arena_size_width = 1000
