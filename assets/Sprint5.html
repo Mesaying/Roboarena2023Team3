@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sprint 4</title>
+    <title>Sprint 5</title>
     <style>
         body {
             background-color: #D3D3D3;
@@ -14,6 +14,29 @@
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
+        }
+
+        /* Custom bullets for the list - changed to diamonds */
+        .visual-changes ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .visual-changes li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .visual-changes li::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: -15px;
+            width: 10px;
+            height: 10px;
+            background-color: #333; /* You can change the color */
+            
         }
     </style>
 </head>
