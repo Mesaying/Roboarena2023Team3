@@ -64,7 +64,11 @@ class winscreen(QMainWindow):
 
 class Worker(QThread):
     def __init__(
-        self, robot: BasicRobot, keys: dict, robots: type[BasicRobot], tiles: list[list[object]]
+        self,
+        robot: BasicRobot,
+        keys: dict,
+        robots: type[BasicRobot],
+        tiles: list[list[object]],
     ):
         QThread.__init__(self)
         self.robot = robot
@@ -92,12 +96,12 @@ class Worker(QThread):
             positionProjectileInList = []
             indexOfProjectile = 0
             for i in self.robot.weapon.listOfPositionForProjectils:
-                #converting to tile size
-                xpos = int((i[0] * len(self.tiles)) /arena_size_width)
-                ypos = int((i[1] * len(self.tiles[0])) /arena_size_height)
-                if(ypos >= len(self.tiles)):
+                # converting to tile size
+                xpos = int((i[0] * len(self.tiles)) / arena_size_width)
+                ypos = int((i[1] * len(self.tiles[0])) / arena_size_height)
+                if ypos >= len(self.tiles):
                     ypos = len(self.tiles) - 1
-                if(xpos >= len(self.tiles[0])):
+                if xpos >= len(self.tiles[0]):
                     xpos = len(self.tiles[0]) - 1
                 if (
                     i[0] < 0

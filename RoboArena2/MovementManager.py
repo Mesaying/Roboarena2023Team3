@@ -137,7 +137,9 @@ class MovementManager_:
                         len(self.robot.weapon.listOfPositionForProjectils) > 0
                     )
 
-        self.robot.weaponsCurrentlyShootforSound = self.weaponsCurrentlyShootforSound
+        self.robot.weaponsCurrentlyShootforSound = (
+            self.weaponsCurrentlyShootforSound
+        )
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
             if PressedMoveBack:
@@ -203,7 +205,9 @@ class MovementManager_:
                         len(self.robot.weapon.listOfPositionForProjectils) > 0
                     )
 
-        self.robot.weaponsCurrentlyShootforSound = self.weaponsCurrentlyShootforSound
+        self.robot.weaponsCurrentlyShootforSound = (
+            self.weaponsCurrentlyShootforSound
+        )
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
             if PressedMoveBack:
