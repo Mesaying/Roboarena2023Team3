@@ -52,6 +52,7 @@ class BasicRobot:
         self.health = self.MAX_HEALTH
         self.weapon = Weapon(WeaponName.minigun)
         self.weaponsCurrentlyShoot = False
+        self.weaponsCurrentlyShootforSound = False
         self.type = "Basic"
         list_with_tiles = []
         config.read("config.txt")

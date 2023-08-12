@@ -41,6 +41,7 @@ class SoundPlayer:
 class MovementManager_:
     waveConter = 0
     weaponsCurrentlyShoot = False
+    weaponsCurrentlyShootforSound = False
     ticksToNextShoot = 0
     dashcooldown = 0
 
@@ -97,6 +98,7 @@ class MovementManager_:
         PressedShootWeapon = shootWeapon in keys and keys[shootWeapon]
         PressedDash = dashKey in keys and keys[dashKey]
         dashcooldownNotActive = self.dashcooldown < 1
+        self.weaponsCurrentlyShootforSound = False
 
         moveVec = 0
         rotVec = 0
@@ -115,6 +117,7 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
+            self.weaponsCurrentlyShootforSound = True
             match (self.robot.weapon.typ):
                 case WeaponTyp.hitscan:
                     self.weaponsCurrentlyShoot = True
@@ -134,6 +137,7 @@ class MovementManager_:
                         len(self.robot.weapon.listOfPositionForProjectils) > 0
                     )
 
+        self.robot.weaponsCurrentlyShootforSound = self.weaponsCurrentlyShootforSound
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
             if PressedMoveBack:
@@ -162,6 +166,7 @@ class MovementManager_:
         PressedShootWeapon = shootWeapon in keys and keys[shootWeapon]
         PressedDash = dashKey in keys and keys[dashKey]
         dashcooldownNotActive = self.dashcooldown < 1
+        self.weaponsCurrentlyShootforSound = False
 
         moveVec = 0
         rotVec = 0
@@ -180,6 +185,7 @@ class MovementManager_:
 
         self.robot.tick(moveVec, rotVec, 1 / 30)
         if PressedShootWeapon and self.ticksToNextShoot < 1:
+            self.weaponsCurrentlyShootforSound = True
             match (self.robot.weapon.typ):
                 case WeaponTyp.hitscan:
                     self.weaponsCurrentlyShoot = True
@@ -197,6 +203,7 @@ class MovementManager_:
                         len(self.robot.weapon.listOfPositionForProjectils) > 0
                     )
 
+        self.robot.weaponsCurrentlyShootforSound = self.weaponsCurrentlyShootforSound
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
             if PressedMoveBack:

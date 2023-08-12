@@ -64,12 +64,13 @@ class winscreen(QMainWindow):
 
 class Worker(QThread):
     def __init__(
-        self, robot: BasicRobot, keys: dict, robots: type[BasicRobot]
+        self, robot: BasicRobot, keys: dict, robots: type[BasicRobot], tiles: list[list[object]]
     ):
         QThread.__init__(self)
         self.robot = robot
         self.keys = keys
         self.robots = robots
+        self.tiles = tiles
 
     def run(self):
         # function gets called at start()
@@ -91,11 +92,19 @@ class Worker(QThread):
             positionProjectileInList = []
             indexOfProjectile = 0
             for i in self.robot.weapon.listOfPositionForProjectils:
+                #converting to tile size
+                xpos = int((i[0] * len(self.tiles)) /arena_size_width)
+                ypos = int((i[1] * len(self.tiles[0])) /arena_size_height)
+                if(ypos >= len(self.tiles)):
+                    ypos = len(self.tiles) - 1
+                if(xpos >= len(self.tiles[0])):
+                    xpos = len(self.tiles[0]) - 1
                 if (
                     i[0] < 0
                     or i[1] < 0
                     or i[0] > arena_size_height
                     or i[1] > arena_size_width
+                    or self.tiles[ypos][xpos].getCollision() == 1
                 ):
                     positionProjectileInList.append(indexOfProjectile)
                     indexOfProjectile += 1
@@ -366,7 +375,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             # key = i
             robot = self.robots[i]
             key = robot
-            value = Worker(robot, self.keysPressed, self.robots)
+            value = Worker(robot, self.keysPressed, self.robots, self.tiles)
             self.listOfThreads[key] = value
 
         # starting the threads and connecting the signals
