@@ -48,7 +48,7 @@
      <string>Play again</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="PlayAgainButton_2">
+   <widget class="QPushButton" name="QuitButton">
     <property name="geometry">
      <rect>
       <x>400</x>
