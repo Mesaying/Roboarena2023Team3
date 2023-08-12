@@ -44,18 +44,20 @@
     <h2 class="sprint-heading">Sprint 4</h2>
 
         <p><strong><span style="font-size: larger;">Minimum viable product:</span></strong> <br>
--1v1 type of game mode controlled with one keyboard (local coop) <br>
--5 different types of terrain <br>
--Main Menu <br>
--Ability to shoot for both robots <br>
--in-game UI to show cooldown and health of robots <br>
--Main Menu <br>
--Including sound effects and music<br>
-        
+<ul>            
+<li>1v1 type of game mode controlled with one keyboard (local coop)</li>
+<li>5 different types of terrain </li>
+<li>Main Menu </li>
+<li>Ability to shoot for both robots </li>
+<li>in-game UI to show cooldown and health of robots </li>
+<li>Main Menu </li>
+<li>Including sound effects and music</li>
+</ul>
+    
 <p><strong><span style="font-size: larger;">Stretch goals:</span></strong> <br>
--Different classes of robots <br>
--Multiple attack-abilities to choose from <br>
--Online co-op <br><br>
+<li>Different classes of robots </li>
+<li>Multiple attack-abilities to choose from </li>
+<li>Online co-op </li><br><br>
     
     
     <br>
@@ -82,7 +84,12 @@
     <b> The class MainMenu </b> <br>
     
     <img src="Sprint4/classmainmenu.JPG"> <br><br>
-    
+
+    <ul>
+    <li>MainMenu inherits from QMainWindow.</li>
+    <li>We load the background-image with load.image.</li>
+    <li>The UI, created previously with Qt Designer is displayed in the foreground by using the loadUi function. </li>
+    </ul>
     
     
     <b> The functions, responsible for changing the menus </b> <br>
@@ -93,11 +100,22 @@
     Afterwards the old menu is closed.<br><br>
     
     <b>Improving map editor:</b> <br>
-    Added an undo function, to delete the latest made drawing.<br>
+
+    <b>Implemented an undo function</b>
+    <ul>
+    <li>All made drawings are saved in the shapes array</li>
+    <li>When the undo function is called, the latest included drawing is removed.</li> 
+    <li>Afterwards the screen gets updated</li>
+    </ul>
     <img src="Sprint4/undo.jpg"> <br><br>
     
-    
+
+    <b>Implemented a new function</b>
     Added a new function, to revert the screen to its inital stage and delete all made drawings.<br>
+    <ul>
+    <li>When the new function is called, the shapes with all drawings is emptied.</li>
+    <li>The result is, that the mapeditor screen is brought back to its initial stage.</li>    
+    </ul>
     <img src="Sprint4/new.jpg"> <br><br>
     <br>
     
