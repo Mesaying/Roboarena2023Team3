@@ -2,7 +2,6 @@ import configparser
 import importlib
 import math
 import sys
-from RobotClasses import Destroyer, Tank, Velocity
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
@@ -10,6 +9,7 @@ from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
+from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
 
@@ -507,10 +507,10 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         selected_class_p1 = config.get("Class", "selected_class_p1")
         selected_class_p2 = config.get("Class", "selected_class_p2")
 
-        #to protect imports from formatter
-        t = Tank(0,0,MovementTyp.Circle)
-        d = Destroyer(0,0,MovementTyp.Circle)
-        v = Velocity(0,0,MovementTyp.Circle)
+        # to protect imports from formatter
+        Tank(0, 0, MovementTyp.Circle)
+        Destroyer(0, 0, MovementTyp.Circle)
+        Velocity(0, 0, MovementTyp.Circle)
 
         robot_p1 = globals().get(selected_class_p1)(
             xPos=800,
