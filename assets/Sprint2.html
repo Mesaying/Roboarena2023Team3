@@ -44,7 +44,7 @@
     <h2 class="sprint-heading">Sprint 2</h2>
 <br>
 <br>
-<p><strong><span style="font-size: larger;">Task 1 </span></strong> <br><br>
+<p><strong><span style="font-size: larger;">Task 1 (Tom,Marcel,Nico) </span></strong> <br><br>
 <p> We drafted a Mock Up of the Basic UI of the game.<br>
     The arena will consist of diffferent types of terrain each with it's unique effect on the robot.<br>
     For example, fire will damage the robots, water will slow them down.<br> 
@@ -63,19 +63,27 @@
   
   <img src="https://github.com/Mesaying/Roboarena2023Team3/blob/main/assets/Sprint2/UIMockUp/ArenaClass.JPG"> <br>
   
-  Arena: 2 dimensional Array, size 100 * 100 to store all tiles<br>
-  The arena is drawn based on a textfile. 
-  We iterate through every letter in the textfile. Based on the letter different drawings happen in the arena and we 
-  set the element in the array to the appropriate terrain.<br>
-  At first the arena wasnt drawn correctly because line breaks were included in the array.
-  We want to improve the map editor in the future and make the process of creating an arena more convenient.<br>
+  <b>Arena: </b>
+  <ul>
+            <li>Buttons significantly bigger.</li>
+            <li>Buttons have rounded edges.</li>
+            <li>Hovering over a button changes the color.</li>
+            <li>Different Font.</li>
+         
+  <li>2 dimensional Array, size 100 * 100 to store all tiles</li>
+  <li>The arena is drawn based on a textfile. </li>
+  <li>We iterate through every letter in the textfile. </li>
+  <li>Based on the letter different drawings happen in the arena and we set the element in the array to the appropriate terrain.</li>
+  <li>At first the arena wasnt drawn correctly because line breaks were included in the array.</li>
+  <li>We want to improve the map editor in the future and make the process of creating an arena more convenient.</li>
+  </ul> 
   
-  
-  Difficulty: We initially had a version where we initialised the screen first and then called a draw function to color the tiles.
+  <b>Difficulty:</b> 
+  We initially had a version where we initialised the screen first and then called a draw function to color the tiles.
   To our surprise this version didnt draw anything on the screen. <br>The solution was to implement a event-function which is executed
   automatically, when the screen is initialised. <br> 
   
-  <img src="Roboarena2023Team3/assets/Sprint2/UIMockUp/paintevent.JPG"><br>
+  <img src="Sprint2/UIMockUp/paintevent.JPG"><br>
   
 <p><strong><span style="font-size: larger;">Task 3 </span></strong> <br><br>
 We made a simple Robot class to encode the robots. Each robot has following attributes:<br>
