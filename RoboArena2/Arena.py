@@ -1,12 +1,12 @@
 import configparser
+import importlib
 import math
 import sys
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
-from PyQt5.QtCore import Qt, QThread, QTimer, QUrl, pyqtSignal
+from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
-from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 from RobotClasses import Destroyer, Tank, Velocity
@@ -20,85 +20,46 @@ arena_size_width = config.getint("Arena", "arena_size_width")
 arena_size_height = config.getint("Arena", "arena_size_height")
 tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
-selected_class = config.get("Class", "selected_class")
+selected_class_p1 = config.get("Class", "selected_class_p1")
+selected_class_p2 = config.get("Class", "selected_class_p2")
 
 
 class winscreen(QMainWindow):
-    def __init__(self):
+    def __init__(self, winner):
         super().__init__()
         self.width = 1000
         self.height = 1000
 
         # Load the UI file
-        loadUi("MenuAssets\\P2_win.ui", self)
+        if winner == "p1":
+            loadUi("MenuAssets\\P1_win.ui", self)
+        elif winner == "p2":
+            loadUi("MenuAssets\\P2_win.ui", self)
 
-        """
         self.PlayAgainButton.clicked.connect(self.PlayAgainClicked)
         self.QuitButton.clicked.connect(self.QuitClicked)
-        """
 
         # Make the window non-resizable
         self.setFixedSize(self.size())
 
     def PlayAgainClicked(self):
-        self.close()
+        arena = Arena()
+        arena.listOfThreads.clear()
+        arena.robots.clear()
+        self.setCentralWidget(arena)
+        arena.setFocusPolicy(Qt.StrongFocus)
+        print(arena.isActiveWindow())
+        arena.start_game()
+        arena.runTask()
 
     def QuitClicked(self):
-        self.close()
-
-
-class MusicPlayer:
-    def __init__(self):
-        self.media_player = QMediaPlayer()
-        media = QMediaContent(QUrl.fromLocalFile("Sounds\\DRIVE.mp3"))
-        self.media_player.setMedia(media)
-
-        # Get Volume from config file
-        config = configparser.ConfigParser()
         config.read("config.txt")  # Path to config file
-        self.music = config.getint("Settings", "music")
-
-        # Adjust volume
-        self.media_player.setVolume(self.music)
-
-        self.media_player.mediaStatusChanged.connect(self.restart_playback)
-
-        # Create a QTimer to update the volume regularly
-        self.music_timer = QTimer()
-        self.music_timer.timeout.connect(self.update_music)
-        self.music_timer.start(500)
-
-        # Initialize QMediaPlayer to play game sounds
-        self.game_sound_player = QMediaPlayer()
-        self.game_sound_media = QMediaContent(
-            QUrl.fromLocalFile("Sounds\\Pistol.mp3")
-        )
-
-        # Set the volume for the game sound effect
-        self.game_sound_player.setVolume(
-            50
-        )  # You can adjust the volume level (0 to 100)
-
-    def restart_playback(self, status):
-        if status == QMediaPlayer.EndOfMedia:
-            self.media_player.setPosition(0)
-            self.media_player.play()
-
-    def update_music(self):
-        # Get Volume from config file
-        config = configparser.ConfigParser()
-        config.read("config.txt")  # Path to config file
-        self.music = config.getint("Settings", "music")
-
-        # Adjust volume
-        self.media_player.setVolume(self.music)
-
-    def play(self):
-        self.media_player.play()
-
-    def play_game_sound(self):
-        self.game_sound_player.setMedia(self.game_sound_media)
-        self.game_sound_player.play()
+        config.set("Settings", "soundtrack", "Sounds\\nicebassiguess.mp3")
+        with open("config.txt", "w") as config_file:
+            config.write(config_file)
+        SoloMenuClass = importlib.import_module("Menus").SoloMenu
+        SoloMenu = SoloMenuClass()
+        self.setCentralWidget(SoloMenu)
 
 
 class Worker(QThread):
@@ -253,6 +214,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def __init__(self):
         super().__init__()
+        self.setFocusPolicy(Qt.StrongFocus)
         self.width = arena_size_width
         self.height = arena_size_height
         self.tiles = [
@@ -268,6 +230,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         list_with_tiles = []
 
+        config.read("config.txt")
+        selected_map = config.get("Map", "selected_map")
         with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
@@ -363,7 +327,10 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         if foundDeadrobot:
             self.removeThreadFromDictionary(RobotToKill)
             self.removeRobotFromList(RobotToKill)
-            self.setCentralWidget(winscreen())
+            if RobotToKill.movementtype == MovementTyp.Player1Control:
+                self.setCentralWidget(winscreen("p2"))
+            elif RobotToKill.movementtype == MovementTyp.Player2Control:
+                self.setCentralWidget(winscreen("p1"))
 
     def killThread(self, thread: Worker) -> None:
         thread.exec_
@@ -404,6 +371,8 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
+            print(self.robots)
+            print(i)
             robotOfThread = self.robots[i]
             self.robotSignal.connect(
                 self.listOfThreads[robotOfThread].moveRobot
@@ -415,10 +384,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = True
-
-        # Check if f key(weapon) is pressed
-        if event.key() == Qt.Key_F:
-            music_player.play_game_sound()
 
     def keyReleaseEvent(self, event: QKeyEvent) -> None:
         self.keysPressed[event.key()] = False
@@ -537,98 +502,34 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         radians = robot.alpha / 180.0 * pi  # convert degrees to radians
         return int(robot.y + math.sin(radians) * robot.weapon.size)
 
+    def start_game(self):
+        config.read("config.txt")
+        selected_class_p1 = config.get("Class", "selected_class_p1")
+        selected_class_p2 = config.get("Class", "selected_class_p2")
 
-"""
-xPosition = 500
-yPosition = 250
-testRobot = BasicRobot(
-    xPos=xPosition,
-    yPos=yPosition,
-    movementtype=MovementTyp.Line,
-)
-testRobot1 = Velocity(
-    xPos=xPosition - 100,
-    yPos=yPosition,
-    movementtype=MovementTyp.Wave,
-)
+        # to protect imports from formatter
+        Tank(0, 0, MovementTyp.Circle)
+        Destroyer(0, 0, MovementTyp.Circle)
+        Velocity(0, 0, MovementTyp.Circle)
 
-testRobot2 = Velocity(
-    xPos=xPosition + 100,
-    yPos=yPosition,
-    movementtype=MovementTyp.Circle,
-)
+        robot_p1 = globals().get(selected_class_p1)(
+            xPos=800,
+            yPos=100,
+            movementtype=MovementTyp.Player1Control,
+        )
 
-testRobot3 = Tank(
-    xPos=xPosition + 300,
-    yPos=yPosition,
-    movementtype=MovementTyp.Player1Control,
-)
+        robot_p2 = globals().get(selected_class_p2)(
+            xPos=500,
+            yPos=900,
+            movementtype=MovementTyp.Player2Control,
+        )
 
-testRobot4 = Destroyer(
-    xPos=xPosition + 300,
-    yPos=yPosition + 300,
-    movementtype=MovementTyp.Player2Control,
-)
-print("asss")
-App = QApplication(sys.argv)
-# Create an instance of the MusicPlayer class
-music_player = MusicPlayer()
-# Run the music playback in the main thread
-music_player.play()
-testarena = Arena()
-# testarena.add_robot(testRobot)
-# testarena.add_robot(testRobot1)
-# testarena.add_robot(testRobot2)
-testarena.add_robot(testRobot3)
-testarena.add_robot(testRobot4)
-testarena.runTask()
-testarena.InitWindow()
-"""
+        self.add_robot(robot_p1)
+        self.add_robot(robot_p2)
+
 
 if __name__ == "__main__":
-    xPosition = 500
-    yPosition = 250
-    testRobot = BasicRobot(
-        xPos=xPosition,
-        yPos=yPosition,
-        movementtype=MovementTyp.Line,
-    )
-    testRobot1 = Velocity(
-        xPos=xPosition - 100,
-        yPos=yPosition,
-        movementtype=MovementTyp.Wave,
-    )
-
-    testRobot2 = Velocity(
-        xPos=xPosition + 100,
-        yPos=yPosition,
-        movementtype=MovementTyp.Circle,
-    )
-
-    testRobot3 = Tank(
-        xPos=xPosition + 300,
-        yPos=yPosition,
-        movementtype=MovementTyp.Player1Control,
-    )
-
-    testRobot4 = Destroyer(
-        xPos=xPosition + 300,
-        yPos=yPosition + 300,
-        movementtype=MovementTyp.Player2Control,
-    )
-    print("asss")
     App = QApplication(sys.argv)
-    # Create an instance of the MusicPlayer class
-    music_player = MusicPlayer()
-    # Run the music playback in the main thread
-    music_player.play()
-    testarena = Arena()
-    # testarena.add_robot(testRobot)
-    # testarena.add_robot(testRobot1)
-    # testarena.add_robot(testRobot2)
-    testarena.add_robot(testRobot3)
-    testarena.add_robot(testRobot4)
-    testarena.runTask()
-    testarena.InitWindow()
-
+    arena = Arena()
+    arena.start_game()
     sys.exit(App.exec())

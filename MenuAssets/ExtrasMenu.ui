@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Win_Screen</class>
- <widget class="QMainWindow" name="Win_Screen">
+ <class>ExtrasMenu</class>
+ <widget class="QMainWindow" name="ExtrasMenu">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,13 +14,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="PlayAgainButton">
+   <widget class="QPushButton" name="MapEditorButton">
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>500</y>
-      <width>220</width>
-      <height>70</height>
+      <y>450</y>
+      <width>200</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -34,10 +34,6 @@
 		position: absolute;
    		 left: 100px;
    		 top: 200px;
-		color: #ff6600; /* Orange color */
-   	 	background-color: #002f6c; /* Dark blue background color */
-   	 	border-radius: 10px;
-    	padding: 10px;
     }
 
     QPushButton:hover {
@@ -45,16 +41,16 @@
 }</string>
     </property>
     <property name="text">
-     <string>Play again</string>
+     <string>Map Editor</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="QuitButton">
+   <widget class="QPushButton" name="BackButton">
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>720</y>
-      <width>220</width>
-      <height>70</height>
+      <y>600</y>
+      <width>200</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -68,47 +64,48 @@
 		position: absolute;
    		 left: 100px;
    		 top: 200px;
-		color: #ff6600; /* Orange color */
-   	 	background-color: #002f6c; /* Dark blue background color */
-   	 	border-radius: 10px;
-    	padding: 10px;
     }
 
     QPushButton:hover {
         background-color: rgb(203, 255, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Quit</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>130</y>
-      <width>331</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-        font-family: Verdana;
-        font-size: 24px;
-
-   		font-size: 36px;
-    	font-weight: bold;
-    	color: #ff6600; /* Orange color */
-   	 	background-color: #002f6c; /* Dark blue background color */
-   	 	border-radius: 10px;
-    	padding: 10px;
 }
-
-
 </string>
     </property>
     <property name="text">
-     <string>Player 2 wins!</string>
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="coolHeader">
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>100</y>
+      <width>301</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>36</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">Qlabel#coolHeader {
+    font-size: 24px;
+    font-family: &quot;Arial&quot;;
+    font-weight: bold;
+    color: #3366FF;
+    background-color: #F0F0F0;
+    padding: 10px;
+    border-radius: 5px;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Extras</string>
     </property>
    </widget>
   </widget>

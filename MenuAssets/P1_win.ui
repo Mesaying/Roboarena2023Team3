@@ -108,7 +108,7 @@
 </string>
     </property>
     <property name="text">
-     <string>Player 2 wins!</string>
+     <string>Player 1 wins!</string>
     </property>
    </widget>
   </widget>

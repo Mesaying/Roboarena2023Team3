@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SoloMenu</class>
- <widget class="QMainWindow" name="SoloMenu">
+ <class>MainMenu</class>
+ <widget class="QMainWindow" name="MainMenu">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,96 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="RobotButtonP1">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>450</y>
-      <width>200</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-        background-color: lightgray;
-        font-family: Verdana;
-        font-size: 24px;
-        border-radius: 20px;
-        min-width: 200px; /* Set the minimum width */
-        min-height: 50px; /* Set the minimum height */
-		position: absolute;
-   		 left: 100px;
-   		 top: 200px;
-    }
-
-    QPushButton:hover {
-        background-color: rgb(203, 255, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Robot Player1</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="BackButton">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>750</y>
-      <width>200</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-        background-color: lightgray;
-        font-family: Verdana;
-        font-size: 24px;
-        border-radius: 20px;
-        min-width: 200px; /* Set the minimum width */
-        min-height: 50px; /* Set the minimum height */
-		position: absolute;
-   		 left: 100px;
-   		 top: 200px;
-    }
-
-    QPushButton:hover {
-        background-color: rgb(203, 255, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Back</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ArenaButton">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>600</y>
-      <width>200</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-        background-color: lightgray;
-        font-family: Verdana;
-        font-size: 24px;
-        border-radius: 20px;
-        min-width: 200px; /* Set the minimum width */
-        min-height: 50px; /* Set the minimum height */
-		position: absolute;
-   		 left: 100px;
-   		 top: 200px;
-    }
-
-    QPushButton:hover {
-        background-color: rgb(203, 255, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string>Arena</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="PlayButton">
     <property name="geometry">
      <rect>
@@ -134,10 +44,10 @@
      <string>Play</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="RobotButtonP2">
+   <widget class="QPushButton" name="SettingsButton">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>400</x>
       <y>450</y>
       <width>200</width>
       <height>50</height>
@@ -161,7 +71,100 @@
 }</string>
     </property>
     <property name="text">
-     <string>Robot Player2</string>
+     <string>Settings</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="QuitButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>750</y>
+      <width>200</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+        min-width: 200px; /* Set the minimum width */
+        min-height: 50px; /* Set the minimum height */
+		position: absolute;
+   		 left: 100px;
+   		 top: 200px;
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
+    <property name="text">
+     <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ExtrasButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>600</y>
+      <width>200</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+        background-color: lightgray;
+        font-family: Verdana;
+        font-size: 24px;
+        border-radius: 20px;
+        min-width: 200px; /* Set the minimum width */
+        min-height: 50px; /* Set the minimum height */
+		position: absolute;
+   		 left: 100px;
+   		 top: 200px;
+    }
+
+    QPushButton:hover {
+        background-color: rgb(203, 255, 255);
+}</string>
+    </property>
+    <property name="text">
+     <string>Extras</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="coolHeader">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>100</y>
+      <width>301</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>36</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">Qlabel#coolHeader {
+    font-size: 24px;
+    font-family: &quot;Arial&quot;;
+    font-weight: bold;
+    color: #3366FF;
+    background-color: #F0F0F0;
+    padding: 10px;
+    border-radius: 5px;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Roboarena </string>
     </property>
    </widget>
   </widget>

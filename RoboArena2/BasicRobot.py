@@ -54,12 +54,13 @@ class BasicRobot:
         self.weaponsCurrentlyShoot = False
         self.type = "Basic"
         list_with_tiles = []
+        config.read("config.txt")
+        selected_map = config.get("Map", "selected_map")
         with open(selected_map, "r") as file:  # Opens the textfile
             content = file.read()
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
-            print(list_with_tiles)
         for y in range(0, tile_amount):  # Iterates through every possible tile
             for x in range(0, tile_amount):
                 next_tile = list_with_tiles.pop(

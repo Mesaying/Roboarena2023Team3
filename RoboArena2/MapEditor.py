@@ -148,12 +148,7 @@ class MapEditor(QMainWindow):
             )
 
     def back(self):
-        position = self.getWindowPos()
-        x_coord = position.x()
-        y_coord = position.y()
-        self.extras_menu = ExtrasMenu(
-            x_coord, y_coord
-        )  # Pass the current main menu as parent
+        self.extras_menu = ExtrasMenu()
         self.extras_menu.show()
         self.close()
 
