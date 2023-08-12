@@ -50,17 +50,22 @@ a)
 We improved our map editor greatly, the different tiles can be drawn on the screen directly.<br>
 Through pushing a "save" - button a text file is created, which can be used to create the playable arena.<br><br>
     
-    
+ <ul>
+            <li>Buttons significantly bigger.</li>
+            <li>Buttons have rounded edges.</li>
+            <li>Hovering over a button changes the color.</li>
+            <li>Different Font.</li>
+        </ul>   
 
     <b>Class MapEditor:</b>    <br>
 <img src="assets/Sprint3/class_mapeditor.JPG"> <br>
-We use a grid-layout which arranges widgets in a grid-like structure.<br>
-Clicked.connect function: When the water_button is clicked, a clicked signal is emitted, and the slot function, 
-which is the set_draw_mode method is executed.<br>
-Without lambda, the slot function would be immediately called without waiting for the button to be clicked.<br>
-The return value of self.set.draw_mode() would be passed to, which is none. Lambda ensures that the passed to argument 
-remains a function.<br><br> 
-
+     <ul>
+<li>We use a grid-layout which arranges widgets in a grid-like structure.</li>
+<li>Clicked.connect function: When the water_button is clicked, a clicked signal is emitted, and the slot function, which is the set_draw_mode method is executed.</li>
+<li>Without lambda, the slot function would be immediately called without waiting for the button to be clicked.</li>
+<li>The return value of self.set.draw_mode() would be passed to, which is none.</li> 
+<li>Lambda ensures that the passed to argument remains a function.</li><br><br> 
+    </ul>
 
 
     
