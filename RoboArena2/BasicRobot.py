@@ -61,7 +61,6 @@ class BasicRobot:
             content = content.replace(" ", "").replace("\n", "")
         for letter in content:  # saves every letter in a list
             list_with_tiles.append(letter)
-            print(list_with_tiles)
         for y in range(0, tile_amount):  # Iterates through every possible tile
             for x in range(0, tile_amount):
                 next_tile = list_with_tiles.pop(

@@ -1,16 +1,19 @@
 import configparser
-import importlib
 import math
 import sys
+import importlib
 
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
-from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
+from PyQt5.QtCore import Qt, QThread, QTimer, QUrl, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
+from RobotClasses import Destroyer, Tank, Velocity
 from Terrain import boost, fire, normal, spikes, wall, water
 from Weapon import WeaponTyp
+
 
 config = configparser.ConfigParser()
 config.read("config.txt")
@@ -21,7 +24,6 @@ tile_size = config.getint("Tiles", "tile_size")
 tile_amount = config.getint("Tiles", "tile_amount")
 selected_class_p1 = config.get("Class", "selected_class_p1")
 selected_class_p2 = config.get("Class", "selected_class_p2")
-
 
 class winscreen(QMainWindow):
     def __init__(self, winner):
@@ -38,6 +40,7 @@ class winscreen(QMainWindow):
         self.PlayAgainButton.clicked.connect(self.PlayAgainClicked)
         self.QuitButton.clicked.connect(self.QuitClicked)
 
+
         # Make the window non-resizable
         self.setFixedSize(self.size())
 
@@ -50,6 +53,7 @@ class winscreen(QMainWindow):
         print(arena.isActiveWindow())
         arena.start_game()
         arena.runTask()
+
 
     def QuitClicked(self):
         config.read("config.txt")  # Path to config file
@@ -331,6 +335,7 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             elif RobotToKill.movementtype == MovementTyp.Player2Control:
                 self.setCentralWidget(winscreen("p1"))
 
+
     def killThread(self, thread: Worker) -> None:
         thread.exec_
         try:
@@ -507,20 +512,19 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         selected_class_p2 = config.get("Class", "selected_class_p2")
 
         robot_p1 = globals().get(selected_class_p1)(
-            xPos=800,
-            yPos=100,
-            movementtype=MovementTyp.Player1Control,
-        )
+                xPos=800,
+                yPos=100,
+                movementtype=MovementTyp.Player1Control,
+            )
 
         robot_p2 = globals().get(selected_class_p2)(
-            xPos=500,
-            yPos=900,
-            movementtype=MovementTyp.Player2Control,
-        )
+                xPos=500,
+                yPos=900,
+                movementtype=MovementTyp.Player2Control,
+            )
 
         self.add_robot(robot_p1)
         self.add_robot(robot_p2)
-
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)
