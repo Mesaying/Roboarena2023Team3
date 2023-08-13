@@ -14,9 +14,7 @@ class SoundPlayer:
         self.sounds[0] = QMediaContent(
             QUrl.fromLocalFile("Sounds\\Pistol.mp3")
         )
-        self.sounds[1] = QMediaContent(
-            QUrl.fromLocalFile("Sounds\\Dash.mp3")
-        )
+        self.sounds[1] = QMediaContent(QUrl.fromLocalFile("Sounds\\Dash.mp3"))
 
         # Get Volume from config file
         config = configparser.ConfigParser()

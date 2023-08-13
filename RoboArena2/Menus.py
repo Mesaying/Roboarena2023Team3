@@ -17,6 +17,7 @@ config.read("config.txt")
 
 flag = 0
 
+
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -144,7 +145,9 @@ class SettingsMenu(MainMenu):
         self.musicLabel.setStyleSheet("color: white;")  # Set white font color
         self.game_sound_Label.setFont(font)
         self.game_sound_Label.setText(f"Volume: {game_sounds}")
-        self.game_sound_Label.setStyleSheet("color: white;")  # Set white font color
+        self.game_sound_Label.setStyleSheet(
+            "color: white;"
+        )  # Set white font color
 
         # Set the window title and add a headline
         self.setWindowTitle("Settings Menu")
@@ -195,7 +198,6 @@ class ExtrasMenu(MainMenu):
         MapEditor = importlib.import_module("MapEditor").MapEditor
         map_editor_window = MapEditor()
         map_editor_window.show()
-
 
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
