@@ -47,14 +47,30 @@
 
         <p><strong><span style="font-size: larger;">Improving and extending menu structure (Nico) </span></strong> <br><br>
 
-        Included new menu pages and extended the options menu to allow the player to control the volume of the game music.<br><br>
+        <b>Included new menu pages</b>
+            <ul>
+            <li>Extras menu, from which the player can start the map editor.</li>
+            <li>Solo menu, from which the player should be able to start the gameplay in the future.</li>
+            </ul>
+
+        <b>Extended settings menu</b>
+        <ul>
+        <b>The player is now able to control the volume of the background sound via a slider.</b>
+        <b>An additional slider is implemented for controlling the volume of game sounds which arent implemented yet.</b>
+        </ul>
+        
             
         Following a short video to demonstrate the menu structure and the playing background sound. <br>    
         <video width="1000" height="720" controls>
   <source src="Sprint5/Menu_Sound_Video.mp4" type="video/mp4">
 </video> <br>
-            
-         <br>To ensure that the menu windows always have the same starting position, we pass the positions of the currently displayed menu window to the upcoming window.<br>
+
+        <b>Same starting positions</b> <br>
+        <ul>
+            <li>To ensure that the menu windows always have the same starting position, we pass the positions of the currently displayed menu window to the upcoming window</li>
+            <li>With self.getWindowPos() we can acquire the current position of the screen.</li>
+        </ul>
+
         <img src="Sprint5/coordinates.JPG" alt="Italian Trulli"> <br><br>
    
     
@@ -63,25 +79,56 @@
         We work with a config file to save changes made in the options menu. <br>
             
         <img src="Sprint5/config file.JPG" alt="Italian Trulli"> <br>
-            
-        Changing values in the options menu will overwrite the entries in the config file.<br>
+
+        <b>How using the slider changes the value in the config file</b>
 
             <img src="Sprint5/slider_value_changed.JPG" alt="Italian Trulli"> <br>
-            
-        It ensures that changes made will remain even if you quit and restart the game. <br>
-        Currently our only entries are regarding the game sound. <br>
-        A possible stretch goal could be to provide players with the ability to modify the game controls through the options menu and save the changes in the config file.<br>
+        <ul>
+            <li> With config.set we can change the value in the config file.</li>
+            <li> Config.write(config_file) overwrites the config file with the changes made.</li>
+            <li> Afterward, we visually present the changes to the player by updating the label to display the current volume. </li>
+        </ul>
 
-        To play the music we implemented a class MusicPlayer:<br>
+        <b>Advantages of using a config file</b>        
+        <ul>
+        <li>It ensures, that setting changes made by the player will remain, even if the game is quit and restarted. <li>
+        <li>We can access the game sound volume just by importing and reading the config file.</li>
+        </ul>
+
+        <b>Possible stretch goals</b>
+        <ul>
+        <li>Currently our only entries are regarding the game sound.</li>
+        <li>A possible stretch goal could be to provide players with the ability to modify the game controls through the options menu and save the changes in the config file.</li>
+        </ul>
+    
+        <b>To play the music we implemented a class MusicPlayer:</b><br>
         
         <img src="Sprint5/class musicplayer.JPG" alt="Italian Trulli"> <br>    
+
+        <ul>
+        <li>To play sounds we use the QMediaPlayer() class.</li>
+        <li>We implement a timer, so that the update_music() function is called every 500 milliseconds</li>    
+        <li>A QMediaContent object is created which contains the by the path specified sound.</li>
+        </ul>
 
 
         With following functions:<br>
         <img src="Sprint5/functionsmusicplayer.JPG" alt="Italian Trulli"> <br>
 
-        Restart_playback causes the music to run in a loop. <br>
-        The update_music function is called every 500 milliseconds and adjusts the volume of the music based on the value specified in the config file.<br><br>
+        <b>Restart_playback()</b>
+        <ul>
+        <li>Restart_playback causes the music to run in a loop. </li>
+        <li>It checks if the current played sound ended.</li>
+        <li>If this is the case, the soundtrack gets replayed by setting the position to 0. </li>
+        </ul>
+
+        
+        <b>Update_music()</b>
+        <ul>
+        <li>Every 500 milisecond the update_music() functions reads the actual volume from the config_file.</li>
+        <li>With set_Volume() the volume of the QMediaPlayer() is adjusted.  </li>
+        </ul>
+        
 
         <b>Difficulties</b><br>
         Actually Finding an implementation where the music is played independently by the actions of the player in the main menu. <br> 
