@@ -124,7 +124,7 @@ class MovementManager_:
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                 case WeaponTyp.projectile:
-                    if self.weaponsCurrentlyShootforSound == True:
+                    if self.weaponsCurrentlyShootforSound is True:
                         self.sound_player.play_sound(0)
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
@@ -195,7 +195,7 @@ class MovementManager_:
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                 case WeaponTyp.projectile:
-                    if self.weaponsCurrentlyShootforSound == True:
+                    if self.weaponsCurrentlyShootforSound is True:
                         self.sound_player.play_sound(0)
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
