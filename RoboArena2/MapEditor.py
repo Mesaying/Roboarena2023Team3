@@ -1,7 +1,7 @@
 import configparser
 import sys
 
-from Menus import ExtrasMenu
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow
@@ -22,6 +22,8 @@ tile_amount = config.getint("Tiles", "tile_amount")
 class MapEditor(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.setWindowTitle("Mapeditor")
 
         # Load the UI file
         loadUi("MenuAssets\\MapEditor.ui", self)
@@ -72,16 +74,56 @@ class MapEditor(QMainWindow):
 
         # Array to save state of grid
         self.tile_array = [["n"] * tile_amount for _ in range(tile_amount)]
-        print(self.tile_array)
 
         # List of all drawn tiles
         self.tiles_drawn = []
+
+        self.left_button_pressed = False
 
     def set_draw_mode(self, mode):
         self.draw_mode = mode
 
     def mousePressEvent(self, event):
         if self.draw_mode and event.buttons() == Qt.LeftButton:
+            self.left_button_pressed = True
+
+            row = event.y() // tile_size
+            col = event.x() // tile_size
+
+            if 0 <= row < tile_amount and 0 <= col < tile_amount:
+                label = self.grid[row][col]
+                image_path = ""
+
+                if self.draw_mode == "water":
+                    image_path = "TileImages\\Water_tile.png"
+                    self.tile_array[row][col] = "a"
+                elif self.draw_mode == "fire":
+                    image_path = "TileImages\\Fire_tile.png"
+                    self.tile_array[row][col] = "f"
+                elif self.draw_mode == "wall":
+                    image_path = "TileImages\\Wall_tile.png"
+                    self.tile_array[row][col] = "w"
+                elif self.draw_mode == "boost":
+                    image_path = "TileImages\\Boost_tile.png"
+                    self.tile_array[row][col] = "b"
+                elif self.draw_mode == "spikes":
+                    image_path = "TileImages\\Spike_tile.png"
+                    self.tile_array[row][col] = "s"
+                else:
+                    image_path = "TileImages\\Normal_tile.png"
+                    self.tile_array[row][col] = "n"
+
+                pixmap = QPixmap(image_path)
+                label.setPixmap(pixmap.scaled(tile_size, tile_size))
+
+                self.tiles_drawn.append([row, col])
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.left_button_pressed = False
+
+    def mouseMoveEvent(self, event):
+        if self.left_button_pressed and self.draw_mode:
             row = event.y() // tile_size
             col = event.x() // tile_size
 
@@ -127,16 +169,16 @@ class MapEditor(QMainWindow):
         file_path, _ = QFileDialog.getSaveFileName(
             self, "Save Map", "", "Text Files (*.txt)"
         )
-
-        with open(file_path, "w") as file:
-            for row in range(tile_amount):
-                for col in range(tile_amount):
-                    file.write(str(self.tile_array[row][col]))
+        if file_path:
+            with open(file_path, "w") as file:
+                for row in range(tile_amount):
+                    for col in range(tile_amount):
+                        file.write(str(self.tile_array[row][col]))
 
     def undo(self):
         # removes last drawn tile
         if len(self.tiles_drawn) > 0:
-            pos = self.tiles_drawn.pop(0)
+            pos = self.tiles_drawn.pop(-1)
 
             row = pos[0]
             col = pos[1]
@@ -148,8 +190,6 @@ class MapEditor(QMainWindow):
             )
 
     def back(self):
-        self.extras_menu = ExtrasMenu()
-        self.extras_menu.show()
         self.close()
 
     def getWindowPos(self):
@@ -185,8 +225,6 @@ class MapEditor(QMainWindow):
 
             for letter in content:
                 row, col = divmod(index, tile_amount)
-                print("row", row)
-                print("col", col)
                 index = index + 1
                 label = self.grid[row][col]
                 image_path = ""

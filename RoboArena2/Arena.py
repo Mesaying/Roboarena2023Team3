@@ -48,7 +48,6 @@ class winscreen(QMainWindow):
         arena.robots.clear()
         self.setCentralWidget(arena)
         arena.setFocusPolicy(Qt.StrongFocus)
-        print(arena.isActiveWindow())
         arena.start_game()
         arena.runTask()
 
@@ -384,8 +383,6 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
 
         # starting the threads and connecting the signals
         for i in range(len(self.listOfThreads)):
-            print(self.robots)
-            print(i)
             robotOfThread = self.robots[i]
             self.robotSignal.connect(
                 self.listOfThreads[robotOfThread].moveRobot
@@ -526,14 +523,14 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         Velocity(0, 0, MovementTyp.Circle)
 
         robot_p1 = globals().get(selected_class_p1)(
-            xPos=800,
-            yPos=100,
+            xPos=500,
+            yPos=150,
             movementtype=MovementTyp.Player1Control,
         )
 
         robot_p2 = globals().get(selected_class_p2)(
             xPos=500,
-            yPos=900,
+            yPos=850,
             movementtype=MovementTyp.Player2Control,
         )
 
