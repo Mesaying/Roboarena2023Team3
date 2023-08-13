@@ -50,13 +50,6 @@ a)
 We improved our map editor greatly, the different tiles can be drawn on the screen directly.<br>
 Through pushing a "save" - button a text file is created, which can be used to create the playable arena.<br><br>
     
- <ul>
-            <li>Buttons significantly bigger.</li>
-            <li>Buttons have rounded edges.</li>
-            <li>Hovering over a button changes the color.</li>
-            <li>Different Font.</li>
-        </ul>   
-
     <b>Class MapEditor:</b>    <br>
 <img src="Sprint3/class_mapeditor.JPG"> <br>
      <ul>
@@ -70,19 +63,43 @@ Through pushing a "save" - button a text file is created, which can be used to c
 
     
     <b>The "save" button:</b>   <br>
-<img src="Sprint3/save_funktion.JPG">    <br><br>
+<img src="Sprint3/save_funktion.JPG">    
+    <ul>
+    <li>With grab() an image of the actual window is captured.</li>
+    <li>1 pixel should represent a tile, therefore the image is scaled to a size of 100x100.</li>
+    <li>Based on the color of each pixel, the corresponding letter representing a tile is written to the file.</li>
+    </ul>
+    
+    
+    
+    <br><br>
     
     
     <b> Functions regarding the mouse movement</b>
-<ul>
-    <li>The functions mousePressEvent, mouseMoveEvent, and mouseReleaseEvent are predefined functions in the QWidget class of PyQt.</li>
+    The functions mousePressEvent, mouseMoveEvent, and mouseReleaseEvent are predefined functions in the QWidget class of PyQt.<br>
+    These mouse functions allow the user to draw shapes on the widget by clicking, dragging the mouse, and releasing it. <br>
+
+    <b> MousePressEvent</b>
+    <ul>
     <li>MousePressEvent is called, when the mouse Button is pressed.</li>
-    <li>MouseMoveEvent is called, when the mouse is moved.</li>
+    <li>If draw mode is not none, this is the case, when a tile was selected previously, the position of the mouseclick is saved.</li>
+    </ul>
+
+    <b> MouseMoveEvent</b>
+    <ul>
+    <li>MousePressEvent is called, when the mouse Button is pressed.</li>
+    <li>The height and width of the shape is calculated, by subtracting the current x and y position from the starting point, initialised in MousePressEvent.</li>
+    <li>Afterwards, the drawing is included in the shapes list and the screen is updated with self.update</li>
+    <li>Drawings are continuously added to enable their display on the screen.</li>
+    </ul>
+
+    <b> MouseReleaseEvent</b>
+    <ul>
     <li>MouseReleaseEvent is called, when the mouse Button is released.</li>
-    <li>These mouse functions allow the user to draw shapes on the widget by clicking, dragging the mouse, and releasing it.</li>
-</ul>      
+    <li>MouseReleaseEvent has the same implementation like MouseMoveEvent, with the difference that self.start_point is resetted back to None, since the drawing of the shape is complete.</li>
+    </ul>
 
-
+    
 <img src="Sprint3/mouse_functions.JPG"> <br><br>
     
     
