@@ -1,5 +1,6 @@
 from BasicRobot import BasicRobot
-
+from Weapon import WeaponName
+from Weapon import Weapon
 
 class Destroyer(BasicRobot):
     def __init__(self, xPos, yPos, movementtype):
@@ -7,6 +8,7 @@ class Destroyer(BasicRobot):
         self.health = 50
         self.speed = 10
         self.type = "Destroyer"
+        self.weapon = Weapon(WeaponName.bigBullet)
 
 
 class Tank(BasicRobot):
@@ -15,6 +17,7 @@ class Tank(BasicRobot):
         self.health = 100
         self.speed = 5
         self.type = "Tank"
+        self.weapon = Weapon(WeaponName.minigun)
 
 
 class Velocity(BasicRobot):
@@ -23,3 +26,4 @@ class Velocity(BasicRobot):
         self.health = 75
         self.speed = 15
         self.type = "Velocity"
+        self.weapon = Weapon(WeaponName.curveBall)
