@@ -87,6 +87,10 @@ class Weapon:
             del self.listOfVectorsForProjectils[PosInList]
         except Exception:
             pass
+        try:
+            del self.listOfDirections[PosInList]
+        except Exception:
+            pass
 
     def getWeaponStats(self, name: WeaponName) -> None:
         match (name):
@@ -133,5 +137,5 @@ class Weapon:
                 self.size = 20
                 self.ticksToNextShoot = 10
                 self.projectileSpeed = 30
-                self.extraTurnig = 10
+                self.extraTurnig = 5
                 self.typ = WeaponTyp.projectile
