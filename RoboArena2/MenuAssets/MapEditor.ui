@@ -290,7 +290,7 @@
 }</string>
     </property>
     <property name="text">
-     <string>Back</string>
+     <string>Quit</string>
     </property>
    </widget>
    <widget class="QPushButton" name="normal_button">

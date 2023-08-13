@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>400</y>
+      <y>450</y>
       <width>200</width>
       <height>50</height>
      </rect>
@@ -48,7 +48,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>550</y>
+      <y>600</y>
       <width>200</width>
       <height>50</height>
      </rect>
@@ -73,6 +73,39 @@
     </property>
     <property name="text">
      <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="coolHeader">
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>100</y>
+      <width>301</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>36</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">Qlabel#coolHeader {
+    font-size: 24px;
+    font-family: &quot;Arial&quot;;
+    font-weight: bold;
+    color: #3366FF;
+    background-color: #F0F0F0;
+    padding: 10px;
+    border-radius: 5px;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Extras</string>
     </property>
    </widget>
   </widget>
