@@ -75,12 +75,20 @@
   <li>We want to improve the map editor in the future and make the process of creating an arena more convenient.</li>
   </ul> 
   
-  <b>Difficulty:</b> 
+  <b>Difficulty:</b> <br> 
   We initially had a version where we initialised the screen first and then called a draw function to color the tiles.<br>
   To our surprise, this version didnt draw anything on the screen. <br>The solution was to implement a event-function which is executed
   automatically, when the screen is initialised. <br> 
   
   <img src="Sprint2/UIMockUp/paintevent.JPG"><br>
+    <ul>
+    <li>An empty list, called list_with_tiles is initialized.</li>
+    <li>The respective txt-file is loaded, in this case testarena.txt.</li>
+    <li>All spaces and newlines are replaced with the content.replace() function. </li>
+    <li>Afterwards all letters are saved in the array.</li>
+    </ul>
+    
+    <br><br>
   
 <p><strong><span style="font-size: larger;">Task 3 </span></strong> <br><br>
 We made a simple Robot class to encode the robots. Each robot has following attributes:<br>
