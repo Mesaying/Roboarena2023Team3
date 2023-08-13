@@ -1,6 +1,6 @@
 from BasicRobot import BasicRobot
-from Weapon import WeaponName
-from Weapon import Weapon
+from Weapon import Weapon, WeaponName
+
 
 class Destroyer(BasicRobot):
     def __init__(self, xPos, yPos, movementtype):
