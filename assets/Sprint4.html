@@ -55,24 +55,48 @@
 </ul>
     
 <p><strong><span style="font-size: larger;">Stretch goals:</span></strong> <br>
+<ul>
 <li>Different classes of robots </li>
 <li>Multiple attack-abilities to choose from </li>
 <li>Online co-op </li><br><br>
-    
+</ul>  
     
     <br>
     <p><strong><span style="font-size: larger;">Creating Prototype game menus(Nico):</span></strong> <br><br>
     
     <b> The menus </b> <br>
     
-    <img src="Sprint4/mainmenu.JPG"> <br><br>
+    <img src="Sprint4/mainmenu.JPG"> <br>
+    <b> Main menu</b>
+    <ul>
+        <li>The first menu the player sees, when starting the game.</li>
+        <li>The player can choose between advancing to the play menu, the settings menu or closing the game.</li>
+    </ul>
     
-    <img src="Sprint4/playmenu.JPG"> <br><br>
+    <img src="Sprint4/playmenu.JPG"> 
+    <b> Play menu</b>
+    <ul>
+        <li>The player can choose between game modes or go back to the main menu.</li>
+        <li>Enabling multiplayer is a stretch goal, the button could be deleted in the future.</li>
+    </ul>
     
-    <img src="Sprint4/settingsmenu.JPG"> <br><br>
+    <br><br>
+        
     
+    <img src="Sprint4/settingsmenu.JPG"> 
+    <b> Settings menu</b>
+    <ul>
+        <li>The player should be able to change the volume of the sound, which is not yet implemented, in the settings menu.</li>
+        <li>1 possible stretch goal would be, to allow the player to change key bindings.
+        <li>The graphics button will be likely deleted in the future, for our game, it is difficult to give the player options to change the appearance of the game.</li>
+    </ul>
+        
+        <br><br>
+        
+
+    <b>Qt Designer</b>
     We worked with Qt Designer to create Ui-files which can be loaded through the loadui()function. <br>
-    Working with Qt Designer is way more comfortable than trying to create the UI with grid based layouts since we can choose the positions of the buttons directly. <br>
+    Working with Qt Designer is way more comfortable than trying to create the UI with grid based layouts, since we can choose the positions of the buttons directly. <br>
     
     <img src="Sprint4/gtdesigner.jpeg" > <br><br>
     
@@ -99,7 +123,7 @@
     An instance of the menu we want to visit is created and gets displayed.<br>
     Afterwards the old menu is closed.<br><br>
     
-    <b>Improving map editor:</b> <br>
+    <b>Improving map editor:</b> <br><br>
 
     <b>Implemented an undo function</b>
     <ul>
@@ -117,8 +141,10 @@
     <li>The result is, that the mapeditor screen is brought back to its initial stage.</li>    
     </ul>
     <img src="Sprint4/new.jpg"> <br><br>
-    <br>
-    
+    <br><br>
+
+
+    <b>Showcase of the map editor</b>
     <img src="Sprint4/undoreset.gif" alt="GIF Image"> <br><br>
 
    
