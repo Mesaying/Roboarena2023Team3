@@ -8,7 +8,7 @@ selected_class_p1 = Destroyer
 selected_class_p2 = Tank
 
 [Map]
-selected_map = E:/GitHub Repos/Roboarena2023Team3/RoboArena2/walla.txt
+selected_map = E:/GitHub Repos/Roboarena2023Team3/RoboArena2/testarena.txt
 
 [Arena]
 arena_size_width = 1000

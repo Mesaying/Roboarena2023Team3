@@ -6,7 +6,7 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
+from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap, QTransform
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 from RobotClasses import Destroyer, Tank, Velocity
@@ -278,9 +278,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.render_arena()
 
         # Generate Robot picture pixmaps
-        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerPattern.png")
-        self.TankPixmap = QPixmap("RobotArt/TankPattern.png")
-        self.VelocityPixmap = QPixmap("RobotArt/VelocityPattern.png")
+        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerRobot.png")
+        self.TankPixmap = QPixmap("RobotArt/TankRobot.png")
+        self.VelocityPixmap = QPixmap("RobotArt/VelocityRobot.png")
 
     def render_arena(self):
         painter = QPainter(self.arena_pixmap)
@@ -459,12 +459,25 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
                 diameter,
                 diameter,
             )
+            #painter.drawPixmap(
+             #   self.robots[i].x - self.robots[i].radius,
+               # self.robots[i].y - (int)(diameter * 1.66),
+              #  pix,
+            #)
+
+            transform = QTransform().rotate(self.robots[i].alpha)
+            #rotated_image = pix.transformed(transform, Qt.SmoothTransformation)
+            painter.translate(self.robots[i].x ,
+                              self.robots[i].y )
+            painter.rotate(self.robots[i].alpha)
+
             painter.drawPixmap(
-                self.robots[i].x - self.robots[i].radius,
-                self.robots[i].y - (int)(diameter * 1.66),
+                - self.robots[i].radius,
+                - self.robots[i].radius,
                 pix,
             )
 
+            painter.resetTransform()
             painter.setBrush(Qt.BrushStyle.CrossPattern)
             painter.drawLine(self.robots[i].x, self.robots[i].y, endx, endy)
 
