@@ -74,6 +74,7 @@ class Worker(QThread):
         self.keys = keys
         self.robots = robots
         self.tiles = tiles
+        self.movementManager = MovementManager_(self.robot)
 
     def run(self):
         # function gets called at start()
