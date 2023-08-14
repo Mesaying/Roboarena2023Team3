@@ -123,7 +123,7 @@ class Weapon:
             case WeaponName.minigun:
                 self.damage = 7
                 self.size = 5
-                self.ticksToNextShoot = 1
+                self.ticksToNextShoot = 10
                 self.projectileSpeed = 40
                 self.typ = WeaponTyp.projectile
             case WeaponName.bigBullet:
