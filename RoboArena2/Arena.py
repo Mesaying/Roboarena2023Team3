@@ -6,7 +6,7 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap, QTransform
+from PyQt5.QtGui import (QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap)
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 from RobotClasses import Destroyer, Tank, Velocity
@@ -452,13 +452,12 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             b.setStyle(Qt.BrushStyle.SolidPattern)
             painter.setBrush(b)
 
-            painter.translate(self.robots[i].x,
-                              self.robots[i].y)
+            painter.translate(self.robots[i].x, self.robots[i].y)
             painter.rotate(self.robots[i].alpha + 90)
 
             painter.drawPixmap(
-                - self.robots[i].radius * 2,
-                - self.robots[i].radius * 2,
+                -self.robots[i].radius * 2,
+                -self.robots[i].radius * 2,
                 pix,
             )
 
