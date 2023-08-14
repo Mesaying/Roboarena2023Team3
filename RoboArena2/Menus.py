@@ -15,6 +15,8 @@ from PyQt5.uic import loadUi
 config = configparser.ConfigParser()
 config.read("config.txt")
 
+flag = 0
+
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -30,7 +32,7 @@ class MainMenu(QMainWindow):
         loadUi("MenuAssets\\MainMenu.ui", self)
 
         # Set the window title and add a headline
-        self.setWindowTitle("Main Menu")
+        self.setWindowTitle("Roboarena")
 
         # Make the window non-resizable
         self.setFixedSize(self.size())
@@ -103,9 +105,6 @@ class PlayMenu(MainMenu):
     def SoloClicked(self):
         self.setCentralWidget(SoloMenu())
 
-    def MultiplayerClicked(self):
-        print("g")
-
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
 
@@ -143,8 +142,12 @@ class SettingsMenu(MainMenu):
         font.setBold(True)  # Optionally, set the font weight to bold
         self.musicLabel.setFont(font)
         self.musicLabel.setText(f"Volume: {music}")
+        self.musicLabel.setStyleSheet("color: white;")  # Set white font color
         self.game_sound_Label.setFont(font)
         self.game_sound_Label.setText(f"Volume: {game_sounds}")
+        self.game_sound_Label.setStyleSheet(
+            "color: white;"
+        )  # Set white font color
 
         # Set the window title and add a headline
         self.setWindowTitle("Settings Menu")
@@ -173,9 +176,6 @@ class SettingsMenu(MainMenu):
 
         self.game_sound_Label.setText(f"Volume: {value}")
 
-    def GraphicsClicked(self):
-        print("g")
-
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
 
@@ -198,10 +198,6 @@ class ExtrasMenu(MainMenu):
         MapEditor = importlib.import_module("MapEditor").MapEditor
         map_editor_window = MapEditor()
         map_editor_window.show()
-        self.setCentralWidget(None)
-        self.close()
-        self.setCentralWidget(None)
-        window.close()
 
     def BackClicked(self):
         self.setCentralWidget(MainMenu())
@@ -215,7 +211,7 @@ class SoloMenu(MainMenu):
 
         loadUi("MenuAssets\\SoloMenu.ui", self)
 
-        # To prevent starting the game without robot/arena choosen
+        # To prevent starting the game without robot/arena chosen
         self.robot_selected = False
         self.arena_selected = False
 
@@ -336,7 +332,6 @@ class MusicPlayer:
         config.read("config.txt")  # Path to config file
         soundtrack = config.get("Settings", "soundtrack")
         soundtrack = str(soundtrack)
-        print("soundtrack", soundtrack)
         if self.current_track != soundtrack:
             self.current_track = soundtrack
             self.media_player.stop()
@@ -355,6 +350,7 @@ class MusicPlayer:
 
 
 if __name__ == "__main__":
+    flag = 1
     # Set correct Menu Window
     config.read("config.txt")
     config.set("Settings", "soundtrack", "Sounds\\nicebassiguess.mp3")

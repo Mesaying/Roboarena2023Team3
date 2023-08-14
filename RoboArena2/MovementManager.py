@@ -14,6 +14,7 @@ class SoundPlayer:
         self.sounds[0] = QMediaContent(
             QUrl.fromLocalFile("Sounds\\Pistol.mp3")
         )
+        self.sounds[1] = QMediaContent(QUrl.fromLocalFile("Sounds\\Dash.mp3"))
 
         # Get Volume from config file
         config = configparser.ConfigParser()
@@ -80,8 +81,8 @@ class MovementManager_:
             self.waveConter = self.waveConter % 100
 
     def handleInputPlayer1(self, keys: dict):
-        dashDistance = 10
-        dashcooldowntime = 10
+        dashDistance = 8
+        dashcooldowntime = 30
         self.reduceTimerToShoot()
         self.reduceAbilityCooldown()
         self.robot.weapon.moveProjectils()
@@ -123,8 +124,8 @@ class MovementManager_:
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                 case WeaponTyp.projectile:
-                    print("fff")
-                    self.sound_player.play_sound(0)
+                    if self.weaponsCurrentlyShootforSound is True:
+                        self.sound_player.play_sound(0)
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                     self.shootProjectile()
@@ -142,6 +143,7 @@ class MovementManager_:
         )
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
+            self.sound_player.play_sound(1)
             if PressedMoveBack:
                 self.dashAbility(dashDistance, -1)
                 self.dashcooldown = dashcooldowntime
@@ -150,8 +152,8 @@ class MovementManager_:
                 self.dashcooldown = dashcooldowntime
 
     def handleInputPlayer2(self, keys: dict):
-        dashDistance = 10
-        dashcooldowntime = 10
+        dashDistance = 8
+        dashcooldowntime = 30
         self.reduceTimerToShoot()
         self.reduceAbilityCooldown()
         self.robot.weapon.moveProjectils()
@@ -193,6 +195,8 @@ class MovementManager_:
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                 case WeaponTyp.projectile:
+                    if self.weaponsCurrentlyShootforSound is True:
+                        self.sound_player.play_sound(0)
                     self.weaponsCurrentlyShoot = True
                     self.ticksToNextShoot = self.robot.weapon.ticksToNextShoot
                     self.shootProjectile()
@@ -210,6 +214,7 @@ class MovementManager_:
         )
         self.robot.weaponsCurrentlyShoot = self.weaponsCurrentlyShoot
         if PressedDash and dashcooldownNotActive:
+            self.sound_player.play_sound(0)
             if PressedMoveBack:
                 self.dashAbility(dashDistance, -1)
                 self.dashcooldown = dashcooldowntime
