@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sprint 9</title>
+    <title>Sprint 8</title>
     <style>
         body {
             background-color: #D3D3D3;
@@ -41,9 +41,62 @@
     </style>
 </head>
 <body>
-    <h2 class="sprint-heading">Sprint 9</h2>
+    <h2 class="sprint-heading">Sprint 8</h2>
 
+<div class="visual-changes">
+    <p><strong><span style="font-size: larger;">Starting the game(Nico)</span></strong></p>
 
+    In this last sprint a lot of small tasks were to complete. <br>
+    The most important task was to ensure, that the game is startable from the menus. <br><br>
 
+    <b>PlayClicked() function</b>
+
+    <img src="Sprint9/start_game.JPG">
+
+    <ul>
+        <li>The function checks if an arena and classes are selected.</li>
+        <li>If not, an error message with the request to choose an arena/class occurs.</li>
+        <li>Else, the background sound is changed to the gameplay music.</li>
+        <li>We change to the actual arena window with setCentralWidget(arena)</li>
+    </ul>
+
+    <b>Difficulty</b>
+    When we switched to the arena window, keybinds didnt work, the player had to click on the screen to actually be able to input commands.<br> 
+    This was an unexpected mistake, since tests showed that the focus laid on the arena screen.<br>
+    Our tutor provided us with a solution: to create an artificial press of the Tab button and send this event to the Arena window.<br><br><br><br>
+
+    <p><strong><span style="font-size: larger;">Winscreen</span></strong></p>
+    Another task was to complete the winscreen.<br>
+
+    <img src="Sprint9/winscreen.JPG">
+    
+
+    <p><strong><span style="font-size: larger;">Giving different weapons to robot classes</span></strong></p>
+
+    We aim to provide diverse gameplay experiences to players through distinct classes.  <br>
+    To achieve this, we have equipped the robots in each class with varying stats and weapons. <br>
+    The weapons have already been implemented; we only needed to assign them. <br><br>
+
+    <img src="Sprint9/robot_classes.JPG">
+    <ul>
+        <li>Destroyer has low health but is with the most devastating weapon equipped.</li>
+        <li>Tank has a lot of health, but is slow and does low damage.</li>
+        <li>Velocity is fast and uses a tricky weapon.</li>
+    </ul>
+
+    
+    
+    
+    <img src="Sprint8/qt_p1.JPG">
+
+    <ul>
+        <li>The screenshot shows the stylesheet of the button, which changes the visual appearance.</li>
+        <li>Padding refers to the space between the actual content and the elements border.</li>
+    </ul>
+    
+
+     </div>
+
+     </div>
 </body>
 </html>
