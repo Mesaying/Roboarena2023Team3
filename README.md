@@ -19,11 +19,16 @@ The game includes an easy to use Map Editor.
 
 #### Player1
 Movement: W,A,S,D
+
 Shoot: F
+
 Dash: Shift
+
 #### Player2
 Movement: Arrow keys
+
 Shoot: Enter
+
 Dash: Ä
 
 ## Link to the Game:
