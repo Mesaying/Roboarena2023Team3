@@ -20,3 +20,6 @@ unique stats and weapons.
 
 #### Player2
 
+## Link to the Game:
+https://drive.google.com/drive/folders/13s8gqfGhIWZ2Qlkk9gGqrCQonLyFrNhW?usp=sharing
+
