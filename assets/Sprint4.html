@@ -66,14 +66,16 @@
     
     <b> The menus </b> <br>
     
-    <img src="Sprint4/mainmenu.JPG"> <br>
+    <img src="Sprint4/mainmenu.JPG"> <br><br>
     <b> Main menu</b>
     <ul>
         <li>The first menu the player sees, when starting the game.</li>
         <li>The player can choose between advancing to the play menu, the settings menu or closing the game.</li>
     </ul>
+
+    <br><br>
     
-    <img src="Sprint4/playmenu.JPG"> 
+    <img src="Sprint4/playmenu.JPG"> <br><br>
     <b> Play menu</b>
     <ul>
         <li>The player can choose between game modes or go back to the main menu.</li>
@@ -83,8 +85,8 @@
     <br><br>
         
     
-    <img src="Sprint4/settingsmenu.JPG"> 
-    <b> Settings menu</b>
+    <img src="Sprint4/settingsmenu.JPG">  <br><br>
+    <b> Settings menu</b> <br>
     <ul>
         <li>The player should be able to change the volume of the sound, which is not yet implemented, in the settings menu.</li>
         <li>1 possible stretch goal would be, to allow the player to change key bindings.
@@ -94,7 +96,7 @@
         <br><br>
         
 
-    <b>Qt Designer</b>
+    <b>Qt Designer</b> <br>
     We worked with Qt Designer to create Ui-files which can be loaded through the loadui()function. <br>
     Working with Qt Designer is way more comfortable than trying to create the UI with grid based layouts, since we can choose the positions of the buttons directly. <br>
     
@@ -112,7 +114,7 @@
     <ul>
     <li>MainMenu inherits from QMainWindow.</li>
     <li>We load the background-image with load.image.</li>
-    <li>The UI, created previously with Qt Designer is displayed in the foreground by using the loadUi function. </li>
+    <li>The UI, created previously with Qt Designer is displayed in the foreground by using the loadUi() function. </li>
     </ul>
     
     
@@ -123,7 +125,7 @@
     An instance of the menu we want to visit is created and gets displayed.<br>
     Afterwards the old menu is closed.<br><br>
     
-    <b>Improving map editor:</b> <br><br>
+    <p><strong><span style="font-size: larger;">Improving map editor:</span></strong> <br><br>
 
     <b>Implemented an undo function</b>
     <ul>
@@ -134,7 +136,7 @@
     <img src="Sprint4/undo.jpg"> <br><br>
     
 
-    <b>Implemented a new function</b>
+    <b>Implemented a new function</b> <br>
     Added a new function, to revert the screen to its inital stage and delete all made drawings.<br>
     <ul>
     <li>When the new function is called, the shapes with all drawings is emptied.</li>
@@ -144,7 +146,7 @@
     <br><br>
 
 
-    <b>Showcase of the map editor</b>
+    <b>Showcase of the map editor</b> <br>
     <img src="Sprint4/undoreset.gif" alt="GIF Image"> <br><br>
 
    
