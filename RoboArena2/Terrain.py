@@ -25,7 +25,7 @@ class water(terrain):  # inherits from the motherclass terrain
 class fire(terrain):
     movement = 1.0
     solid = 0
-    damage = 10
+    damage = 5
     type = "f"
     imagePath = "TileImages/Fire_tile.png"
 
@@ -33,7 +33,7 @@ class fire(terrain):
 class spikes(terrain):
     movement = 1.0
     solid = 0
-    damage = 20
+    damage = 2
     type = "s"
     imagePath = "TileImages/Spike_tile.png"
 
