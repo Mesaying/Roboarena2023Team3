@@ -130,13 +130,13 @@ We helped ourselves, by adding an empty stretch which pushes the buttons at the 
 b)
 We use the images drawn in Task 2 in order to represent the tiles graphically. We currently differenciate between Normal, Fire, Water, Wall, Boost and Spike tiles. <br>
 
-<img src="assets/Sprint3/ArenaWithTiles.png">
+<img src="Sprint3/ArenaWithTiles.png">
 <br>
 <br>
 <br>
 The images are drawn each time the arena is drawn, we first check in the Text file of the arena which tile is at the given coordinate, we then load the corresponding image and scale it down to be 10 x 10 pixels large using a pixmap.
 <br> <br>
-<img src="assets/Sprint3/pixMapArena.png">
+<img src="Sprint3/pixMapArena.png">
 <br> <br>
 
 c)
@@ -147,11 +147,11 @@ To avoid reaching infinite speeds we also introduced constants for maximum movem
 This is where we deviate a little from the original Task and instead of a programm wide constant introduce a different constant for every "type" of robot. This will allow us to have more or less agile types of robots in the future.<br>
 Furthermore we did not clamp the robots aceleration but instead it's speed.
 Implementation of speed and aceleration: <br>
-<img src="assets/Sprint3/AccelerationCalculation.png"><br>
+<img src="Sprint3/AccelerationCalculation.png"><br>
 
 <p>You can see the Robots moving here: <br>
 
- <video width="960" height="720" controls src="assets/Sprint3/RobotsSimpleMove.mp4" type=""assets/Sprint3/RobotsSimpleMove.mp4"/>
+ <video width="960" height="720" controls src="Sprint3/RobotsSimpleMove.mp4" type="Sprint3/RobotsSimpleMove.mp4"/>
   Your browser does not support the video tag.
 </video>
 <br>
@@ -159,32 +159,32 @@ d)
 For threads we use a worker class that inherits from QThread.<br>
 The MovementManager_ is a class that handles the movement wenn we start the thread we create an object of that class.<br>
 The moveRobot function gets called using a signal it uses the Movement Manager to update the Position.<br>                                                                                                                               
-<img src="assets/Sprint3/workerClass.png"><br>
+<img src="Sprint3/workerClass.png"><br>
 Some Problems here since we also tried QThreadpool it would be easier to run multiple Threads but since it does not support signals and slots we choose the Qthread.<br>
 The signal and a dictionary to store the threads.<br>
-<img src="assets/Sprint3/SignalForWorker.png"><br>
+<img src="Sprint3/SignalForWorker.png"><br>
 This Function creates the threads and starts them:<br>
-<img src="assets/Sprint3/RunThreads.png"><br>
+<img src="Sprint3/RunThreads.png"><br>
 The first for loop creates the threads and puts them in the dictionary.<br>
 The second one  connects the signals and starts the threads.<br>
 <br>                                       
 For the different types of movement we use Enums to store the information.<br>
-<img src="assets/Sprint3/EnumMovement.png"><br>
+<img src="Sprint3/EnumMovement.png"><br>
 The Movement Manager uses match and case to check what type of movement it should perform.<br>
-<img src="assets/Sprint3/MovementManagerClass.png"><br>
+<img src="Sprint3/MovementManagerClass.png"><br>
 The Types of Movement we have right now:<br>
-<img src="assets/Sprint3/MovementInShapes.png"><br><br><br>
+<img src="Sprint3/MovementInShapes.png"><br><br><br>
 
 <p><strong><span style="font-size: larger;">Task 2</span></strong> <br>
 For now we only drew 4 different tiles: Grass, Fire, Water, Spike, Normal, boost and Wall tiles <br>
 These were drawn by hand using an online Pixel art editor <br>
-  <img src="assets/Sprint3/Grass_tile.png">
-  <img src="assets/Sprint3/Fire_tile.png">
-  <img src="assets/Sprint3/Water_tile.png">
+  <img src="Sprint3/Grass_tile.png">
+  <img src="Sprint3/Fire_tile.png">
+  <img src="Sprint3/Water_tile.png">
 <br>
-  <img src="assets/Sprint3/Boost_tile.png">
-  <img src="assets/Sprint3/Spike_tile.png">
-  <img src="assets/Sprint3/Normal_tile.png">
+  <img src="Sprint3/Boost_tile.png">
+  <img src="Sprint3/Spike_tile.png">
+  <img src="Sprint3/Normal_tile.png">
 
 <br>
 
