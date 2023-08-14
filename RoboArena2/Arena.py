@@ -119,7 +119,7 @@ class Worker(QThread):
                         distance = self.distanceBetweenPonts(
                             i.x, i.y, j[0], j[1]
                         )
-                        if distance <= i.radius:
+                        if distance <= i.radius + self.robot.weapon.size:
                             i.takeDamage(self.robot.weapon.damage)
                             if not (
                                 indexOfProjectile in positionProjectileInList
