@@ -452,13 +452,14 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             b.setStyle(Qt.BrushStyle.SolidPattern)
             painter.setBrush(b)
             # painter.setPen(QColor(255,255,0,255))
-
+            """""
             painter.drawEllipse(
                 self.robots[i].x - self.robots[i].radius,
                 self.robots[i].y - self.robots[i].radius,
                 diameter,
                 diameter,
             )
+            """""
             #painter.drawPixmap(
              #   self.robots[i].x - self.robots[i].radius,
                # self.robots[i].y - (int)(diameter * 1.66),

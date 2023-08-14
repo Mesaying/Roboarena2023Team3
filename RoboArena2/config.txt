@@ -5,10 +5,10 @@ soundtrack = Sounds\Drive.mp3
 
 [Class]
 selected_class_p1 = Destroyer
-selected_class_p2 = Tank
+selected_class_p2 = Destroyer
 
 [Map]
-selected_map = E:/GitHub Repos/Roboarena2023Team3/RoboArena2/testarena.txt
+selected_map = E:/GitHub Repos/Roboarena2023Team3/RoboArena2/walla.txt
 
 [Arena]
 arena_size_width = 1000
