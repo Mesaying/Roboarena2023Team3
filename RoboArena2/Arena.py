@@ -6,7 +6,7 @@ import sys
 from BasicRobot import BasicRobot, MovementTyp
 from MovementManager import MovementManager_
 from PyQt5.QtCore import Qt, QThread, QTimer, pyqtSignal
-from PyQt5.QtGui import QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap
+from PyQt5.QtGui import (QBrush, QColor, QKeyEvent, QPainter, QPen, QPixmap)
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 from RobotClasses import Destroyer, Tank, Velocity
@@ -277,9 +277,9 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
         self.render_arena()
 
         # Generate Robot picture pixmaps
-        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerPattern.png")
-        self.TankPixmap = QPixmap("RobotArt/TankPattern.png")
-        self.VelocityPixmap = QPixmap("RobotArt/VelocityPattern.png")
+        self.DestroyerPixmap = QPixmap("RobotArt/DestroyerImg.png")
+        self.TankPixmap = QPixmap("RobotArt/TankImg.png")
+        self.VelocityPixmap = QPixmap("RobotArt/VelocityImg.png")
 
     def render_arena(self):
         painter = QPainter(self.arena_pixmap)
@@ -429,13 +429,13 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             diameter = self.robots[i].radius * 2
             if self.robots[i].type == "Destroyer":
                 pix = self.DestroyerPixmap
-                pix = pix.scaledToWidth(diameter)
+                pix = pix.scaledToWidth(diameter * 2)
             elif self.robots[i].type == "Tank":
                 pix = self.TankPixmap
-                pix = pix.scaledToWidth(diameter)
+                pix = pix.scaledToWidth(diameter * 2)
             elif self.robots[i].type == "Velocity":
                 pix = self.VelocityPixmap
-                pix = pix.scaledToWidth(diameter)
+                pix = pix.scaledToWidth(diameter * 2)
             else:
                 painter.drawEllipse(
                     self.robots[i].x - self.robots[i].radius,
@@ -448,20 +448,17 @@ class Arena(QMainWindow):  # Erbt von QMainWindow class,
             b.setColor(col)
             b.setStyle(Qt.BrushStyle.SolidPattern)
             painter.setBrush(b)
-            # painter.setPen(QColor(255,255,0,255))
 
-            painter.drawEllipse(
-                self.robots[i].x - self.robots[i].radius,
-                self.robots[i].y - self.robots[i].radius,
-                diameter,
-                diameter,
-            )
+            painter.translate(self.robots[i].x, self.robots[i].y)
+            painter.rotate(self.robots[i].alpha + 90)
+
             painter.drawPixmap(
-                self.robots[i].x - self.robots[i].radius,
-                self.robots[i].y - (int)(diameter * 1.66),
+                -self.robots[i].radius * 2,
+                -self.robots[i].radius * 2,
                 pix,
             )
 
+            painter.resetTransform()
             painter.setBrush(Qt.BrushStyle.CrossPattern)
             painter.drawLine(self.robots[i].x, self.robots[i].y, endx, endy)
 
