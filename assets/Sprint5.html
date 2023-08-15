@@ -84,7 +84,7 @@
 
             <img src="Sprint5/slider_value_changed.JPG" alt="Italian Trulli"> <br>
         <ul>
-            <li> With config.set we can change the value in the config file.</li>
+            <li> With config.set() we can change the value in the config file.</li>
             <li> Config.write(config_file) overwrites the config file with the changes made.</li>
             <li> Afterward, we visually present the changes to the player by updating the label to display the current volume. </li>
         </ul>
@@ -98,7 +98,7 @@
         <b>Possible stretch goals</b>
         <ul>
         <li>Currently our only entries are regarding the game sound.</li>
-        <li>A possible stretch goal could be to provide players with the ability to modify the game controls through the options menu and save the changes in the config file.</li>
+        <li>A possible stretch goal could be, to provide players with the ability to modify the game controls through the options menu and save the changes in the config file.</li>
         </ul>
     
         <b>To play the music we implemented a class MusicPlayer:</b><br>
@@ -112,12 +112,12 @@
         </ul>
 
 
-        With following functions:<br>
+        <b>With following functions:</b><br>
         <img src="Sprint5/functionsmusicplayer.JPG" alt="Italian Trulli"> <br>
 
         <b>Restart_playback()</b>
         <ul>
-        <li>Restart_playback causes the music to run in a loop. </li>
+        <li>Restart_playback() causes the music to run in a loop. </li>
         <li>It checks if the current played sound ended.</li>
         <li>If this is the case, the soundtrack gets replayed by setting the position to 0. </li>
         </ul>
@@ -143,6 +143,13 @@
         </ul>
             
         Implemented load function to convert an already saved txt.file back to a drawn arena. <br>
+        <ul>
+        <li>First we open a dialog window, where the player can choose the respective map. </li>
+        <li>We set a name filter, so only txt. files are selectable.</li>
+        <li>The file is opened and newline and spaces are replaced.</li>
+        <li>We iterate through every letter in the file and color the respective tile.</li>
+        <li>The drawing mode and, consequently, the drawings change based on the letter.</li>
+        </ul>
 
         <img src="Sprint5/LoadMap.JPG" alt="Italian Trulli"> <br><br>
 
